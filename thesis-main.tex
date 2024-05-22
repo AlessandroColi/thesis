@@ -64,32 +64,32 @@ Lo sviluppo multiplatform è diventato un approccio sempre più diffuso per la c
   le diverse versioni dell'applicazione.
 
 Esistono diversi approcci per lo sviluppo multiplatform, ciascuno con le proprie caratteristiche e vantaggi:
-\begin{itemize}
-\item \textbf{Codice Condiviso}: In questo approccio, il codice condiviso viene scritto una volta e viene compilato per eseguire su diverse piattaforme.
+
+\textbf{Codice Condiviso}: In questo approccio, il codice condiviso viene scritto una volta e viene compilato per eseguire su diverse piattaforme.
  Questo può essere realizzato utilizzando linguaggi di programmazione che supportano la compilazione multiplatform, come Kotlin, 
  o utilizzando framework e librerie che consentono la condivisione del codice tra piattaforme diverse.
-\item \textbf{Interfacce di Programmazione (API)}: Un altro approccio consiste nel definire un'API comune che fornisce un'interfaccia uniforme
+
+\textbf{Interfacce di Programmazione (API)}: Un altro approccio consiste nel definire un'API comune che fornisce un'interfaccia uniforme
  per l'accesso alle funzionalità dell'applicazione su diverse piattaforme. Questo consente di implementare la logica dell'applicazione specifica 
  per ciascuna piattaforma, mantenendo al contempo una coerenza nell'interfaccia e nei dati condivisi.
-\item \textbf{Virtualizzazione e Contenitori}: Utilizzando tecnologie di virtualizzazione e contenitori, è possibile creare un ambiente uniforme 
+
+\textbf{Virtualizzazione e Contenitori}: Utilizzando tecnologie di virtualizzazione e contenitori, è possibile creare un ambiente uniforme 
 per l'esecuzione dell'applicazione su diverse piattaforme. Questo approccio permette di isolare l'applicazione dall'infrastruttura sottostante, 
 garantendo una maggiore portabilità e flessibilità.
-\end{itemize}
 
 Lo sviluppo multiplatform offre una serie di vantaggi significativi:
-\begin{itemize}
-\item \textbf{Massimizzazione della Condivisione del Codice}: Condividendo il codice tra le diverse piattaforme, 
-è possibile ridurre il lavoro ripetitivo e aumentare l'efficienza dello sviluppo.
-\item \textbf{Riduzione dei Costi di Sviluppo}: Riducendo il numero di linee di codice da scrivere e gestire, 
-è possibile ridurre i costi complessivi di sviluppo e manutenzione dell'applicazione.
-\item \textbf{Coerenza e Compatibilità}: Mantenendo una sola base di codice per tutte le versioni dell'applicazione, 
-è possibile garantire una maggiore coerenza e compatibilità tra le diverse versioni.
-\item \textbf{Flessibilità}: Utilizzando approcci multiplatform, gli sviluppatori possono adottare una varietà di tecnologie e 
-linguaggi di programmazione per soddisfare le esigenze specifiche del progetto.
-\end{itemize}
 
-In sintesi, lo sviluppo multiplatform offre agli sviluppatori un approccio flessibile ed efficiente per la creazione di applicazioni che possono essere eseguite
- su diverse piattaforme, consentendo loro di massimizzare la condivisione del codice e ridurre i costi complessivi di sviluppo e manutenzione.
+\textbf{Massimizzazione della Condivisione del Codice}: Condividendo il codice tra le diverse piattaforme, 
+è possibile ridurre il lavoro ripetitivo e aumentare l'efficienza dello sviluppo.
+
+\textbf{Riduzione dei Costi di Sviluppo}: Riducendo il numero di linee di codice da scrivere e gestire, 
+è possibile ridurre i costi complessivi di sviluppo e manutenzione dell'applicazione.
+
+\textbf{Coerenza e Compatibilità}: Mantenendo una sola base di codice per tutte le versioni dell'applicazione, 
+è possibile garantire una maggiore coerenza e compatibilità tra le diverse versioni.
+
+\textbf{Flessibilità}: Utilizzando approcci multiplatform, gli sviluppatori possono adottare una varietà di tecnologie e 
+linguaggi di programmazione per soddisfare le esigenze specifiche del progetto.
 
 \section{Programmazione Distribuita su Piattaforme Eterogenee}
 
@@ -103,31 +103,28 @@ La programmazione distribuita su piattaforme eterogenee è guidata dalla necessi
 
 Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita su piattaforme eterogenee includono:
 
-\begin{itemize}
-\item \textbf{Protocolli di Comunicazione Universali}: Questi protocolli consentono la comunicazione tra dispositivi e sistemi eterogenei,
+
+\textbf{Protocolli di Comunicazione Universali}: Questi protocolli consentono la comunicazione tra dispositivi e sistemi eterogenei,
  fornendo un'interfaccia standardizzata per lo scambio di dati e messaggi. Esempi di protocolli universali includono HTTP, \ac{MQTT} e gRPC,
   che consentono la comunicazione su diverse piattaforme e architetture.
-\item \textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
+
+\textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
  consentendo la trasparenza della distribuzione su piattaforme eterogenee. Questo può includere servizi di messaggistica, servizi di gestione delle transazioni
   e sistemi di caching distribuiti.
-\item \textbf{Containerizzazione}: Le tecnologie di containerizzazione, come Docker e Kubernetes, consentono di confezionare,
+
+\textbf{Containerizzazione}: Le tecnologie di containerizzazione, come Docker e Kubernetes, consentono di confezionare,
  distribuire e gestire applicazioni su piattaforme eterogenee in modo uniforme. I container forniscono un'unità di distribuzione leggera e isolata,
   garantendo la portabilità e la scalabilità delle applicazioni su diverse infrastrutture.
-\item \textbf{Orchestrazione Multi-Cloud}: L'orchestrazione multi-cloud permette di distribuire carichi di lavoro su più fornitori di servizi cloud,
+
+\textbf{Orchestrazione Multi-Cloud}: L'orchestrazione multi-cloud permette di distribuire carichi di lavoro su più fornitori di servizi cloud,
  garantendo la ridondanza, la resilienza e la flessibilità delle applicazioni su piattaforme eterogene
-\end{itemize}
 
-In sintesi, la programmazione distribuita su piattaforme eterogenee rappresenta un approccio essenziale per affrontare la complessità e la diversità
- dell'ambiente informatico moderno. Attraverso l'adozione di tecnologie e approcci innovativi, è possibile integrare e coordinare dispositivi e sistemi diversi
- per creare soluzioni scalabili, resilienti e altamente performanti.
+\section{Message Queuing Telemetry Transport (MQTT)}
 
-\section{\ac{MQTT}}
+Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, \ac{MQTT}  si distingue come uno dei protocolli di comunicazione più fondamentali e ampiamente adottati. 
+La sua storia affonda le radici nella necessità di comunicare in modo efficiente tra dispositivi con risorse limitate, come sensori, attuatori e dispositivi embedded.
 
-Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale,
-\ac{MQTT} (Message Queuing Telemetry Transport) si distingue come uno dei protocolli di comunicazione più fondamentali e ampiamente adottati. 
- La sua storia affonda le radici nella necessità di comunicare in modo efficiente tra dispositivi con risorse limitate, come sensori, attuatori e dispositivi embedded.
-
- \ac{MQTT} si presenta come una soluzione elegante per risolvere le sfide di comunicazione in un ambiente \ac{IoT}. 
+\ac{MQTT} si presenta come una soluzione elegante per risolvere le sfide di comunicazione in un ambiente \ac{IoT}. 
 Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i dispositivi con risorse limitate,
  e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi tra i partecipanti alla rete.
 
@@ -155,14 +152,15 @@ La Dependency Injection è una tecnica attraverso la quale un oggetto (il \texti
  In altre parole, la Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
 
 Esistono tre principali varianti di Dependency Injection:
-\begin{itemize}
-    \item \textbf{Constructor Injection}: Le dipendenze vengono fornite tramite il costruttore dell'oggetto. 
+
+\textbf{Constructor Injection}: Le dipendenze vengono fornite tramite il costruttore dell'oggetto. 
     Questo metodo garantisce che le dipendenze siano disponibili al momento della creazione dell'oggetto.
-    \item \textbf{Setter Injection}: Le dipendenze vengono fornite tramite metodi setter. 
+
+\textbf{Setter Injection}: Le dipendenze vengono fornite tramite metodi setter. 
     Questo approccio consente una maggiore flessibilità nella configurazione delle dipendenze dopo la creazione dell'oggetto.
-    \item \textbf{Interface Injection}: L'oggetto client espone un'interfaccia che permette al container di fornire le dipendenze. 
+  
+\textbf{Interface Injection}: L'oggetto client espone un'interfaccia che permette al container di fornire le dipendenze. 
     Questo metodo è meno comune ma può essere utile in contesti specifici.
-\end{itemize}
 
 L'adozione della Dependency Injection offre numerosi vantaggi, tra cui:
 \begin{itemize}
