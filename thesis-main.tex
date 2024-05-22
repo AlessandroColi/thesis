@@ -19,10 +19,9 @@
 
 % Definition of acronyms
 \acrodef{IoT}{Internet of Thing}
-\acrodef{jvm}[JVM]{Java Virtual Machine}
-\acrodef{MQTT}{Message Queuing Telemetry Transpor}
+\acrodef{JVM}{Java Virtual Machine}
 \acrodef{JS}{JavaScript}
-\acrodef{DI}{Dependency Injection} %serve davvero?
+\acrodef{MQTT}{Message Queuing Telemetry Transpor}
 
 \mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
 
@@ -34,7 +33,7 @@
 Max 2000 characters, strict.
 \end{abstract}
 
-\begin{dedication} % this is optional
+\begin{dedication}
 Optional. Max a few lines.
 \end{dedication}
 
@@ -51,14 +50,320 @@ Optional. Max a few lines.
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
 \paragraph{Structure of the Thesis}
-
 \note{At the end, describe the structure of the paper}
 
-\chapter{State of the art}
-\section{Some cool topic}
+\chapter{Background}
+\label{chap:Background}
 
-\chapter{Contribution}
-\section{Fancy formulas here}
+\section{Sviluppo Multiplatform}
+
+Lo sviluppo multiplatform è diventato un approccio sempre più diffuso per la creazione di applicazioni che devono essere eseguite
+ su diverse piattaforme senza dover scrivere codice specifico per ciascuna di esse. Questo approccio consente agli sviluppatori di massimizzare
+  la condivisione del codice, riducendo i costi di sviluppo e manutenzione e garantendo una maggiore coerenza e compatibilità tra 
+  le diverse versioni dell'applicazione.
+
+Esistono diversi approcci per lo sviluppo multiplatform, ciascuno con le proprie caratteristiche e vantaggi:
+\begin{itemize}
+\item \textbf{Codice Condiviso}: In questo approccio, il codice condiviso viene scritto una volta e viene compilato per eseguire su diverse piattaforme.
+ Questo può essere realizzato utilizzando linguaggi di programmazione che supportano la compilazione multiplatform, come Kotlin, 
+ o utilizzando framework e librerie che consentono la condivisione del codice tra piattaforme diverse.
+\item \textbf{Interfacce di Programmazione (API)}: Un altro approccio consiste nel definire un'API comune che fornisce un'interfaccia uniforme
+ per l'accesso alle funzionalità dell'applicazione su diverse piattaforme. Questo consente di implementare la logica dell'applicazione specifica 
+ per ciascuna piattaforma, mantenendo al contempo una coerenza nell'interfaccia e nei dati condivisi.
+\item \textbf{Virtualizzazione e Contenitori}: Utilizzando tecnologie di virtualizzazione e contenitori, è possibile creare un ambiente uniforme 
+per l'esecuzione dell'applicazione su diverse piattaforme. Questo approccio permette di isolare l'applicazione dall'infrastruttura sottostante, 
+garantendo una maggiore portabilità e flessibilità.
+\end{itemize}
+
+Lo sviluppo multiplatform offre una serie di vantaggi significativi:
+\begin{itemize}
+\item \textbf{Massimizzazione della Condivisione del Codice}: Condividendo il codice tra le diverse piattaforme, 
+è possibile ridurre il lavoro ripetitivo e aumentare l'efficienza dello sviluppo.
+\item \textbf{Riduzione dei Costi di Sviluppo}: Riducendo il numero di linee di codice da scrivere e gestire, 
+è possibile ridurre i costi complessivi di sviluppo e manutenzione dell'applicazione.
+\item \textbf{Coerenza e Compatibilità}: Mantenendo una sola base di codice per tutte le versioni dell'applicazione, 
+è possibile garantire una maggiore coerenza e compatibilità tra le diverse versioni.
+\item \textbf{Flessibilità}: Utilizzando approcci multiplatform, gli sviluppatori possono adottare una varietà di tecnologie e 
+linguaggi di programmazione per soddisfare le esigenze specifiche del progetto.
+\end{itemize}
+
+In sintesi, lo sviluppo multiplatform offre agli sviluppatori un approccio flessibile ed efficiente per la creazione di applicazioni che possono essere eseguite
+ su diverse piattaforme, consentendo loro di massimizzare la condivisione del codice e ridurre i costi complessivi di sviluppo e manutenzione.
+
+\section{Programmazione Distribuita su Piattaforme Eterogenee}
+
+Nel contesto dell'informatica moderna, la programmazione distribuita su piattaforme eterogenee emerge come un approccio fondamentale per affrontare le sfide
+ della interconnessione in un ambiente eterogeneo di dispositivi e sistemi. Questo paradigma si basa sulla distribuzione delle responsabilità e delle risorse
+ su una varietà di dispositivi e piattaforme, che possono differire per architettura hardware, sistema operativo e linguaggio di programmazione.
+
+La programmazione distribuita su piattaforme eterogenee è guidata dalla necessità di integrare e coordinare dispositivi e sistemi diversi per creare soluzioni
+ innovative e scalabili. Questo approccio richiede la collaborazione e la comunicazione efficace tra nodi distribuiti, che possono trovarsi in ambienti eterogenei
+ come cloud, dispositivi embedded, server on-premise e dispositivi mobili.
+
+Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita su piattaforme eterogenee includono:
+
+\begin{itemize}
+\item \textbf{Protocolli di Comunicazione Universali}: Questi protocolli consentono la comunicazione tra dispositivi e sistemi eterogenei,
+ fornendo un'interfaccia standardizzata per lo scambio di dati e messaggi. Esempi di protocolli universali includono HTTP, \ac{MQTT} e gRPC,
+  che consentono la comunicazione su diverse piattaforme e architetture.
+\item \textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
+ consentendo la trasparenza della distribuzione su piattaforme eterogenee. Questo può includere servizi di messaggistica, servizi di gestione delle transazioni
+  e sistemi di caching distribuiti.
+\item \textbf{Containerizzazione}: Le tecnologie di containerizzazione, come Docker e Kubernetes, consentono di confezionare,
+ distribuire e gestire applicazioni su piattaforme eterogenee in modo uniforme. I container forniscono un'unità di distribuzione leggera e isolata,
+  garantendo la portabilità e la scalabilità delle applicazioni su diverse infrastrutture.
+\item \textbf{Orchestrazione Multi-Cloud}: L'orchestrazione multi-cloud permette di distribuire carichi di lavoro su più fornitori di servizi cloud,
+ garantendo la ridondanza, la resilienza e la flessibilità delle applicazioni su piattaforme eterogene
+\end{itemize}
+
+In sintesi, la programmazione distribuita su piattaforme eterogenee rappresenta un approccio essenziale per affrontare la complessità e la diversità
+ dell'ambiente informatico moderno. Attraverso l'adozione di tecnologie e approcci innovativi, è possibile integrare e coordinare dispositivi e sistemi diversi
+ per creare soluzioni scalabili, resilienti e altamente performanti.
+
+\section{\ac{MQTT}}
+
+Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale,
+\ac{MQTT} (Message Queuing Telemetry Transport) si distingue come uno dei protocolli di comunicazione più fondamentali e ampiamente adottati. 
+ La sua storia affonda le radici nella necessità di comunicare in modo efficiente tra dispositivi con risorse limitate, come sensori, attuatori e dispositivi embedded.
+
+ \ac{MQTT} si presenta come una soluzione elegante per risolvere le sfide di comunicazione in un ambiente \ac{IoT}. 
+Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i dispositivi con risorse limitate,
+ e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi tra i partecipanti alla rete.
+
+Il modello publish-subscribe di \ac{MQTT} è fondamentale per comprendere il suo funzionamento. In questo modello, i dispositivi si dividono in due ruoli principali:
+ i publisher, che inviano i messaggi su specifici topic, e i subscriber, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
+ Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità
+ di conoscere direttamente gli indirizzi dei destinatari.
+
+Un aspetto cruciale di \ac{MQTT} è la sua capacità di mantenere aperte le connessioni tra i dispositivi, riducendo al minimo la latenza e ottimizzando
+ l'efficienza della comunicazione. Questo è particolarmente importante in contesti in cui è necessario uno scambio continuo di dati in tempo reale,
+ come il monitoraggio ambientale, la gestione degli impianti industriali e la sorveglianza di sicurezza.
+
+Inoltre, \ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (QoS),
+ che consentono di personalizzare e ottimizzare la comunicazione in base alle esigenze specifiche dell'applicazione.
+ Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, in grado di soddisfare una vasta gamma di requisiti
+ e casi d'uso nell'ambito dell'\ac{IoT}.
+
+\section{Dependency Injection}
+
+Nel contesto dell'ingegneria del software, la \textit{Dependency Injection} (Dependency Injection) rappresenta un pattern di progettazione fondamentale per la gestione
+ delle dipendenze tra i vari componenti di un sistema. Questo approccio promuove un'architettura modulare e facilita la manutenzione, il testing e l'estensibilità del software.
+
+La Dependency Injection è una tecnica attraverso la quale un oggetto (il \textit{client}) riceve le proprie dipendenze da un oggetto esterno 
+(l' \textit{injector}), anziché crearle autonomamente. Le dipendenze sono componenti di cui il client ha bisogno per eseguire le proprie funzionalità.
+ In altre parole, la Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
+
+Esistono tre principali varianti di Dependency Injection:
+\begin{itemize}
+    \item \textbf{Constructor Injection}: Le dipendenze vengono fornite tramite il costruttore dell'oggetto. 
+    Questo metodo garantisce che le dipendenze siano disponibili al momento della creazione dell'oggetto.
+    \item \textbf{Setter Injection}: Le dipendenze vengono fornite tramite metodi setter. 
+    Questo approccio consente una maggiore flessibilità nella configurazione delle dipendenze dopo la creazione dell'oggetto.
+    \item \textbf{Interface Injection}: L'oggetto client espone un'interfaccia che permette al container di fornire le dipendenze. 
+    Questo metodo è meno comune ma può essere utile in contesti specifici.
+\end{itemize}
+
+L'adozione della Dependency Injection offre numerosi vantaggi, tra cui:
+\begin{itemize}
+    \item \textbf{Maggiore modularità}: I componenti del sistema possono essere sviluppati e testati in isolamento, migliorando la coesione e riducendo l'accoppiamento.
+    \item \textbf{Facilità di testing}: Le dipendenze possono essere sostituite con mock o stub, semplificando il processo di unit testing.
+    \item \textbf{Manutenzione e estensibilità migliorate}: La separazione delle preoccupazioni facilita la modifica e l'estensione delle funzionalità del sistema
+     senza impattare sul resto del codice.
+    \item \textbf{Inversione del controllo}: La Dependency Injection implementa il principio di inversione del controllo,
+     permettendo al framework di gestire il ciclo di vita degli oggetti e le loro dipendenze.
+\end{itemize}
+
+Diversi framework e container sono stati sviluppati per supportare la Dependency Injection in vari linguaggi di programmazione. Un esempio prominente, 
+ in particolare per l'ecosistema Kotlin, è \textbf{Koin}: Un framework di Dependency Injection per Kotlin che si distingue per la sua semplicità e leggerezza. 
+ Koin utilizza una DSL (Domain Specific Language) per definire le dipendenze in modo chiaro e conciso, rendendo l'integrazione e la configurazione estremamente intuitive.
+ Koin è particolarmente apprezzato nell'ambito dello sviluppo di applicazioni Android.
+
+La Dependency Injection è un pattern di progettazione che offre una soluzione elegante alla gestione delle dipendenze in sistemi software complessi.
+ La sua adozione consente di sviluppare applicazioni modulari, testabili e facilmente manutenibili, contribuendo a migliorare la qualità complessiva del software.
+ Nelle sezioni successive, esploreremo più in dettaglio i vari aspetti della Dependency Injection, i suoi benefici e come implementarla efficacemente utilizzando diversi framework,
+ con un focus particolare su Koin per applicazioni Kotlin.
+
+\section{Linguaggi}
+La scelta del linguaggio utilizzato per questo progetto è stata relativamente semplice, poiché il progetto PulvReAKt, nel quale è contestualizzato, 
+è scritto interamente in Kotlin con target Multiplatform. La maggior parte dello sviluppo è stata eseguita in Kotlin, con l'unica eccezione dell'utilizzo di una libreria 
+JavaScript per lo sviluppo della parte \ac{JS}, integrata comunque all'interno di Kotlin grazie alla sua interoperabilità con JavaScript.
+
+\subsection{Kotlin}
+
+Kotlin è un linguaggio di programmazione moderno sviluppato da JetBrains, noto per il suo approccio pragmatico e la sua forte interoperabilità con Java. 
+Dal suo lancio nel 2011, Kotlin ha guadagnato rapidamente popolarità, diventando nel 2017 il linguaggio ufficiale per lo sviluppo di applicazioni Android. 
+
+Kotlin è stato progettato per essere conciso, riducendo la quantità di codice boilerplate necessario. Grazie alle funzioni lambda e alle estensioni di funzioni, 
+il codice scritto in Kotlin risulta più leggibile e mantenibile rispetto a Java. Inoltre, Kotlin si propone di minimizzare gli errori a runtime, 
+spostando la rilevazione degli errori al tempo di compilazione.
+
+Uno dei punti di forza di Kotlin è la sua totale interoperabilità con Java. Questo significa che il codice Kotlin può chiamare ed essere chiamato da codice Java senza difficoltà. 
+Questo facilita la migrazione graduale da Java a Kotlin nei progetti esistenti, permettendo agli sviluppatori di integrare Kotlin in maniera incrementale.
+
+Kotlin introduce le coroutines, una potente astrazione per la programmazione asincrona e concorrente. Le coroutines offrono un modo semplice ed efficiente per gestire operazioni
+che altrimenti richiederebbero la gestione complessa dei thread. Esse permettono di scrivere codice asincrono in uno stile sequenziale, migliorando la leggibilità e
+riducendo il rischio di errori.
+
+Le coroutines in Kotlin sono supportate a livello di linguaggio, con una libreria standard che fornisce molte funzionalità pronte all'uso. 
+Ecco alcuni dei principali vantaggi delle coroutines:
+
+\begin{itemize}
+    \item \textbf{Semplicità del codice asincrono:} Le coroutines permettono di scrivere codice che sembra sincrono ma che viene eseguito in modo asincrono, 
+    semplificando notevolmente la gestione delle operazioni I/O e altre operazioni bloccanti.
+    \item \textbf{Efficienza delle risorse:} Le coroutines sono molto leggere rispetto ai thread tradizionali. Possono essere sospese e riprese senza un costo significativo, 
+    consentendo una gestione efficiente delle risorse.
+    \item \textbf{Facilità di cancellazione:} Le coroutines forniscono meccanismi per gestire la cancellazione delle operazioni in corso, 
+    riducendo il rischio di risorse bloccate o perdite di memoria.
+    \item \textbf{Composizione semplice:} Le coroutines permettono di comporre in modo semplice operazioni asincrone, rendendo il codice più modulare e facile da mantenere.
+\end{itemize}
+
+L'utilizzo delle coroutines in Kotlin rappresenta un approccio moderno alla programmazione concorrente, 
+semplificando notevolmente il processo di scrittura e gestione del codice asincrono.
+
+La sintassi concisa e le caratteristiche avanzate di Kotlin contribuiscono ad aumentare la produttività degli sviluppatori. 
+Funzionalità come le funzioni di estensione, la gestione avanzata delle nullità e le espressioni lambda riducono il codice boilerplate e semplificano lo sviluppo, 
+permettendo agli sviluppatori di concentrarsi sulla logica applicativa piuttosto che sui dettagli implementativi.
+
+La forte tipizzazione e le funzionalità di sicurezza integrata di Kotlin contribuiscono a migliorare la qualità del codice. 
+Il compilatore di Kotlin è in grado di rilevare molti tipi di errori a tempo di compilazione, riducendo il numero di bug presenti nel software finito. Inoltre, 
+la gestione avanzata delle nullità e le funzioni di estensione aiutano a scrivere codice più robusto e meno incline agli errori.
+
+Uno degli aspetti più potenti di Kotlin è la sua capacità di supportare lo sviluppo multiplatform. Grazie al quale gli sviluppatori possono scrivere 
+un unico set di codice Kotlin che può essere condiviso e utilizzato su diverse piattaforme, come la \ac{JVM}, JavaScript e la compilazione nativa. 
+Questo approccio consente agli sviluppatori di massimizzare la condivisione del codice, riducendo al minimo la duplicazione e semplificando la manutenzione dell'applicazione 
+su più piattaforme.
+
+\subsection{JavaScript}
+
+JavaScript è uno dei linguaggi di programmazione più diffusi al mondo, utilizzato principalmente per lo sviluppo web. La sua versatilità e la vasta gamma di librerie e framework 
+disponibili lo rendono una scelta popolare per una varietà di applicazioni, dai siti web interattivi alle applicazioni server-side.
+
+JavaScript è un linguaggio di programmazione dinamico, interpretato e ad alto livello, con il supporto per la programmazione orientata agli oggetti, 
+la programmazione funzionale e la programmazione imperativa. Alcune delle caratteristiche principali di JavaScript includono:
+
+\begin{itemize}
+    \item \textbf{Event-driven e Asincrono:} JavaScript è progettato per gestire eventi in modo efficiente e supporta l'esecuzione asincrona, 
+    che è essenziale per lo sviluppo web moderno.
+    \item \textbf{Interpretabile dal Browser:} JavaScript è nativamente supportato da tutti i principali browser web, permettendo di eseguire script direttamente sul lato client.
+    \item \textbf{Interoperabilità:} JavaScript può essere facilmente integrato con Kotlin oltre
+
+\end{itemize}
+
+\section{Piattaforme}
+
+In questo capitolo, analizzeremo le caratteristiche delle tre piattaforme principali su cui è possibile implementare \ac{MQTT} utilizzando Kotlin: \ac{JVM},
+ \ac{JS} e nativo. Questo ci permetterà di comprendere i punti di forza e le limitazioni di ciascuna piattaforma.
+
+\subsection{\ac{JVM}}
+
+La \ac{JVM} è una macchina virtuale che esegue bytecode Java, ed è la piattaforma di riferimento per lo sviluppo in Java e Kotlin. 
+Essa offre una serie di caratteristiche che la rendono una scelta popolare per l'implementazione di applicazioni complesse e ad alte prestazioni.
+
+\begin{itemize}
+\item \textbf{Interoperabilità}: La \ac{JVM} permette l'interoperabilità tra Kotlin e Java, consentendo l'uso di librerie e strumenti Java consolidati. 
+Questo permette agli sviluppatori di sfruttare l'ampio ecosistema Java esistente.
+\item \textbf{Portabilità}: Il bytecode generato può essere eseguito su qualsiasi dispositivo dotato di una \ac{JVM}, garantendo portabilità cross-platform. 
+Questo è particolarmente utile per le applicazioni distribuite su una vasta gamma di dispositivi e sistemi operativi.
+\item \textbf{Ottimizzazioni di Runtime}: La \ac{JVM} include un Just-In-Time (JIT) compiler che ottimizza il codice durante l'esecuzione, migliorando le performance. 
+Questo si traduce in un'esecuzione più veloce delle applicazioni Kotlin rispetto a linguaggi interpretati o compilati staticamente.
+\item \textbf{Garbage Collection}: Gestione automatica della memoria tramite garbage collection, riducendo il rischio di memory leaks. 
+Questo allevia gli sviluppatori dalla necessità di gestire manualmente l'allocazione e la deallocazione della memoria, semplificando lo sviluppo e riducendo il rischio di errori.
+\end{itemize}
+
+\subsection{\ac{JS}}
+
+JavaScript è il linguaggio di scripting dominante per lo sviluppo web client-side, eseguito all'interno dei browser. Kotlin/\ac{JS} permette di compilare codice Kotlin in JavaScript, sfruttando le capacità di questa piattaforma.
+
+\begin{itemize}
+\item \textbf{Compatibilità con il Web}: JavaScript è nativamente supportato dai browser, permettendo l'esecuzione di applicazioni Kotlin/\ac{JS} direttamente nel contesto web. 
+Questo consente agli sviluppatori di creare applicazioni web interattive e dinamiche utilizzando Kotlin come linguaggio di sviluppo.
+\item \textbf{Ecossistema di Librerie}: Ampia disponibilità di librerie e framework per lo sviluppo web, che possono essere utilizzati anche con Kotlin/\ac{JS}. 
+Questo include librerie per la gestione del DOM, l'interazione con API REST, la manipolazione dei dati JSON e molto altro ancora, consentendo agli sviluppatori di sfruttare 
+le funzionalità esistenti senza dover reinventare la ruota.
+\item \textbf{Asincronia}: Supporto nativo per le operazioni asincrone tramite callback, Promises e async/await che vanno a sopperire alla mancanza di capacità multithread 
+essendo progettato per lavorare anche in contesto browser, quindi con un singolo thread. Questo è particolarmente utile per le applicazioni web che devono gestire operazioni di rete,
+ come il caricamento di dati da un server remoto.
+\item \textbf{Interoperabilità}: Kotlin/\ac{JS} permette l'interoperabilità con le API JavaScript esistenti, facilitando l'integrazione con altre tecnologie web. 
+Questo consente agli sviluppatori di utilizzare librerie e framework JavaScript esistenti all'interno del codice Kotlin, consentendo una maggiore flessibilità 
+e libertà di scelta nella progettazione delle applicazioni.
+\end{itemize}
+
+\subsection{Native}
+
+Kotlin/Native permette di compilare codice Kotlin direttamente in codice macchina eseguibile su dispositivi target, senza la necessità di una macchina virtuale o un interprete.
+
+\begin{itemize}
+\item \textbf{Esecuzione Diretta}: Compilazione in codice nativo che viene eseguito direttamente dall'hardware, senza layer di interpretazione. 
+Questo si traduce in prestazioni superiori rispetto alle applicazioni eseguite su una macchina virtuale o interprete, poiché non vi è alcun overhead dovuto alla traduzione 
+del bytecode in istruzioni di macchina.
+\item \textbf{Performance}: Le applicazioni native tendono ad avere performance superiori rispetto a quelle eseguite su una macchina virtuale o interprete, 
+grazie alla compilazione diretta. Questo è particolarmente importante per le applicazioni ad alte prestazioni che richiedono un tempo di risposta rapido e una bassa latenza.
+\item \textbf{Accesso a Funzionalità di Sistema}: Possibilità di accedere direttamente alle API di sistema e alle risorse hardware, offrendo maggior controllo e ottimizzazione. 
+Questo consente agli sviluppatori di creare applicazioni che interagiscono direttamente con l'hardware sottostante, sfruttando appieno le capacità del dispositivo target.
+\item \textbf{Assenza di Overhead}: Nessun overhead dovuto alla gestione della macchina virtuale o alla garbage collection, sebbene Kotlin/Native includa un garbage collector. 
+Questo significa che le risorse del sistema possono essere utilizzate in modo più efficiente, riducendo il consumo di memoria e CPU.
+\item \textbf{Cross-platform}: Supporto per diverse piattaforme, inclusi iOS, Windows, Linux e macOS, facilitando lo sviluppo di applicazioni multi-piattaforma. 
+Questo consente agli sviluppatori di scrivere un'unica base di codice Kotlin che può essere compilata per eseguire su una varietà di dispositivi e sistemi operativi, 
+riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
+\end{itemize}
+
+
+\section{Tecnologie}
+In questo capitolo, esploreremo le tecnologie e le librerie utilizzate nel progetto, analizzando le loro caratteristiche e i loro ruoli.
+
+\subsection{Kotest}
+Kotest rappresenta una scelta chiave per l'ambiente di sviluppo, poiché offre un framework di testing multipiattaforma specificamente progettato per Kotlin. 
+Questo framework, oltre a semplificare il processo di scrittura e di esecuzione dei test, si distingue per la sua flessibilità e le funzionalità avanzate. 
+Grazie al supporto per test di proprietà, test parametrizzati e altre caratteristiche, Kotest garantisce prestazioni eccellenti e affidabilità nei risultati, 
+fornendo un solido fondamento per la verifica e la convalida del codice Kotlin.
+
+\subsection{Arrow}
+Arrow è una libreria potente che porta la programmazione funzionale idiomatica in Kotlin, arricchendo il linguaggio con concetti come i tipi di dati immutabili, le monadi e le frecce.
+L'integrazione di Arrow nel progetto migliora significativamente la qualità del codice, facilitando la manutenzione e rendendo il codice più leggibile, testabile 
+e meno soggetto a errori. Questa libreria contribuisce in modo tangibile alla costruzione di applicazioni Kotlin più robuste e manutenibili.
+
+\subsection{Kmqtt}
+
+Kmqtt riveste un ruolo cruciale nell'implementazione della comunicazione \ac{MQTT} nel progetto. Questa libreria, progettata per Kotlin Multiplatform, 
+offre un'implementazione unificata del client \ac{MQTT} su diverse piattaforme, dalla \ac{JVM} al Native. La sua facilità d'uso e la flessibilità consentono di integrare la comunicazione
+ \ac{MQTT} in modo uniforme e affidabile su tutte le piattaforme supportate, fornendo una solida base per lo sviluppo delle funzionalità di comunicazione nell'applicazione.
+
+\subsection{MQTT.js}
+
+MQTT.js è una libreria essenziale per lo sviluppo di applicazioni web che richiedono comunicazione \ac{MQTT} direttamente in ambienti JavaScript. Grazie alla sua semplicità d'uso
+ e alle prestazioni elevate, MQTT.js si è affermata come una scelta popolare tra gli sviluppatori che lavorano nell'ambito delle applicazioni web interattive. 
+ La sua integrazione nell'ecosistema di sviluppo permette di implementare in modo efficace e affidabile la comunicazione \ac{MQTT} nei progetti JavaScript.
+
+\subsection{Mosquitto}
+
+Mosquitto rappresenta il cuore dell'infrastruttura \ac{MQTT} del progetto, offrendo un broker \ac{MQTT} open source che supporta sia l'hosting locale che il servizio pubblico. 
+La leggerezza e la configurabilità di Mosquitto lo rendono una scelta ideale per creare un ambiente di sviluppo e testing robusto per le applicazioni basate su MQTT. 
+Le sue funzionalità avanzate, come l'autenticazione e la sicurezza delle connessioni, garantiscono un'esperienza di sviluppo sicura e affidabile.
+
+\subsection{Git}
+
+Git svolge un ruolo fondamentale nel controllo di versione del codice sorgente del progetto. Questo sistema di controllo di versione distribuito consente agli sviluppatori 
+di tracciare le modifiche al codice, collaborare in modo efficiente con altri membri del team e gestire diverse versioni del progetto. La sua flessibilità e la vasta gamma 
+di funzionalità supportate lo rendono una scelta versatile per il controllo di versione in progetti di qualsiasi dimensione e complessità.
+
+\subsection{Gradle}
+
+Gradle rappresenta il cuore del processo di build e automazione del progetto. Questo sistema di automazione della compilazione, con la sua configurabilità ed estendibilità, 
+semplifica la gestione delle dipendenze, la compilazione del codice e l'esecuzione dei test. Grazie alla sua integrazione con Kotlin, Gradle contribuisce in modo significativo 
+a rendere il processo di sviluppo più efficiente e organizzato, offrendo un ambiente di sviluppo ottimizzato e scalabile.
+
+
+\chapter{Analysis}
+\label{chap:Analysis}
+
+\chapter{Design}
+\label{chap:Design}
+
+\chapter{Implementation}
+\label{chap:Implementation}
+
+\chapter{Conclusion and Future Work}
+\label{chap:Conclusion and Future Work}
 
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
