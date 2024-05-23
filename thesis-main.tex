@@ -64,32 +64,29 @@ Lo sviluppo multiplatform è diventato un approccio sempre più diffuso per la c
   le diverse versioni dell'applicazione.
 
 Esistono diversi approcci per lo sviluppo multiplatform, ciascuno con le proprie caratteristiche e vantaggi:
-
-\textbf{Codice Condiviso}: In questo approccio, il codice condiviso viene scritto una volta e viene compilato per eseguire su diverse piattaforme.
+\begin{itemize}
+\item \textbf{Codice Condiviso}: In questo approccio, il codice condiviso viene scritto una volta e viene compilato per eseguire su diverse piattaforme.
  Questo può essere realizzato utilizzando linguaggi di programmazione che supportano la compilazione multiplatform, come Kotlin, 
  o utilizzando framework e librerie che consentono la condivisione del codice tra piattaforme diverse.
-
-\textbf{Interfacce di Programmazione (API)}: Un altro approccio consiste nel definire un'API comune che fornisce un'interfaccia uniforme
+\item \textbf{Interfacce di Programmazione (API)}: Un altro approccio consiste nel definire un'API comune che fornisce un'interfaccia uniforme
  per l'accesso alle funzionalità dell'applicazione su diverse piattaforme. Questo consente di implementare la logica dell'applicazione specifica 
  per ciascuna piattaforma, mantenendo al contempo una coerenza nell'interfaccia e nei dati condivisi.
-
-\textbf{Virtualizzazione e Contenitori}: Utilizzando tecnologie di virtualizzazione e contenitori, è possibile creare un ambiente uniforme 
+\item \textbf{Virtualizzazione e Contenitori}: Utilizzando tecnologie di virtualizzazione e contenitori, è possibile creare un ambiente uniforme 
 per l'esecuzione dell'applicazione su diverse piattaforme. Questo approccio permette di isolare l'applicazione dall'infrastruttura sottostante, 
 garantendo una maggiore portabilità e flessibilità.
+\end{itemize}
 
 Lo sviluppo multiplatform offre una serie di vantaggi significativi:
-
-\textbf{Massimizzazione della Condivisione del Codice}: Condividendo il codice tra le diverse piattaforme, 
+\begin{itemize}
+\item \textbf{Massimizzazione della Condivisione del Codice}: Condividendo il codice tra le diverse piattaforme, 
 è possibile ridurre il lavoro ripetitivo e aumentare l'efficienza dello sviluppo.
-
-\textbf{Riduzione dei Costi di Sviluppo}: Riducendo il numero di linee di codice da scrivere e gestire, 
+\item \textbf{Riduzione dei Costi di Sviluppo}: Riducendo il numero di linee di codice da scrivere e gestire, 
 è possibile ridurre i costi complessivi di sviluppo e manutenzione dell'applicazione.
-
-\textbf{Coerenza e Compatibilità}: Mantenendo una sola base di codice per tutte le versioni dell'applicazione, 
+\item \textbf{Coerenza e Compatibilità}: Mantenendo una sola base di codice per tutte le versioni dell'applicazione, 
 è possibile garantire una maggiore coerenza e compatibilità tra le diverse versioni.
-
-\textbf{Flessibilità}: Utilizzando approcci multiplatform, gli sviluppatori possono adottare una varietà di tecnologie e 
+\item \textbf{Flessibilità}: Utilizzando approcci multiplatform, gli sviluppatori possono adottare una varietà di tecnologie e 
 linguaggi di programmazione per soddisfare le esigenze specifiche del progetto.
+\end{itemize}
 
 \section{Programmazione Distribuita su Piattaforme Eterogenee}
 
@@ -103,21 +100,19 @@ La programmazione distribuita su piattaforme eterogenee è guidata dalla necessi
 
 Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita su piattaforme eterogenee includono:
 
-
-\textbf{Protocolli di Comunicazione Universali}: Questi protocolli consentono la comunicazione tra dispositivi e sistemi eterogenei,
+\begin{itemize}
+\item \textbf{Protocolli di Comunicazione Universali}: Questi protocolli consentono la comunicazione tra dispositivi e sistemi eterogenei,
  fornendo un'interfaccia standardizzata per lo scambio di dati e messaggi. Esempi di protocolli universali includono HTTP, \ac{MQTT} e gRPC,
   che consentono la comunicazione su diverse piattaforme e architetture.
-
-\textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
+\item \textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
  consentendo la trasparenza della distribuzione su piattaforme eterogenee. Questo può includere servizi di messaggistica, servizi di gestione delle transazioni
   e sistemi di caching distribuiti.
-
-\textbf{Containerizzazione}: Le tecnologie di containerizzazione, come Docker e Kubernetes, consentono di confezionare,
+\item \textbf{Containerizzazione}: Le tecnologie di containerizzazione, come Docker e Kubernetes, consentono di confezionare,
  distribuire e gestire applicazioni su piattaforme eterogenee in modo uniforme. I container forniscono un'unità di distribuzione leggera e isolata,
   garantendo la portabilità e la scalabilità delle applicazioni su diverse infrastrutture.
-
-\textbf{Orchestrazione Multi-Cloud}: L'orchestrazione multi-cloud permette di distribuire carichi di lavoro su più fornitori di servizi cloud,
+\item \textbf{Orchestrazione Multi-Cloud}: L'orchestrazione multi-cloud permette di distribuire carichi di lavoro su più fornitori di servizi cloud,
  garantendo la ridondanza, la resilienza e la flessibilità delle applicazioni su piattaforme eterogene
+\end{itemize}
 
 \section{Message Queuing Telemetry Transport (MQTT)}
 
@@ -152,15 +147,14 @@ La Dependency Injection è una tecnica attraverso la quale un oggetto (il \texti
  In altre parole, la Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
 
 Esistono tre principali varianti di Dependency Injection:
-
-\textbf{Constructor Injection}: Le dipendenze vengono fornite tramite il costruttore dell'oggetto. 
+\begin{itemize}
+\item \textbf{Constructor Injection}: Le dipendenze vengono fornite tramite il costruttore dell'oggetto. 
     Questo metodo garantisce che le dipendenze siano disponibili al momento della creazione dell'oggetto.
-
-\textbf{Setter Injection}: Le dipendenze vengono fornite tramite metodi setter. 
+\item \textbf{Setter Injection}: Le dipendenze vengono fornite tramite metodi setter. 
     Questo approccio consente una maggiore flessibilità nella configurazione delle dipendenze dopo la creazione dell'oggetto.
-  
-\textbf{Interface Injection}: L'oggetto client espone un'interfaccia che permette al container di fornire le dipendenze. 
+\item \textbf{Interface Injection}: L'oggetto client espone un'interfaccia che permette al container di fornire le dipendenze. 
     Questo metodo è meno comune ma può essere utile in contesti specifici.
+\end{itemize}
 
 L'adozione della Dependency Injection offre numerosi vantaggi, tra cui:
 \begin{itemize}
@@ -294,16 +288,15 @@ Questo consente agli sviluppatori di utilizzare librerie e framework JavaScript 
 e libertà di scelta nella progettazione delle applicazioni.
 \end{itemize}
 
-
-\textbf{Node.js} rappresenta una potente piattaforma per lo sviluppo backend, estendendo le capacità di JavaScript oltre il browser e offrendo un ambiente efficiente e scalabile 
+\begin{itemize}
+\item \textbf{Node.js} rappresenta una potente piattaforma per lo sviluppo backend, estendendo le capacità di JavaScript oltre il browser e offrendo un ambiente efficiente e scalabile 
 per la creazione di applicazioni server-side moderne. Utilizzando Node.js, gli sviluppatori possono beneficiare di un ecosistema ricco e di strumenti avanzati per costruire
 applicazioni robuste e performanti.
-
-\textbf{Event-driven e Non-blocking I/O}: Node.js utilizza un modello event-driven e non-blocking per le operazioni di I/O, consentendo di gestire un numero elevato di connessioni
+\item \textbf{Event-driven e Non-blocking I/O}: Node.js utilizza un modello event-driven e non-blocking per le operazioni di I/O, consentendo di gestire un numero elevato di connessioni
  concorrenti con un singolo thread grazie al meccanismo delle promise in \ac{JS}.
-
-\textbf{Ecosistema di Moduli }: Node.js ha un vasto ecosistema di moduli e pacchetti disponibili tramite npm (Node Package Manager). 
+\item \textbf{Ecosistema di Moduli }: Node.js ha un vasto ecosistema di moduli e pacchetti disponibili tramite npm (Node Package Manager). 
 Questi moduli coprono una vasta gamma di funzionalità, come la gestione del database, la manipolazione dei file e la creazione di server wen. 
+\end{itemize}
 
 \subsection{Native}
 
