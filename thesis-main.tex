@@ -227,7 +227,13 @@ un unico set di codice Kotlin che può essere condiviso e utilizzato su diverse 
 Questo approccio consente agli sviluppatori di massimizzare la condivisione del codice, riducendo al minimo la duplicazione e semplificando la manutenzione dell'applicazione 
 su più piattaforme.
 
+\chapter{Requirements}
+\label{chap:Requirements}
+
 \section{Piattaforme}
+In quanto il progetto si colloca all'interno del contesto di PulvReAKt richiede la capacità di operare su diverse piattaforme,
+inclusi ambienti JVM, JavaScript e nativi.
+
 \subsection{Java Virtual Machine}
 
 La \ac{JVM} è una macchina virtuale che esegue bytecode Java, ed è la piattaforma di riferimento per lo sviluppo in Java e Kotlin. 
@@ -292,7 +298,10 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 \end{itemize}
 
 
-\section{Tecnologie}
+\chapter{Design}
+\label{chap:Design}
+
+\section{Tecnologie Utilizzate}
 In questo capitolo, esploreremo le tecnologie e le librerie utilizzate nel progetto, analizzando le loro caratteristiche e i loro ruoli.
 
 \subsection{Kotest}
@@ -336,12 +345,6 @@ Gradle rappresenta il cuore del processo di build e automazione del progetto. Qu
 semplifica la gestione delle dipendenze, la compilazione del codice e l'esecuzione dei test. Grazie alla sua integrazione con Kotlin, Gradle contribuisce in modo significativo 
 a rendere il processo di sviluppo più efficiente e organizzato, offrendo un ambiente di sviluppo ottimizzato e scalabile.
 
-
-\chapter{Requirements}
-\label{chap:Requirements}
-
-\chapter{Design}
-\label{chap:Design}
 
 \chapter{Implementazione e Validazione}
 \label{chap:Implementazione e Validazione}
