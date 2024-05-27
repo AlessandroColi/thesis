@@ -183,12 +183,10 @@ PulvReAKt è un framework leggero e multipiattaforma per Kotlin, progettato per 
  per lo sviluppo di applicazioni distribuite e sistemi \ac{IoT}. Consente di suddividere l'applicazione in componenti indipendenti, facilitando lo sviluppo e la manutenzione. 
  Supporta \ac{JVM}, \ac{JS} e varie piattaforme native, permettendo l'esecuzione dei componenti in diversi ambienti.
  
-\section{Linguaggi}
+\section{Kotlin}
 La scelta del linguaggio utilizzato per questo progetto è stata relativamente semplice, poiché il progetto PulvReAKt, nel quale è contestualizzato, 
 è scritto interamente in Kotlin con target Multiplatform. La maggior parte dello sviluppo è stata eseguita in Kotlin, con l'unica eccezione dell'utilizzo di una libreria 
 JavaScript per lo sviluppo della parte \ac{JS}, integrata comunque all'interno di Kotlin grazie alla sua interoperabilità.
-
-\subsection{Kotlin}
 
 Kotlin è un linguaggio di programmazione moderno sviluppato da JetBrains, noto per il suo approccio pragmatico e la sua forte interoperabilità con Java. 
 Dal suo lancio nel 2011, Kotlin ha guadagnato rapidamente popolarità, diventando nel 2017 il linguaggio ufficiale per lo sviluppo di applicazioni Android. 
@@ -233,28 +231,8 @@ un unico set di codice Kotlin che può essere condiviso e utilizzato su diverse 
 Questo approccio consente agli sviluppatori di massimizzare la condivisione del codice, riducendo al minimo la duplicazione e semplificando la manutenzione dell'applicazione 
 su più piattaforme.
 
-\subsection{JavaScript}
-
-JavaScript è uno dei linguaggi di programmazione più diffusi al mondo, utilizzato principalmente per lo sviluppo web. La sua versatilità e la vasta gamma di librerie e framework 
-disponibili lo rendono una scelta popolare per una varietà di applicazioni, dai siti web interattivi alle applicazioni server-side.
-
-JavaScript è un linguaggio di programmazione dinamico, interpretato e ad alto livello, con il supporto per la programmazione orientata agli oggetti, 
-la programmazione funzionale e la programmazione imperativa. Alcune delle caratteristiche principali di JavaScript includono:
-
-\begin{itemize}
-    \item \textbf{Event-driven e Asincrono:} JavaScript è progettato per gestire eventi in modo efficiente e supporta l'esecuzione asincrona, 
-    che è essenziale per lo sviluppo web moderno.
-    \item \textbf{Interpretabile dal Browser:} JavaScript è nativamente supportato da tutti i principali browser web, permettendo di eseguire script direttamente sul lato client.
-    \item \textbf{Interoperabilità:} JavaScript può essere facilmente integrato con Kotlin oltre
-
-\end{itemize}
-
 \section{Piattaforme}
-
-In questo capitolo, analizzeremo le caratteristiche delle tre piattaforme principali su cui è possibile implementare \ac{MQTT} utilizzando Kotlin: \ac{JVM},
- \ac{JS} e nativo. Questo ci permetterà di comprendere i punti di forza e le limitazioni di ciascuna piattaforma.
-
-\subsection{\ac{JVM}}
+\subsection{Java Virtual Machine}
 
 La \ac{JVM} è una macchina virtuale che esegue bytecode Java, ed è la piattaforma di riferimento per lo sviluppo in Java e Kotlin. 
 Essa offre una serie di caratteristiche che la rendono una scelta popolare per l'implementazione di applicazioni complesse e ad alte prestazioni.
@@ -270,7 +248,7 @@ Questo si traduce in un'esecuzione più veloce delle applicazioni Kotlin rispett
 Questo allevia gli sviluppatori dalla necessità di gestire manualmente l'allocazione e la deallocazione della memoria, semplificando lo sviluppo e riducendo il rischio di errori.
 \end{itemize}
 
-\subsection{\ac{JS} e Node.js}
+\subsection{JavaScript e Node.js}
 
 JavaScript è il linguaggio di scripting dominante per lo sviluppo web client-side, eseguito all'interno dei browser. Kotlin/\ac{JS} permette di compilare codice Kotlin in JavaScript, sfruttando le capacità di questa piattaforma.
 
