@@ -177,7 +177,7 @@ La Dependency Injection è un pattern di progettazione che offre una soluzione e
  \section{PulvReAKt}
 PulvReAKt è un framework leggero e multipiattaforma per Kotlin, progettato per facilitare la pulverizzazione dei sistemi, ovvero la suddivisione di applicazioni complesse
  in muyltemplici componenti modulari che possono essere distribuiti su diverse piattaforme. Il framework supporta \ac{JVM}, \ac{JS} e alcune piattaforme native, come Linux, macOS e iOS. 
- PulvReAKt consente di definire, configurare e distribuire componenti software utilizzando protocolli di comunicazione come MQTT e RabbitMQ, rendendolo particolarmente adatto 
+ PulvReAKt consente di definire, configurare e distribuire componenti software utilizzando protocolli di comunicazione come \ac{MQTT} e RabbitMQ, rendendolo particolarmente adatto 
  per lo sviluppo di applicazioni distribuite e sistemi \ac{IoT}. Consente di suddividere l'applicazione in componenti indipendenti, facilitando lo sviluppo e la manutenzione. 
  Supporta \ac{JVM}, \ac{JS} e varie piattaforme native, permettendo l'esecuzione dei componenti in diversi ambienti.
  
@@ -234,14 +234,32 @@ su più piattaforme.
 
 \section{Requisiti Funzionali}
 
-\subsection{Scalabilità e struttura dei topic}
+\subsection{Scalabilità}
 
-\subsection{Quality of Service}
+Il modulo di comunicazione deve supportare la scalabilità orizzontale, permettendo l'aggiunta di nuovi nodi senza interruzioni del servizio. Questo implica che l'architettura 
+deve essere in grado di adattarsi dinamicamente all'aumento delle richieste, distribuendo il carico tra i nuovi nodi in modo efficiente. Una soluzione di scalabilità orizzontale 
+efficace dovrebbe prevedere meccanismi di auto-scaling, dove i nuovi nodi vengono aggiunti automaticamente in risposta a picchi di carico e ridotti durante i periodi di 
+bassa domanda, ottimizzando l'uso delle risorse e minimizzando i costi operativi. Deve inoltre essere in grado di gestire l'elasticità dell'infrastruttura, permettendo il 
+provisioning e de-provisioning dei nodi in maniera automatizzata e senza interruzioni.
 
+Un aspetto cruciale della scalabilità è la comunicazione tra i componenti, che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. 
+I componenti devono poter inviare e ricevere messaggi utilizzando il protocollo di comunicazione \ac{MQTT}. Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, 
+assicurando che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, assicurando che 
+ogni messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e gestione delle 
+code di messaggi per evitare perdite. Per raggiungere questo livello di affidabilità, è stato deciso di utilizzare il livello di Quality of Service (QoS) 1 di \ac{MQTT}. 
+QoS 1 garantisce che un messaggio venga consegnato almeno una volta al destinatario, richiedendo una conferma di ricezione (acknowledgement) da parte del ricevente. 
+Se il mittente non riceve la conferma, ritrasmette il messaggio fino a quando non viene confermato, riducendo così il rischio di perdita di messaggi in condizioni di rete instabili.
+
+Dovendo gestire la comunicazione diretta tra molteplici componenti, si è scelto di utilizzare una struttura dei topic \ac{MQTT} per cui vi è un topic principale (PulvReAKt) 
+al cui interno avvengono tutte le comunicazioni, secondo una struttura organizzata. Questa struttura è organizzata in modo gerarchico, seguendo lo schema 
+PulvReAKt/mittente/destinatario. Per esempio, se un componente A volesse scrivere ad un componente B, il topic del messaggio sarebbe PulvReAKt/A/B. 
+Questo approccio consente una gestione ordinata e tracciabile della comunicazione, facilitando la manutenzione e l'analisi dei flussi di messaggi all'interno del sistema distribuito.
+Inoltre, questa struttura permette di filtrare e gestire facilmente i messaggi in base alla sorgente e alla destinazione, migliorando l'efficienza della comunicazione e 
+riducendo il rischio di collisioni o confusione tra i messaggi inviati dai diversi componenti. La scelta di una struttura dei topic chiara e ben definita è cruciale per 
+assicurare che la comunicazione tra i componenti rimanga scalabile e manutenibile man mano che il sistema cresce e si evolve.
 
 \section{Interoperabilità}
-In quanto il progetto si colloca all'interno del contesto di PulvReAKt richiede la capacità di operare su diverse piattaforme,
-inclusi ambienti JVM, JavaScript e nativi.
+In quanto il progetto si colloca all'interno del contesto di PulvReAKt richiede la capacità di operare su diverse piattaforme, inclusi ambienti \ac{JVM}, JavaScript e nativi.
 
 \subsection{Java Virtual Machine}
 
@@ -341,13 +359,13 @@ offre un'implementazione unificata del client \ac{MQTT} su diverse piattaforme, 
 \subsection{MQTT.js}
 
 MQTT.js è una libreria essenziale per lo sviluppo di applicazioni web che richiedono comunicazione \ac{MQTT} direttamente in ambienti JavaScript. Grazie alla sua semplicità d'uso
- e alle prestazioni elevate, MQTT.js si è affermata come una scelta popolare tra gli sviluppatori che lavorano nell'ambito delle applicazioni web interattive. 
+ e alle prestazioni elevate, \ac{MQTT}.js si è affermata come una scelta popolare tra gli sviluppatori che lavorano nell'ambito delle applicazioni web interattive. 
  La sua integrazione nell'ecosistema di sviluppo permette di implementare in modo efficace e affidabile la comunicazione \ac{MQTT} nei progetti JavaScript.
 
 \subsection{Mosquitto}
 
 Mosquitto rappresenta il cuore dell'infrastruttura \ac{MQTT} del progetto, offrendo un broker \ac{MQTT} open source che supporta sia l'hosting locale che il servizio pubblico. 
-La leggerezza e la configurabilità di Mosquitto lo rendono una scelta ideale per creare un ambiente di sviluppo e testing robusto per le applicazioni basate su MQTT. 
+La leggerezza e la configurabilità di Mosquitto lo rendono una scelta ideale per creare un ambiente di sviluppo e testing robusto per le applicazioni basate su \ac{MQTT}. 
 Le sue funzionalità avanzate, come l'autenticazione e la sicurezza delle connessioni, garantiscono un'esperienza di sviluppo sicura e affidabile.
 
 \subsection{Git}
