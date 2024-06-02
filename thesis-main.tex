@@ -235,25 +235,19 @@ su più piattaforme.
 \section{Requisiti Funzionali}
 
 \subsection{Scalabilità e Affidabilità}
-
 Il modulo di comunicazione deve supportare la scalabilità orizzontale, permettendo l'aggiunta di nuovi nodi senza interruzioni del servizio. Questo implica che l'architettura 
 deve essere in grado di adattarsi dinamicamente all'aumento delle richieste, distribuendo il carico tra i nuovi nodi in modo efficiente. Una soluzione di scalabilità orizzontale 
-efficace dovrebbe prevedere meccanismi di auto-scaling, dove i nuovi nodi vengono aggiunti automaticamente in risposta a picchi di carico e ridotti durante i periodi di bassa domanda, 
-ottimizzando l'uso delle risorse e minimizzando i costi operativi. Deve inoltre essere in grado di gestire l'elasticità dell'infrastruttura, permettendo il provisioning e 
-de-provisioning dei nodi in maniera automatizzata e senza interruzioni.
+efficace dovrebbe prevedere meccanismi di auto-scaling, dove i nuovi nodi vengono aggiunti automaticamente in risposta a picchi di carico e ridotti durante i periodi di 
+bassa domanda, ottimizzando l'uso delle risorse e minimizzando i costi operativi. Deve inoltre essere in grado di gestire l'elasticità dell'infrastruttura, permettendo il 
+provisioning e de-provisioning dei nodi in maniera automatizzata e senza interruzioni.
 
 Un aspetto cruciale della scalabilità è la comunicazione tra i componenti, che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. 
 I componenti devono poter inviare e ricevere messaggi utilizzando il protocollo di comunicazione \ac{MQTT}. Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, 
 assicurando che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, assicurando che 
-ogni messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e gestione 
-delle code di messaggi per evitare perdite. Per raggiungere questo livello di affidabilità, è stato deciso di utilizzare il livello di Quality of Service (QoS) 1 di \ac{MQTT}. 
-QoS 1 garantisce che un messaggio venga consegnato almeno una volta al destinatario, richiedendo una conferma di ricezione (acknowledgement) da parte del ricevente. 
-Se il mittente non riceve la conferma, ritrasmette il messaggio fino a quando non viene confermato, riducendo così il rischio di perdita di messaggi in condizioni di rete instabili.
-
-Un altro aspetto fondamentale nella comunicazione tra i vari componenti è l'affidabilità, che prevede il garantire che il modulo di comunicazione sia in grado di gestire 
-scenari di errore in modo robusto. Ciò include la gestione di connessioni instabili o perdute, la ri-trasmissione di messaggi non confermati e la gestione delle situazioni 
-di sovraccarico della rete. Inoltre, il modulo dovrebbe essere in grado di registrare eventi e attività di comunicazione per scopi di diagnostica e analisi, 
-consentendo agli amministratori di sistema di identificare e risolvere eventuali problemi in modo tempestivo.
+ogni messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e gestione delle 
+code di messaggi per evitare perdite. Per raggiungere questo livello di affidabilità, è stato deciso di utilizzare il livello di Quality of Service (QoS) 2 di \ac{MQTT}. 
+QoS 2 garantisce che un messaggio venga consegnato esattamente una volta al destinatario, richiedendo una sequenza di conferme di ricezione (acknowledgements) tra mittente e destinatario. 
+Questo elimina il rischio di duplicati e garantisce la massima affidabilità, anche in condizioni di rete altamente instabili.
 
 Dovendo gestire la comunicazione diretta tra molteplici componenti, si è scelto di utilizzare una struttura dei topic \ac{MQTT} per cui vi è un topic principale (PulvReAKt) 
 al cui interno avvengono tutte le comunicazioni, secondo una struttura organizzata. Questa struttura è organizzata in modo gerarchico, seguendo lo schema 
@@ -262,6 +256,16 @@ Questo approccio consente una gestione ordinata e tracciabile della comunicazion
 Inoltre, questa struttura permette di filtrare e gestire facilmente i messaggi in base alla sorgente e alla destinazione, migliorando l'efficienza della comunicazione e 
 riducendo il rischio di collisioni o confusione tra i messaggi inviati dai diversi componenti. La scelta di una struttura dei topic chiara e ben definita è cruciale per 
 assicurare che la comunicazione tra i componenti rimanga scalabile e manutenibile man mano che il sistema cresce e si evolve.
+
+Un altro aspetto fondamentale è l'affidabilità del modulo di comunicazione, che deve garantire il funzionamento continuo e corretto del sistema anche in presenza di guasti o condizioni avverse. 
+L'affidabilità può essere migliorata attraverso diverse strategie, tra cui la gestione delle connessioni e il monitoraggio delle prestazioni del sistema. 
+È importante implementare meccanismi di rilevamento e recupero dagli errori per garantire che i messaggi non vengano persi o duplicati. Ad esempio, l'uso di sessioni persistenti 
+permette di mantenere lo stato della connessione anche se il client o il broker si disconnettono temporaneamente. In caso di disconnessione, i messaggi pubblicati con QoS 2 
+vengono memorizzati e consegnati non appena la connessione viene ristabilita, assicurando che nessun messaggio importante venga perso.
+
+Inoltre, il modulo dovrebbe includere funzionalità di logging e monitoraggio per tracciare l'attività e le performance del sistema. Questi strumenti permettono di identificare 
+e risolvere rapidamente eventuali problemi, migliorando la reattività del sistema alle condizioni di errore. Il logging dettagliato degli eventi di comunicazione aiuta 
+anche nella diagnosi e nella prevenzione di guasti futuri, fornendo dati preziosi per l'analisi delle cause principali dei problemi.
 
 \section{Interoperabilità}
 In quanto il progetto si colloca all'interno del contesto di PulvReAKt richiede la capacità di operare su diverse piattaforme, inclusi ambienti \ac{JVM}, JavaScript e nativi.
