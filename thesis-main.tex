@@ -422,7 +422,22 @@ l'API comune tra i diversi target. Utilizzando \texttt{commonTest}, è possibile
 assicurando la coerenza e l'affidabilità del progetto. I test inclusi in \texttt{commonTest} coprono una vasta gamma di scenari, dalle unit test alle integration test, assicurando che 
 ogni parte del sistema funzioni correttamente sia individualmente che nel contesto dell'intero progetto.
 
-\section{Logica dei Test}
+\section{Scenari Soggetti a Test}
+
+Il test valuta la robustezza di un protocollo di comunicazione MQTT attraverso una serie di scenari distinti. Innanzitutto, viene verificato che il protocollo possa essere 
+inizializzato e finalizzato senza incorrere in errori. Questa fase è critica poiché assicura che tutte le operazioni di setup e di chiusura del protocollo siano eseguite 
+correttamente, garantendo uno stato coerente prima e dopo il test.
+
+Uno degli aspetti cruciali della valutazione consiste nell'esaminare come il protocollo gestisce gli errori in situazioni critiche. In particolare, si verifica come il protocollo 
+si comporta quando si tenta di scrivere su un canale non registrato e quando si tenta di leggere da un canale non registrato. È fondamentale che il protocollo sia in grado di 
+identificare e segnalare tali errori in modo accurato, fornendo messaggi di errore comprensibili che facilitino la risoluzione dei problemi.
+
+Infine, il test include scenari che simulano la comunicazione effettiva tra due entità registrate nel protocollo. Questi scenari permettono di verificare il flusso completo 
+di comunicazione, dall'inizializzazione alla trasmissione e alla ricezione dei messaggi, fino alla finalizzazione del protocollo. Questa fase del test è cruciale poiché dimostra 
+l'efficacia del protocollo nella gestione della comunicazione bidirezionale tra le entità coinvolte.
+
+Questi scenari, inclusi nei test, mirano a garantire che il protocollo MQTT implementato risponda in modo affidabile e robusto in una varietà di situazioni, sia in condizioni 
+ideali di funzionamento che in presenza di errori o situazioni impreviste.
 
 \section{Tecnologie Utilizzate}
 
