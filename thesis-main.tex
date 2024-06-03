@@ -350,7 +350,7 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 \chapter{Design}
 \label{chap:Design}
 
-\section{Struttura}
+\section{Struttura delle classi}
 
 \begin{figure}[h]
     \centering
@@ -376,11 +376,11 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
         \item \texttt{setupChannel}: Metodo per configurare il canale di comunicazione tra due entità. Più chiamate a questo metodo con gli 
         stessi \texttt{source} e \texttt{destination} dovrebbero essere idempotenti. Il runtime chiama questo metodo per configurare la comunicazione tra le entità; l'utente finale 
         non dovrebbe interagire direttamente con questo metodo.
-        \item \texttt{writeToChannel(}: Metodo per scrivere dati sul canale di comunicazione specificato. Questo metodo può riuscire 
+        \item \texttt{writeToChannel}: Metodo per scrivere dati sul canale di comunicazione specificato. Questo metodo può riuscire 
         o fallire con un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} non sono registrate nel protocollo tramite il metodo \texttt{setupChannel}.
         \item \texttt{readFromChannel}: Metodo per leggere dati dal canale di comunicazione specificato. Questo metodo restituisce un \texttt{Flow} 
-        caldo di messaggi che può essere consumato dal runtime. Può riuscire o fallire con un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} non sono 
-        registrate nel protocollo tramite il metodo \texttt{setupChannel}.
+        caldo di messaggi che può essere consumato dal runtime. Può riuscire o fallire restituendo un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} 
+        non sono registrate nel protocollo tramite il metodo \texttt{setupChannel}.
     \end{itemize}
 
     \item \texttt{MqttProtocol}: Una classe concreta che implementa l'interfaccia \texttt{Protocol}. Questa classe fornisce l'implementazione specifica per il protocollo MQTT, 
@@ -390,7 +390,7 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
 \end{itemize}
 
 
-\section{Package}
+\section{struttura dei Package}
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/package-diagram.png}
