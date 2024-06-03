@@ -352,6 +352,44 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 
 \section{Struttura}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/class-diagram.png}
+    \caption{Diagramma delle classi}
+    \label{fig:class-diagram}
+\end{figure}
+
+Il diagramma delle classi presentato in Figura \ref{fig:class-diagram} illustra l'architettura e le relazioni tra le interfacce di PulvReAKt e le classi implementate nel progetto. 
+Di seguito, viene fornita una descrizione dettagliata di ciascun componente e delle loro interazioni:
+
+\begin{itemize}
+    \item \texttt{InjectAwareResource}: Questa è un'interfaccia che definisce il metodo utilizzato per configurare l'iniettore delle dipendenze.
+
+    \item \texttt{ProtocolError}: Un'interfaccia che rappresenta gli errori relativi al protocollo. Viene implementata da due classi concrete:
+    \begin{itemize}
+        \item \texttt{EntityNotRegistered}: Rappresenta un errore che si verifica quando un'entità non è registrata.
+        \item \texttt{ProtocolException}: Rappresenta un'eccezione generale del protocollo.
+    \end{itemize}
+
+    \item \texttt{Protocol}: Un'interfaccia che definisce i metodi essenziali per la gestione del protocollo di comunicazione. Questi metodi includono:
+    \begin{itemize}
+        \item \texttt{setupChannel}: Metodo per configurare il canale di comunicazione tra due entità. Più chiamate a questo metodo con gli 
+        stessi \texttt{source} e \texttt{destination} dovrebbero essere idempotenti. Il runtime chiama questo metodo per configurare la comunicazione tra le entità; l'utente finale 
+        non dovrebbe interagire direttamente con questo metodo.
+        \item \texttt{writeToChannel(}: Metodo per scrivere dati sul canale di comunicazione specificato. Questo metodo può riuscire 
+        o fallire con un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} non sono registrate nel protocollo tramite il metodo \texttt{setupChannel}.
+        \item \texttt{readFromChannel}: Metodo per leggere dati dal canale di comunicazione specificato. Questo metodo restituisce un \texttt{Flow} 
+        caldo di messaggi che può essere consumato dal runtime. Può riuscire o fallire con un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} non sono 
+        registrate nel protocollo tramite il metodo \texttt{setupChannel}.
+    \end{itemize}
+
+    \item \texttt{MqttProtocol}: Una classe concreta che implementa l'interfaccia \texttt{Protocol}. Questa classe fornisce l'implementazione specifica per il protocollo MQTT, 
+    includendo i metodi definiti in \texttt{Protocol}. L'implementazione in \texttt{MqttProtocol} sfrutta le funzionalità di MQTT per gestire le comunicazioni tra i nodi nel sistema 
+    distribuito.
+
+\end{itemize}
+
+
 \section{Package}
 \begin{figure}[h]
     \centering
