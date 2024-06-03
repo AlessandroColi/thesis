@@ -232,41 +232,48 @@ su più piattaforme.
 \chapter{Requirements}
 \label{chap:Requirements}
 
-\section{Requisiti Funzionali}
+\section{Scalabilità}
+Il modulo di comunicazione sviluppato per il sistema di pulverizzazione e computazione distribuita PulvReAKt deve supportare la scalabilità orizzontale, permettendo l'aggiunta 
+di nuovi nodi senza interruzioni del servizio. Questo implica che l'architettura deve essere in grado di adattarsi dinamicamente all'aumento delle richieste, distribuendo il carico 
+tra i nuovi nodi in modo efficiente. Una soluzione di scalabilità orizzontale efficace dovrebbe prevedere meccanismi di auto-scaling, dove i nuovi nodi vengono aggiunti 
+automaticamente in risposta a picchi di carico e ridotti durante i periodi di bassa domanda, ottimizzando l'uso delle risorse e minimizzando i costi operativi. Inoltre, 
+il sistema deve essere in grado di gestire l'elasticità dell'infrastruttura, permettendo il provisioning e de-provisioning dei nodi in maniera automatizzata e senza interruzioni.
 
-\subsection{Scalabilità}
-Il modulo di comunicazione deve supportare la scalabilità orizzontale, permettendo l'aggiunta di nuovi nodi senza interruzioni del servizio. Questo implica che l'architettura 
-deve essere in grado di adattarsi dinamicamente all'aumento delle richieste, distribuendo il carico tra i nuovi nodi in modo efficiente. Una soluzione di scalabilità orizzontale 
-efficace dovrebbe prevedere meccanismi di auto-scaling, dove i nuovi nodi vengono aggiunti automaticamente in risposta a picchi di carico e ridotti durante i periodi di 
-bassa domanda, ottimizzando l'uso delle risorse e minimizzando i costi operativi. Deve inoltre essere in grado di gestire l'elasticità dell'infrastruttura, permettendo il 
-provisioning e de-provisioning dei nodi in maniera automatizzata e senza interruzioni.
+Per gestire la comunicazione diretta tra molteplici componenti, è stata scelta una struttura dei topic \ac{MQTT} con un topic principale (PulvReAKt) all'interno del quale avvengono 
+tutte le comunicazioni, secondo una struttura organizzata gerarchicamente. Seguendo lo schema PulvReAKt/mittente/destinatario, ad esempio, se un componente A volesse scrivere a un 
+componente B, il topic del messaggio sarebbe PulvReAKt/A/B. Questo approccio consente una gestione ordinata e tracciabile della comunicazione, facilitando la manutenzione e 
+l'analisi dei flussi di messaggi all'interno del sistema distribuito.
 
-Dovendo gestire la comunicazione diretta tra molteplici componenti, si è scelto di utilizzare una struttura dei topic \ac{MQTT} per cui vi è un topic principale (PulvReAKt) 
-al cui interno avvengono tutte le comunicazioni, secondo una struttura organizzata. Questa struttura è organizzata in modo gerarchico, seguendo lo schema 
-PulvReAKt/mittente/destinatario. Per esempio, se un componente A volesse scrivere ad un componente B, il topic del messaggio sarebbe PulvReAKt/A/B. 
-Questo approccio consente una gestione ordinata e tracciabile della comunicazione, facilitando la manutenzione e l'analisi dei flussi di messaggi all'interno del sistema distribuito.
-Inoltre, questa struttura permette di filtrare e gestire facilmente i messaggi in base alla sorgente e alla destinazione, migliorando l'efficienza della comunicazione e 
-riducendo il rischio di collisioni o confusione tra i messaggi inviati dai diversi componenti. La scelta di una struttura dei topic chiara e ben definita è cruciale per 
-assicurare che la comunicazione tra i componenti rimanga scalabile e manutenibile man mano che il sistema cresce e si evolve.
+Inoltre, questa struttura permette di filtrare e gestire facilmente i messaggi in base alla sorgente e alla destinazione, migliorando l'efficienza della comunicazione e riducendo 
+il rischio di collisioni o confusione tra i messaggi inviati dai diversi componenti. La scelta di una struttura dei topic chiara e ben definita è cruciale per assicurare che la 
+comunicazione tra i componenti rimanga scalabile e manutenibile man mano che il sistema cresce e si evolve.
 
-\subsection{Affidabilità}
+\section{Affidabilità}
 Un aspetto cruciale della scalabilità è la comunicazione tra i componenti, che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. 
 I componenti devono poter inviare e ricevere messaggi utilizzando il protocollo di comunicazione \ac{MQTT}. Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, 
-assicurando che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, assicurando che 
-ogni messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e gestione delle 
-code di messaggi per evitare perdite. Per raggiungere questo livello di affidabilità, è stato deciso di utilizzare il livello di Quality of Service (QoS) 2 di \ac{MQTT}. 
-QoS 2 garantisce che un messaggio venga consegnato esattamente una volta al destinatario, richiedendo una sequenza di conferme di ricezione (acknowledgements) tra mittente e destinatario. 
-Questo elimina il rischio di duplicati e garantisce la massima affidabilità, anche in condizioni di rete altamente instabili.
+assicurando che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, assicurando che ogni 
+messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e gestione delle code 
+di messaggi per evitare perdite. Per raggiungere questo livello di affidabilità, è stato deciso di utilizzare il livello di Quality of Service (QoS) 2 di \ac{MQTT}. 
+QoS 2 garantisce che un messaggio venga consegnato esattamente una volta al destinatario, richiedendo una sequenza di conferme di ricezione (acknowledgements) tra mittente e 
+destinatario. Questo elimina il rischio di duplicati e garantisce la massima affidabilità, anche in condizioni di rete altamente instabili.
 
-Un altro aspetto fondamentale è l'affidabilità del modulo di comunicazione, che deve garantire il funzionamento continuo e corretto del sistema anche in presenza di guasti o condizioni avverse. 
-L'affidabilità può essere migliorata attraverso diverse strategie, tra cui la gestione delle connessioni e il monitoraggio delle prestazioni del sistema. 
+Un altro aspetto fondamentale è l'affidabilità del modulo di comunicazione, che deve garantire il funzionamento continuo e corretto del sistema anche in presenza di guasti o 
+condizioni avverse. L'affidabilità può essere migliorata attraverso diverse strategie, tra cui la gestione delle connessioni e il monitoraggio delle prestazioni del sistema. 
 È importante implementare meccanismi di rilevamento e recupero dagli errori per garantire che i messaggi non vengano persi o duplicati. Ad esempio, l'uso di sessioni persistenti 
-permette di mantenere lo stato della connessione anche se il client o il broker si disconnettono temporaneamente. In caso di disconnessione, i messaggi pubblicati con QoS 2 
-vengono memorizzati e consegnati non appena la connessione viene ristabilita, assicurando che nessun messaggio importante venga perso.
+permette di mantenere lo stato della connessione anche se il client o il broker si disconnettono temporaneamente. In caso di disconnessione, i messaggi pubblicati con QoS 2 vengono 
+memorizzati e consegnati non appena la connessione viene ristabilita, assicurando che nessun messaggio importante venga perso.
 
-Inoltre, il modulo dovrebbe includere funzionalità di logging e monitoraggio per tracciare l'attività e le performance del sistema. Questi strumenti permettono di identificare 
-e risolvere rapidamente eventuali problemi, migliorando la reattività del sistema alle condizioni di errore. Il logging dettagliato degli eventi di comunicazione aiuta 
-anche nella diagnosi e nella prevenzione di guasti futuri, fornendo dati preziosi per l'analisi delle cause principali dei problemi.
+Il modulo di comunicazione deve includere funzionalità di logging e monitoraggio per tracciare l'attività e le performance del sistema. Questi strumenti permettono di identificare 
+e risolvere rapidamente eventuali problemi, migliorando la reattività del sistema alle condizioni di errore. Il logging dettagliato degli eventi di comunicazione aiuta anche nella 
+diagnosi e nella prevenzione di guasti futuri, fornendo dati preziosi per l'analisi delle cause principali dei problemi.
+
+L'implementazione di meccanismi di failover e ripristino automatico è essenziale per garantire la disponibilità continua del servizio. Ad esempio, l'uso di cluster di broker MQTT 
+ridondanti può prevenire l'interruzione del servizio in caso di guasto di uno dei nodi. Inoltre, la configurazione di backup e ripristino regolari dei dati critici garantisce che 
+il sistema possa essere rapidamente riportato allo stato operativo in caso di disastri.
+
+L'affidabilità può essere ulteriormente migliorata attraverso l'uso di tecniche di testing rigorose, come i test di stress e i test di carico, per valutare le prestazioni del 
+sistema sotto condizioni estreme. L'adozione di pratiche DevOps, con pipeline CI/CD (Continuous Integration/Continuous Deployment), assicura che le nuove versioni del software 
+vengano distribuite in modo sicuro e senza interruzioni, mantenendo un elevato standard di qualità e affidabilità.
 
 \section{Interoperabilità}
 
@@ -343,14 +350,43 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 \chapter{Design}
 \label{chap:Design}
 
-\section{Package}
-
 \section{Struttura}
+
+\section{Package}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/package-diagram.png}
+    \caption{Diagramma dei package e dei moduli del progetto}
+    \label{fig:diagramma-package}
+\end{figure}
+
+Data la natura multiplatform del progetto, si è scelto di utilizzare una libreria comune per la \ac{JVM} e native, mentre, data la natura singlethread di \ac{JS}, 
+si è optato per una libreria specifica per lo sviluppo con target NodeJS. Per questo motivo, il progetto è stato strutturato in modo tale da avere moduli 
+distinti per ciascun ambiente, con un modulo specifico per \ac{JS} e un modulo comune per \ac{JVM} e native.
+
+Il modulo comune per la \ac{JVM} e native è chiamato \texttt{multithreadedMain} e contiene l'implementazione comune ad entrambi i target. Questo modulo include tutte 
+le funzionalità che possono essere eseguite in un ambiente multithread, sfruttando le capacità di concorrenza della \ac{JVM} e delle piattaforme native. In \texttt{multithreadedMain} 
+sono implementati i componenti core del sistema, garantendo che la logica di base sia condivisa e riutilizzabile tra le diverse piattaforme. Questo approccio riduce la duplicazione 
+del codice e facilita la manutenzione del progetto.
+
+Dalla struttura di \texttt{multithreadedMain} dipendono due moduli specifici per ogni target:
+\begin{itemize}
+    \item \texttt{jvmMain} - Questo modulo estende \texttt{multithreadedMain} per includere ottimizzazioni e integrazioni necessarie per funzionare efficacemente in un ambiente \ac{JVM}. Qui vengono implementate le funzionalità specifiche che sfruttano le caratteristiche avanzate della \ac{JVM}, come la gestione avanzata dei thread e l'ottimizzazione delle prestazioni.
+    \item \texttt{nativeMain} - Questo modulo estende \texttt{multithreadedMain} per le piattaforme native, includendo le implementazioni necessarie per funzionare su tali ambienti. Viene adattato per sfruttare le peculiarità delle diverse piattaforme native, garantendo efficienza e compatibilità con il codice nativo.
+\end{itemize}
+
+Per quanto riguarda lo sviluppo con \ac{JS}, data la natura singlethread dell'ambiente, si è sviluppato un modulo specifico chiamato \texttt{jsMain}. 
+Questo modulo contiene le implementazioni necessarie per funzionare con NodeJS, adattandosi alle caratteristiche dell'ambiente singlethread. \texttt{jsMain} è stato progettato 
+per garantire che tutte le operazioni asincrone e le chiamate di rete siano gestite in modo efficiente, sfruttando il modello event-driven di NodeJS.
+
+In aggiunta ai moduli funzionali, è stato creato un modulo comune per i test chiamato \texttt{commonTest}. Questo modulo contiene tutti i test necessari per verificare 
+l'API comune tra i diversi target. Utilizzando \texttt{commonTest}, è possibile garantire che tutte le funzionalità comuni siano testate in modo uniforme su tutte le piattaforme, 
+assicurando la coerenza e l'affidabilità del progetto. I test inclusi in \texttt{commonTest} coprono una vasta gamma di scenari, dalle unit test alle integration test, assicurando che 
+ogni parte del sistema funzioni correttamente sia individualmente che nel contesto dell'intero progetto.
 
 \section{Logica dei Test}
 
 \section{Tecnologie Utilizzate}
-In questo capitolo, esploreremo le tecnologie e le librerie utilizzate nel progetto, analizzando le loro caratteristiche e i loro ruoli.
 
 \subsection{Kotest}
 Kotest rappresenta una scelta chiave per l'ambiente di sviluppo, poiché offre un framework di testing multipiattaforma specificamente progettato per Kotlin. 
