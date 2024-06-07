@@ -130,10 +130,30 @@ Un aspetto cruciale di \ac{MQTT} è la sua capacità di mantenere aperte le conn
  l'efficienza della comunicazione. Questo è particolarmente importante in contesti in cui è necessario uno scambio continuo di dati in tempo reale,
  come il monitoraggio ambientale, la gestione degli impianti industriali e la sorveglianza di sicurezza.
 
-Inoltre, \ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (QoS),
- che consentono di personalizzare e ottimizzare la comunicazione in base alle esigenze specifiche dell'applicazione.
- Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, in grado di soddisfare una vasta gamma di requisiti
- e casi d'uso nell'ambito dell'\ac{IoT}.
+\subsection{Quality of Service (QoS)}
+
+\ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (\ac*{QoS}), che consentono di personalizzare e ottimizzare 
+la comunicazione in base alle esigenze specifiche dell'applicazione.  Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, 
+in grado di soddisfare una vasta gamma di requisiti e casi d'uso nell'ambito dell'\ac{IoT}. 
+Ogni livello di \ac{QoS} in MQTT offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
+specifiche dell'applicazione.
+
+
+Il livello di \ac{QoS} 0, noto anche come `al massimo una volta' (at most once), garantisce che i messaggi vengano inviati senza conferma di ricezione. 
+I messaggi vengono consegnati in modo best effort, il che significa che non ci sono garanzie di consegna. Questo livello di \ac{QoS} è utilizzato quando la perdita 
+di messaggi occasionali è accettabile, come nelle applicazioni dove la latenza è più importante dell'affidabilità, ad esempio per il monitoraggio di dati in tempo reale 
+che vengono aggiornati frequentemente.
+
+Il livello di \ac{QoS} 1, noto anche come `almeno una volta' (at least once), garantisce che i messaggi vengano consegnati almeno una volta al destinatario. Ciò implica 
+che il mittente continua a inviare il messaggio finché non riceve una conferma di ricezione (acknowledgement) dal destinatario. Tuttavia, questo può portare alla possibilità 
+di ricevere duplicati del messaggio. Il livello \ac{QoS} 1 è utilizzato quando è importante che i messaggi vengano ricevuti, anche se ciò significa ricevere duplicati, 
+ad esempio per le transazioni di dati critici che devono essere garantite.
+
+Il livello di \ac{QoS} 2, noto anche come `esattamente una volta' (exactly once), garantisce che ogni messaggio venga consegnato esattamente una volta al destinatario. 
+Questo livello di \ac{QoS} utilizza un meccanismo di handshake a quattro fasi per assicurare che i messaggi non vengano duplicati e non vadano persi, garantendo la massima 
+affidabilità. Questo livello di \ac{QoS} è utilizzato in scenari dove è fondamentale evitare duplicati e garantire la consegna esatta di ogni messaggio, come nelle applicazioni 
+finanziarie o nei sistemi di controllo industriale.
+
 
 \section{Dependency Injection}
 
@@ -248,20 +268,17 @@ Inoltre, questa struttura permette di filtrare e gestire facilmente i messaggi i
 il rischio di collisioni o confusione tra i messaggi inviati dai diversi componenti. La scelta di una struttura dei topic chiara e ben definita è cruciale per assicurare che la 
 comunicazione tra i componenti rimanga scalabile e manutenibile man mano che il sistema cresce e si evolve.
 
-\section{Affidabilità}
-Un aspetto cruciale della scalabilità è la comunicazione tra i componenti, che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. 
-I componenti devono poter inviare e ricevere messaggi utilizzando il protocollo di comunicazione \ac{MQTT}. Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, 
-assicurando che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, assicurando che ogni 
-messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e gestione delle code 
-di messaggi per evitare perdite. Per raggiungere questo livello di affidabilità, è stato deciso di utilizzare il livello di Quality of Service (QoS) 2 di \ac{MQTT}. 
-QoS 2 garantisce che un messaggio venga consegnato esattamente una volta al destinatario, richiedendo una sequenza di conferme di ricezione (acknowledgements) tra mittente e 
-destinatario. Questo elimina il rischio di duplicati e garantisce la massima affidabilità, anche in condizioni di rete altamente instabili.
+Ecco la versione estesa del testo:
 
-Un altro aspetto fondamentale è l'affidabilità del modulo di comunicazione, che deve garantire il funzionamento continuo e corretto del sistema anche in presenza di guasti o 
-condizioni avverse. L'affidabilità può essere migliorata attraverso diverse strategie, tra cui la gestione delle connessioni e il monitoraggio delle prestazioni del sistema. 
-È importante implementare meccanismi di rilevamento e recupero dagli errori per garantire che i messaggi non vengano persi o duplicati. Ad esempio, l'uso di sessioni persistenti 
-permette di mantenere lo stato della connessione anche se il client o il broker si disconnettono temporaneamente. In caso di disconnessione, i messaggi pubblicati con QoS 2 vengono 
-memorizzati e consegnati non appena la connessione viene ristabilita, assicurando che nessun messaggio importante venga perso.
+\section{Affidabilità}
+Un aspetto cruciale nella comunicazione tra i componenti è che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. I componenti 
+devono poter inviare e ricevere messaggi utilizzando il protocollo di comunicazione \ac{MQTT}. Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, assicurando 
+che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, in alcuni casi assicurando che ogni 
+messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e 
+gestione delle code di messaggi per evitare perdite, che sono tutti compresi all'interno del protocollo \ac{MQTT} in caso si decida di usare una \ac*{QoS} di livello 1 o 2.
+
+La gestione delle code di messaggi è un'altra componente critica. Un sistema di coda ben progettato può aiutare a prevenire la perdita di messaggi in situazioni di traffico elevato 
+o in caso di disconnessioni temporanee. Implementare meccanismi di bufferizzazione e di ritrasmissione può migliorare significativamente l'affidabilità complessiva del sistema.
 
 Il modulo di comunicazione deve includere funzionalità di logging e monitoraggio per tracciare l'attività e le performance del sistema. Questi strumenti permettono di identificare 
 e risolvere rapidamente eventuali problemi, migliorando la reattività del sistema alle condizioni di errore. Il logging dettagliato degli eventi di comunicazione aiuta anche nella 
