@@ -112,22 +112,32 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 
 \section{Message Queuing Telemetry Transport (MQTT)}
 
-Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, 
-\ac{MQTT}  si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati. 
-La sua storia affonda le radici nella necessità di comunicare in modo efficiente tra dispositivi con risorse limitate, come sensori,ù attuatori e dispositivi embedded.
+Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, \ac{MQTT}  si distingue come 
+uno dei protocolli di comunicazione più importanti e ampiamente adottati. In quanto si presenta come una soluzione elegante per risolvere le sfide di comunicazione 
+proposte in ambito \ac*{IoT}. Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i dispositivi
+con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi tra i partecipanti alla rete.
 
-\ac{MQTT} si presenta come una soluzione elegante per risolvere le sfide di comunicazione in un ambiente \ac{IoT}. 
-Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i dispositivi con risorse limitate,
- e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi tra i partecipanti alla rete.
-
-Il modello publish-subscribe di \ac{MQTT} è fondamentale per comprendere il suo funzionamento. In questo modello, i dispositivi si dividono in due ruoli principali:
+Nel modello publish-subscribe di \ac{MQTT} i dispositivi si dividono in due ruoli principali:
  i publisher, che inviano i messaggi su specifici topic, e i subscriber, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
  Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità
  di conoscere direttamente gli indirizzi dei destinatari.
 
+Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variablie di client. Il broker \ac{MQTT} è un server 
+con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client MQTT è un qualsiasi dispositivo che esegue una libreria 
+\ac{MQTT} e si connette a un broker \ac{MQTT} e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
+invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client ch si sono iscritti a quell’argomento. 
+Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher.
+
 Un aspetto cruciale di \ac{MQTT} è la sua capacità di mantenere aperte le connessioni tra i dispositivi, riducendo al minimo la latenza e ottimizzando
  l'efficienza della comunicazione. Questo è particolarmente importante in contesti in cui è necessario uno scambio continuo di dati in tempo reale,
  come il monitoraggio ambientale, la gestione degli impianti industriali e la sorveglianza di sicurezza.
+I principali tipi di messaggi MQTT sono quattro:
+\begin{itemize}
+    \item \textbf{Connect}: il client attende che venga stabilita una connessione con il broker e crea un collegamento tra i nodi;
+    \item \textbf{Disconnect}: attende se il client MQTT deve terminare delle operazioni e poi chiude la sessione TCP/IP;
+    \item \textbf{Publish}: il client pubblica un messaggio nella classe specificato;
+    \item \textbf{Subscribe}: iscrive il client all’argomento specificato;
+\end{itemize}
 
 \subsection{Quality of Service (QoS)}
 
