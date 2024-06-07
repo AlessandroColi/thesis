@@ -426,8 +426,8 @@ del codice e facilita la manutenzione del progetto.
 
 Dalla struttura di \texttt{multithreadedMain} dipendono due moduli specifici per ogni target:
 \begin{itemize}
-    \item \texttt{jvmMain} - Questo modulo estende \texttt{multithreadedMain} per includere ottimizzazioni e integrazioni necessarie per funzionare efficacemente in un ambiente \ac{JVM}. Qui vengono implementate le funzionalità specifiche che sfruttano le caratteristiche avanzate della \ac{JVM}, come la gestione avanzata dei thread e l'ottimizzazione delle prestazioni.
-    \item \texttt{nativeMain} - Questo modulo estende \texttt{multithreadedMain} per le piattaforme native, includendo le implementazioni necessarie per funzionare su tali ambienti. Viene adattato per sfruttare le peculiarità delle diverse piattaforme native, garantendo efficienza e compatibilità con il codice nativo.
+    \item \texttt{jvmMain}: Questo modulo estende \texttt{multithreadedMain} per includere ottimizzazioni e integrazioni necessarie per funzionare efficacemente in un ambiente \ac{JVM}. Qui vengono implementate le funzionalità specifiche che sfruttano le caratteristiche avanzate della \ac{JVM}, come la gestione avanzata dei thread e l'ottimizzazione delle prestazioni.
+    \item \texttt{nativeMain}: Questo modulo estende \texttt{multithreadedMain} per le piattaforme native, includendo le implementazioni necessarie per funzionare su tali ambienti. Viene adattato per sfruttare le peculiarità delle diverse piattaforme native, garantendo efficienza e compatibilità con il codice nativo.
 \end{itemize}
 
 Per quanto riguarda lo sviluppo con \ac{JS}, data la natura singlethread dell'ambiente, si è sviluppato un modulo specifico chiamato \texttt{jsMain}. 
@@ -511,6 +511,16 @@ più strutturata e produttiva.
 Gradle rappresenta il cuore del processo di build e automazione del progetto. Questo sistema di automazione della compilazione, con la sua configurabilità ed estendibilità, 
 semplifica la gestione delle dipendenze, la compilazione del codice e l'esecuzione dei test. Grazie alla sua integrazione con Kotlin, Gradle contribuisce in modo significativo 
 a rendere il processo di sviluppo più efficiente e organizzato, offrendo un ambiente di sviluppo ottimizzato e scalabile.
+
+\subsection{Detekt}
+Detekt è uno strumento di analisi statica del codice progettato specificamente per Kotlin, che aiuta a identificare problemi di qualità del codice e potenziali bug. 
+Integrando Detekt nel progetto, è possibile eseguire una scansione automatica del codice sorgente per rilevare problemi di stile, errori comuni e complessità del codice.
+Detekt offre una vasta gamma di regole predefinite che coprono vari aspetti della qualità del codice, come la complessità ciclomatica, le convenzioni di codice, i potenziali 
+bug e le vulnerabilità di sicurezza. Inoltre, è possibile configurare Detekt per adattarsi alle esigenze specifiche del progetto, personalizzando le regole esistenti o creando 
+nuove regole personalizzate.
+L'uso di Detekt contribuisce a mantenere il codice pulito e manutenibile, facilitando la conformità agli standard di codifica e riducendo il rischio di errori. 
+Detekt può essere integrato nei processi di integrazione continua (CI) per garantire che il codice nuovo o modificato venga analizzato automaticamente, fornendo feedback 
+immediato agli sviluppatori e mantenendo alta la qualità del codice durante tutto il ciclo di sviluppo.
 
 
 \chapter{Implementazione e Validazione}
