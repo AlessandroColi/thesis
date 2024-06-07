@@ -153,6 +153,28 @@ Questo livello di \ac{QoS} utilizza un meccanismo di handshake a quattro fasi pe
 affidabilità. Questo livello di \ac{QoS} è utilizzato in scenari dove è fondamentale evitare duplicati e garantire la consegna esatta di ogni messaggio, come nelle applicazioni 
 finanziarie o nei sistemi di controllo industriale.
 
+\subsection{MQTT over WebSocket}
+
+MQTT over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
+di comunicazione che fornisce un canale full-duplex su una singola connessione TCP, consentendo una comunicazione bidirezionale in tempo reale tra il client e il server.
+
+L'integrazione di \ac{MQTT} con WebSocket permette ai client basati su web di comunicare direttamente con un broker \ac{MQTT}, eliminando la necessità di intermediari o di 
+soluzioni di polling inefficaci. Questo è particolarmente utile per le applicazioni \ac{IoT} che richiedono aggiornamenti in tempo reale e un'interazione continua tra 
+dispositivi e interfacce utente basate su web. Le principali caratteristiche di MQTT over WebSocket includono:
+
+\begin{itemize}
+    \item \textbf{Compatibilità Browser}: 
+    Consente ai browser web di stabilire connessioni \ac{MQTT} direttamente, facilitando lo sviluppo di applicazioni web interattive e in tempo reale.
+    \item \textbf{Efficienza della Connessione}: 
+    Utilizza una singola connessione TCP per gestire sia il canale di comunicazione \ac{MQTT} che la trasmissione dei dati, riducendo il sovraccarico di rete.
+    \item \textbf{Sicurezza}: 
+    Supporta la crittografia SSL/TLS per garantire che la comunicazione tra il client e il server sia sicura, proteggendo i dati trasmessi da intercettazioni e attacchi.
+    \item \textbf{Flessibilità}: 
+    Permette una facile integrazione con le infrastrutture web esistenti, utilizzando lo stesso stack di tecnologia web e riducendo la complessità del sistema.
+\end{itemize}
+
+MQTT over WebSocket è ideale per le applicazioni che necessitano di aggiornamenti frequenti e rapidi, come dashboard di monitoraggio, sistemi di allarme in tempo reale, 
+e applicazioni di controllo remoto. La combinazione di \ac{MQTT} e WebSocket offre una soluzione robusta e scalabile per la comunicazione in tempo reale nel mondo dell'\ac{IoT}.
 
 \section{Dependency Injection}
 
