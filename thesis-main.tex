@@ -284,6 +284,16 @@ su più piattaforme.
 
 \chapter{Requisiti}\label{chap:Requisiti}
 
+\section{Requisiti funzionali}
+
+Il progetto si focalizza sulla gestione delle comunicazioni all'interno di un sistema distribuito ed eterogeneo, 
+dove le componenti possono essere dislocate in diverse posizioni e possono variare in termini di capacità e risorse disponibili. 
+Questo sistema deve essere in grado di operare in contesti molto diversi, tra cui l'ambito \ac{IoT}, dove le macchine dispongono di risorse limitate.
+Il sistema deve essere in grado di funzionare correttamente anche in ambienti con una connettività di rete instabile o variabile.
+
+Uno degli obiettivi fondamentali del progetto è garantire che le comunicazioni avvengano in modo efficiente e affidabile, assicurando che i messaggi vengano recapitati solo ai 
+destinatari corretti. Questo implica l'implementazione di meccanismi di gestione dei messaggi che consentano di indirizzarli in modo preciso e di evitare sprechi di risorse.
+
 \section{Scalabilità}
 Il modulo di comunicazione sviluppato per il sistema di pulverizzazione e computazione distribuita PulvReAKt deve supportare la scalabilità orizzontale, permettendo l'aggiunta 
 di nuovi nodi senza interruzioni del servizio. Questo implica che l'architettura deve essere in grado di adattarsi dinamicamente all'aumento delle richieste, distribuendo il carico 
