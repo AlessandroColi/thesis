@@ -502,7 +502,7 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
 \end{itemize}
 
 
-\section{struttura dei Package}
+\section{Struttura dei Package}
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/package-diagram.png}
@@ -536,21 +536,24 @@ ogni parte del sistema funzioni correttamente sia individualmente che nel contes
 
 \section{Struttura dei messaggi e dei topic MQTT}
 
-La discrepanza tra il modello caratteristico di \ac{MQTT} ti tipo publish-subscribe e la necessità di comunicazione diretta tra le entità 
-che il progetto si propone di offrire. Rende necessaria un'attenta definizione della struttura dei topic di \ac{MQTT}, si è quindi scelto 
-di strutturare i topic con la forma \texttt{nomeProgetto/mittente/destinatario}. Dove `nomeProgetto' è un topic unico all'interno del progetto 
-che al suo interno ospita tutti i topic per la comunicazione tra le singole entità, nel di PulvReAKt il nome del progetto è `PulvReAKt' 
-ma può essere personalizzato tramite il costruttore del gestore delle comunicazioni. Come suggerito dai nomi `mittente' e `destinatario' 
-sono rispettivamente il nome dell'entità che vuole inviare il messaggioe di quella a cui è destinato. I nomi di tali entità sono definiti 
-estrenamente al modulo comunicativo, è quindi resposabilità dell'utente renderli univoci all'interno del sistema che utilizza questo modulo comunicativo
-per evitare ambiguità oppure utilizzare nomi comuni tra le entità che debbono ricevere gli stessi messaggi.
+La discrepanza tra il modello caratteristico di \ac{MQTT} di tipo publish-subscribe e la necessità di comunicazione diretta tra le entità, 
+che il progetto si propone di offrire, rende necessaria un'attenta definizione della struttura dei topic di \ac{MQTT}. Per affrontare questa sfida, 
+è stato deciso di strutturare i topic nella forma \texttt{nomeProgetto/mittente/destinatario}. In questa struttura, `nomeProgetto' rappresenta un topic 
+unico all'interno del progetto, che al suo interno ospita tutti i topic necessari per la comunicazione tra le singole entità. Ad esempio, nel progetto PulvReAKt, 
+il nome del progetto è `PulvReAKt', ma può essere personalizzato tramite il costruttore del gestore delle comunicazioni.
+I componenti `mittente' e `destinatario' rappresentano rispettivamente il nome dell'entità che invia il messaggio e il nome dell'entità a cui è destinato. 
+I nomi di queste entità sono definiti esternamente al modulo comunicativo, pertanto è responsabilità dell'utente garantirne l'unicità all'interno del sistema 
+per evitare ambiguità. In alternativa, l'utente può utilizzare nomi comuni tra le entità che devono ricevere gli stessi messaggi per motivi logistici.
 
-Per quanto riguarda invece le caratteristche dei messaggi che vengono inviati e ricevuti, si è scelto di utilizzare come predefinito il livello di \ac{QoS} 2 (exactly once), 
-in quanto quello più affidabile anche se meno efficiente. Si lascia però la possibilità all'utente di specificare un valore diverso per il livello di \ac{QoS}, 
-il valore del ServerKeepAlive (di default a 10 secondi) e retain del messaggio (di default a true). Per quanto riguarda invece il payload, viene preso e inserito 
-all'interno del pacchetto \ac{MQTT} e inviato al broker esattamente come ricevuto dall'utente, quindi rimosso dal pacchetto \ac{MQTT} e restituito all'entità interessata.
+Per quanto riguarda le caratteristiche dei messaggi inviati e ricevuti, è stato deciso di utilizzare come impostazione predefinita il livello di \ac{QoS} 2 (exactly once), 
+poiché è il livello più affidabile, anche se meno efficiente. Tuttavia, si offre all'utente la possibilità di specificare un valore diverso per il livello di \ac{QoS}, 
+il valore del ServerKeepAlive (impostato di default a 10 secondi) e il flag retain del messaggio (impostato di default a true). 
 
-\section{Scenari Soggetti a Test}
+Il payload dei messaggi viene trattato con attenzione: viene preso e inserito all'interno del pacchetto \ac{MQTT} esattamente come ricevuto dall'utente, inviato al broker, 
+e successivamente rimosso dal pacchetto \ac{MQTT} per essere restituito all'entità destinataria. Questa gestione assicura che il contenuto del messaggio mantenga la sua 
+integrità e che la comunicazione avvenga in modo trasparente ed efficace, rispettando le esigenze di affidabilità e performance del sistema.
+
+\section{Struttura dei Test}
 
 Il test valuta la robustezza di un protocollo di comunicazione MQTT attraverso una serie di scenari distinti. Innanzitutto, viene verificato che il protocollo possa essere 
 inizializzato e finalizzato senza incorrere in errori. Questa fase è critica poiché assicura che tutte le operazioni di setup e di chiusura del protocollo siano eseguite 
