@@ -24,7 +24,6 @@
 \acrodef{JS}{JavaScript}
 \acrodef{MQTT}{Message Queuing Telemetry Transpor}
 \acrodef{QoS}{Quality of Service}
-\acrodef{HTTP}{Hypertext Transfer Protocol}
 
 \mainlinespacing{1.241}
 
@@ -100,8 +99,10 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 
 \begin{itemize}
 \item \textbf{Protocolli di Comunicazione Universali}: Questi protocolli consentono la comunicazione tra dispositivi e sistemi eterogenei,
- fornendo un'interfaccia standardizzata per lo scambio di dati e messaggi. Esempi di protocolli universali includono \ac{HTTP}, \ac{MQTT} e gRPC,
-  che consentono la comunicazione su diverse piattaforme e architetture.
+ fornendo un'interfaccia standardizzata per lo scambio di dati e messaggi. Esempi di protocolli universali includono HTTP\footnote{
+    HTTP (HyperText Transfer Protocol) è un protocollo di comunicazione utilizzato per il trasferimento di ipertesti, 
+    come pagine web, su reti informatiche, principalmente il World Wide Web.
+ }, \ac{MQTT} e gRPC, che consentono la comunicazione su diverse piattaforme e architetture.
 \item \textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
  consentendo la trasparenza della distribuzione su piattaforme eterogenee. Questo può includere servizi di messaggistica, servizi di gestione delle transazioni
   e sistemi di caching distribuiti.
@@ -130,9 +131,11 @@ con la funzione di ricevere i messaggi da tutti i client e di instradarli verso 
 invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client ch si sono iscritti a quell’argomento. 
 Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher.
 
-Un aspetto cruciale di \ac{MQTT} è la sua capacità di mantenere aperte le connessioni tra i dispositivi, riducendo al minimo la latenza e ottimizzando
- l'efficienza della comunicazione. Questo è particolarmente importante in contesti in cui è necessario uno scambio continuo di dati in tempo reale,
- come il monitoraggio ambientale, la gestione degli impianti industriali e la sorveglianza di sicurezza.
+Un aspetto cruciale del protocollo MQTT è la sua capacità di mantenere aperte le connessioni tra i dispositivi per lunghi periodi, riducendo al minimo la latenza 
+e ottimizzando l'efficienza della comunicazione. Questo risulta particolarmente importante in contesti dove è essenziale uno scambio continuo e tempestivo di dati 
+in tempo reale, permettendo un monitoraggio costante e affidabile. Tale caratteristica rende MQTT ideale per applicazioni che richiedono una trasmissione dati 
+ininterrotta e reattiva, garantendo prestazioni ottimali anche in ambienti con risorse limitate e connettività intermittente.
+
 I principali tipi di messaggi MQTT sono quattro:
 \begin{itemize}
     \item \textbf{Connect}: il client attende che venga stabilita una connessione con il broker e crea un collegamento tra i nodi;
@@ -286,13 +289,21 @@ su più piattaforme.
 
 \section{Requisiti funzionali}
 
-Il progetto si focalizza sulla gestione delle comunicazioni all'interno di un sistema distribuito ed eterogeneo, 
-dove le componenti possono essere dislocate in diverse posizioni e possono variare in termini di capacità e risorse disponibili. 
-Questo sistema deve essere in grado di operare in contesti molto diversi, tra cui l'ambito \ac{IoT}, dove le macchine dispongono di risorse limitate.
-Il sistema deve essere in grado di funzionare correttamente anche in ambienti con una connettività di rete instabile o variabile.
+Il progetto si propone di offrire un gestore delle comunicazioni utilizzabile in divbersi ambiti, in particolare è stato progettato con in mente le funzionalità necessarie
+all'interno di un sistema distribuito ed eterogeneo quale PulvReAKt. Caratterizzato dalla presenza di componenti dislocate in posizioni 
+geografiche diverse e con capacità e risorse variabili. Questo sistema deve essere in grado di operare efficacemente in contesti molto diversificati, inclusi quelli 
+\ac{IoT}, dove le macchine coinvolte dispongono spesso di risorse hardware limitate. Inoltre, il sistema deve essere progettato per funzionare correttamente anche in ambienti 
+con connettività di rete instabile o variabile, garantendo prestazioni adeguate indipendentemente dalle condizioni di rete.
 
-Uno degli obiettivi fondamentali del progetto è garantire che le comunicazioni avvengano in modo efficiente e affidabile, assicurando che i messaggi vengano recapitati solo ai 
-destinatari corretti. Questo implica l'implementazione di meccanismi di gestione dei messaggi che consentano di indirizzarli in modo preciso e di evitare sprechi di risorse.
+Uno degli obiettivi principali del progetto è assicurare che le comunicazioni avvengano in modo efficiente e affidabile, con particolare attenzione a garantire 
+che i messaggi vengano recapitati esclusivamente ai destinatari interessati. Questo richiede l'implementazione di meccanismi sofisticati di gestione dei messaggi, 
+che consentano un indirizzamento preciso e prevengano lo spreco di risorse. La capacità di indirizzare correttamente i messaggi è fondamentale per evitare 
+sovraccarichi di rete e per mantenere l'integrità e la sicurezza delle comunicazioni.
+
+La gestione dei canali di comunicazione deve essere trasparente per l'utente finale. Tuttavia, è responsabilità dell'utente formattare correttamente i messaggi, 
+poiché il sistema è progettato per ricevere il messaggio in input, insieme alle entità sorgente e destinazione, e per inviarlo al destinatario corretto mantenendo 
+l'integrità del mittente e del contenuto del messaggio. La formattazione non sarà unificata se non per quanto strettamente necessario per garantire l'invio e 
+la ricezione corretti dei messaggi, utilizzando il protocollo \ac{MQTT}. 
 
 \section{Scalabilità}
 Il modulo di comunicazione sviluppato per il sistema di pulverizzazione e computazione distribuita PulvReAKt deve supportare la scalabilità orizzontale, permettendo l'aggiunta 
@@ -369,7 +380,7 @@ Include librerie per la gestione del DOM\footnote{
     il contenuto delle pagine web.
 }, l'interazione con API REST\footnote{
     API REST (Representational State Transfer): Insieme di convenzioni per creare servizi web che permettono la comunicazione 
-    tra client e server utilizzando operazioni \ac{HTTP} standard.
+    tra client e server utilizzando operazioni HTTP standard.
 }, la manipolazione dei dati JSON\footnote{
     JSON (JavaScript Object Notation): Formato di testo leggero per lo scambio di dati, facilmente leggibile dagli umani e parsabile dai computer.
 } 
