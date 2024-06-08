@@ -504,7 +504,21 @@ l'API comune tra i diversi target. Utilizzando \texttt{commonTest}, è possibile
 assicurando la coerenza e l'affidabilità del progetto. I test inclusi in \texttt{commonTest} coprono una vasta gamma di scenari, dalle unit test alle integration test, assicurando che 
 ogni parte del sistema funzioni correttamente sia individualmente che nel contesto dell'intero progetto.
 
-\section{Dettagli relativi ad MQTT}
+\section{Struttura dei messaggi e dei topic MQTT}
+
+La discrepanza tra il modello caratteristico di \ac{MQTT} ti tipo publish-subscribe e la necessità di comunicazione diretta tra le entità 
+che il progetto si propone di offrire. Rende necessaria un'attenta definizione della struttura dei topic di \ac{MQTT}, si è quindi scelto 
+di strutturare i topic con la forma \texttt{nomeProgetto/mittente/destinatario}. Dove `nomeProgetto' è un topic unico all'interno del progetto 
+che al suo interno ospita tutti i topic per la comunicazione tra le singole entità, nel di PulvReAKt il nome del progetto è `PulvReAKt' 
+ma può essere personalizzato tramite il costruttore del gestore delle comunicazioni. Come suggerito dai nomi `mittente' e `destinatario' 
+sono rispettivamente il nome dell'entità che vuole inviare il messaggioe di quella a cui è destinato. I nomi di tali entità sono definiti 
+estrenamente al modulo comunicativo, è quindi resposabilità dell'utente renderli univoci all'interno del sistema che utilizza questo modulo comunicativo
+per evitare ambiguità oppure utilizzare nomi comuni tra le entità che debbono ricevere gli stessi messaggi.
+
+Per quanto riguarda invece le caratteristche dei messaggi che vengono inviati e ricevuti, si è scelto di utilizzare come predefinito il livello di \ac{QoS} 2 (exactly once), 
+in quanto quello più affidabile anche se meno efficiente. Si lascia però la possibilità all'utente di specificare un valore diverso per il livello di \ac{QoS}, 
+il valore del ServerKeepAlive (di default a 10 secondi) e retain del messaggio (di default a true). Per quanto riguarda invece il payload, viene preso e inserito 
+all'interno del pacchetto \ac{MQTT} e inviato al broker esattamente come ricevuto dall'utente, quindi rimosso dal pacchetto \ac{MQTT} e restituito all'entità interessata.
 
 \section{Scenari Soggetti a Test}
 
