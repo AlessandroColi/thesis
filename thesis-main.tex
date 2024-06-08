@@ -9,7 +9,7 @@
 
 \school{\unibo}
 \programme{Corso di Laurea in Ingegneria e Scienze Informatiche}
-\title{Kotlin Multiplatform e PulvReAKt: analisi e prototipazione di applicazioni IoT eterogenee} %davvero questo?
+\title{Kotlin Multiplatform e PulvReAKt: analisi e prototipazione di applicazioni IoT eterogenee}
 \author{Coli Alessandro}
 \date{\today}
 \subject{Programmazione ad Oggetti}
@@ -24,8 +24,9 @@
 \acrodef{JS}{JavaScript}
 \acrodef{MQTT}{Message Queuing Telemetry Transpor}
 \acrodef{QoS}{Quality of Service}
+\acrodef{HTTP}{Hypertext Transfer Protocol}
 
-\mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
+\mainlinespacing{1.241}
 
 \begin{document}
 
@@ -36,9 +37,9 @@ dedica opzionale. Max a few lines.
 \end{dedication}
 
 %----------------------------------------------------------------------------------------
-\tableofcontents   
-%\listoffigures      (optional) comment if empty
-%\lstlistoflistings (optional) comment if empty
+\tableofcontents
+\listoffigures
+%\lstlistoflistings
 %----------------------------------------------------------------------------------------
 
 \mainmatter
@@ -98,7 +99,7 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 
 \begin{itemize}
 \item \textbf{Protocolli di Comunicazione Universali}: Questi protocolli consentono la comunicazione tra dispositivi e sistemi eterogenei,
- fornendo un'interfaccia standardizzata per lo scambio di dati e messaggi. Esempi di protocolli universali includono HTTP, \ac{MQTT} e gRPC,
+ fornendo un'interfaccia standardizzata per lo scambio di dati e messaggi. Esempi di protocolli universali includono \ac{HTTP}, \ac{MQTT} e gRPC,
   che consentono la comunicazione su diverse piattaforme e architetture.
 \item \textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
  consentendo la trasparenza della distribuzione su piattaforme eterogenee. Questo può includere servizi di messaggistica, servizi di gestione delle transazioni
@@ -280,7 +281,7 @@ un unico set di codice Kotlin che può essere condiviso e utilizzato su diverse 
 Questo approccio consente agli sviluppatori di massimizzare la condivisione del codice, riducendo al minimo la duplicazione e semplificando la manutenzione dell'applicazione 
 su più piattaforme.
 
-\chapter{Requirements}\label{chap:Requirements}
+\chapter{Requisiti}\label{chap:Requisiti}
 
 \section{Scalabilità}
 Il modulo di comunicazione sviluppato per il sistema di pulverizzazione e computazione distribuita PulvReAKt deve supportare la scalabilità orizzontale, permettendo l'aggiunta 
@@ -296,16 +297,14 @@ l'analisi dei flussi di messaggi all'interno del sistema distribuito.
 
 Inoltre, questa struttura permette di filtrare e gestire facilmente i messaggi in base alla sorgente e alla destinazione, migliorando l'efficienza della comunicazione e riducendo 
 il rischio di collisioni o confusione tra i messaggi inviati dai diversi componenti. La scelta di una struttura dei topic chiara e ben definita è cruciale per assicurare che la 
-comunicazione tra i componenti rimanga scalabile e manutenibile man mano che il sistema cresce e si evolve.
-
-Ecco la versione estesa del testo:
+comunicazione tra i componenti rimanga scalabile e mantenibile man mano che il sistema cresce e si evolve.
 
 \section{Affidabilità}
 Un aspetto cruciale nella comunicazione tra i componenti è che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. I componenti 
 devono poter inviare e ricevere messaggi utilizzando il protocollo di comunicazione \ac{MQTT}. Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, assicurando 
 che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, in alcuni casi assicurando che ogni 
 messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e 
-gestione delle code di messaggi per evitare perdite, che sono tutti compresi all'interno del protocollo \ac{MQTT} in caso si decida di usare una \ac*{QoS} di livello 1 o 2.
+gestione delle code di messaggi per evitare perdite, che sono tutti compresi all'interno del protocollo \ac{MQTT} in caso si decida di usare una \ac{QoS} di livello 1 o 2.
 
 La gestione delle code di messaggi è un'altra componente critica. Un sistema di coda ben progettato può aiutare a prevenire la perdita di messaggi in situazioni di traffico elevato 
 o in caso di disconnessioni temporanee. Implementare meccanismi di bufferizzazione e di ritrasmissione può migliorare significativamente l'affidabilità complessiva del sistema.
@@ -353,9 +352,17 @@ sfruttando le capacità di questa piattaforma. Le caratteristiche principali di 
 \begin{itemize}
 \item \textbf{Compatibilità con il Web}: JavaScript è nativamente supportato dai browser, permettendo l'esecuzione di applicazioni Kotlin/\ac{JS} direttamente nel contesto web e 
 consente agli sviluppatori di creare applicazioni web interattive e dinamiche utilizzando Kotlin come linguaggio di sviluppo.
-\item \textbf{Ecossistema di Librerie}: Ampia disponibilità di librerie e framework per lo sviluppo web, che possono essere utilizzati anche con Kotlin/\ac{JS}. 
-Include librerie per la gestione del DOM, l'interazione con API REST, la manipolazione dei dati JSON e molto altro ancora, consentendo agli sviluppatori di sfruttare 
-le funzionalità esistenti senza dover reinventare la ruota.
+\item \textbf{Ecosistema di Librerie}: Ampia disponibilità di librerie e framework per lo sviluppo web, che possono essere utilizzati anche con Kotlin/\ac{JS}. 
+Include librerie per la gestione del DOM\footnote{
+    DOM (Document Object Model): Rappresentazione ad albero di un documento HTML/XML che permette di accedere e modificare dinamicamente la struttura e 
+    il contenuto delle pagine web.
+}, l'interazione con API REST\footnote{
+    API REST (Representational State Transfer): Insieme di convenzioni per creare servizi web che permettono la comunicazione 
+    tra client e server utilizzando operazioni \ac{HTTP} standard.
+}, la manipolazione dei dati JSON\footnote{
+    JSON (JavaScript Object Notation): Formato di testo leggero per lo scambio di dati, facilmente leggibile dagli umani e parsabile dai computer.
+} 
+e molto altro ancora, consentendo quindi agli sviluppatori di sfruttare le funzionalità esistenti senza doverle implementare nuovamente.
 \item \textbf{Asincronia}: Supporto nativo per le operazioni asincrone tramite callback, Promises e async/await che vanno a sopperire alla mancanza di capacità multithread 
 essendo progettato per lavorare anche in contesto browser, quindi con un singolo thread. Questa particolarita è estremamente utile per le applicazioni web che devono gestire 
 operazioni di rete, come il caricamento di dati da un server remoto.
@@ -377,20 +384,20 @@ Questi moduli coprono una vasta gamma di funzionalità, come la gestione del dat
 \subsection{Native}
 
 Kotlin/Native permette di compilare codice Kotlin direttamente in codice macchina eseguibile su dispositivi target, senza la necessità di una macchina virtuale o un interprete.
-Le caratteristcihe principale delle piattaforme native sono:
+Le caratteristche principali delle diverse piattaforme native sono:
 
 \begin{itemize}
 \item \textbf{Esecuzione Diretta}: Compilazione in codice nativo che viene eseguito direttamente dall'hardware, senza layer di interpretazione. 
-Che si traduce in prestazioni superiori rispetto alle applicazioni eseguite su una macchina virtuale o interprete, poiché non vi è alcun overhead dovuto alla traduzione 
+Si traduce in prestazioni superiori rispetto alle applicazioni eseguite su una macchina virtuale o interprete, poiché non vi è alcun overhead dovuto alla traduzione 
 del bytecode in istruzioni di macchina.
 \item \textbf{Performance}: Le applicazioni native tendono ad avere performance superiori rispetto a quelle eseguite su una macchina virtuale o interprete, 
 grazie alla compilazione diretta. Questo è particolarmente importante per le applicazioni ad alte prestazioni che richiedono un tempo di risposta rapido e una bassa latenza.
 \item \textbf{Accesso a Funzionalità di Sistema}: Possibilità di accedere direttamente alle API di sistema e alle risorse hardware, offrendo maggior controllo e ottimizzazione. 
-Consentendo agli sviluppatori di creare applicazioni che interagiscono direttamente con l'hardware sottostante, sfruttando appieno le capacità del dispositivo target.
-\item \textbf{Assenza di Overhead}: Nessun overhead dovuto alla gestione della macchina virtuale o alla garbage collection, sebbene Kotlin/Native includa un garbage collector. 
-Questo significa che le risorse del sistema possono essere utilizzate in modo più efficiente, riducendo il consumo di memoria e CPU.
-\item \textbf{Cross-platform}: Supporto per diverse piattaforme, inclusi iOS, Windows, Linux e macOS, facilitando lo sviluppo di applicazioni multi-piattaforma. 
-Consentendo agli sviluppatori di scrivere un'unica base di codice Kotlin che può essere compilata per eseguire su una varietà di dispositivi e sistemi operativi, 
+Consente agli sviluppatori di creare applicazioni che interagiscono direttamente con l'hardware sottostante, sfruttando appieno le capacità del dispositivo target.
+\item \textbf{Assenza di Overhead}: Sebbene Kotlin/Native includa un garbage collector, quando viene eseguito su piattaforme native non vi è nessun overhead dovuto alla 
+gestione della macchina virtuale. Questo significa che le risorse del sistema possono essere utilizzate in modo più efficiente, riducendo il consumo di memoria e CPU.
+\item \textbf{Cross-platform}: La capacità di supportare per diverse piattaforme, inclusi iOS, Windows, Linux e macOS, facilita lo sviluppo di applicazioni multi-piattaforma, 
+consente agli sviluppatori di scrivere un'unica base di codice Kotlin che può essere compilato ed eseguito su una varietà di dispositivi e sistemi operativi, 
 riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 \end{itemize}
 
@@ -409,19 +416,19 @@ Il diagramma delle classi presentato in Figura\ref{fig:class-diagram} illustra l
 Di seguito, viene fornita una descrizione dettagliata di ciascun componente e delle loro interazioni:
 
 \begin{itemize}
-    \item \texttt{InjectAwareResource}: Questa è un'interfaccia che definisce il metodo utilizzato per configurare l'iniettore delle dipendenze.
+    \item \texttt{InjectAwareResource}: è un'interfaccia che definisce il metodo utilizzato per configurare l'iniettore delle dipendenze.
 
-    \item \texttt{ProtocolError}: Un'interfaccia che rappresenta gli errori relativi al protocollo. Viene implementata da due classi concrete:
+    \item \texttt{ProtocolError}: è un'interfaccia che rappresenta gli errori relativi al protocollo. Viene implementata da due classi concrete:
     \begin{itemize}
-        \item \texttt{EntityNotRegistered}: Rappresenta un errore che si verifica quando un'entità non è registrata.
-        \item \texttt{ProtocolException}: Rappresenta un'eccezione generale del protocollo.
+        \item \texttt{EntityNotRegistered}: rappresenta un errore che si verifica quando un'entità non è registrata.
+        \item \texttt{ProtocolException}: rappresenta un'eccezione generale del protocollo.
     \end{itemize}
 
-    \item \texttt{Protocol}: Un'interfaccia che definisce i metodi essenziali per la gestione del protocollo di comunicazione. Questi metodi includono:
+    \item \texttt{Protocol}: è un'interfaccia che definisce i metodi essenziali per la gestione del protocollo di comunicazione. Questi metodi includono:
     \begin{itemize}
-        \item \texttt{setupChannel}: Metodo per configurare il canale di comunicazione tra due entità. Più chiamate a questo metodo con gli 
-        stessi \texttt{source} e \texttt{destination} dovrebbero essere idempotenti. Il runtime chiama questo metodo per configurare la comunicazione tra le entità; l'utente finale 
-        non dovrebbe interagire direttamente con questo metodo.
+        \item \texttt{setupChannel}: metodo per configurare il canale di comunicazione tra due entità \texttt{source} e \texttt{destination}. 
+        Una volta chiamato il setup sarà valiudo per tutto il tempo di eseguzione, sarà quindi sufficiente chiamarlo una volta per ogni coppia 
+        \texttt{source} e \texttt{destination}. Questo metodo è trasparente all'utente finale, che non dovrebbe mai interagire direttamente con questo metodo.
         \item \texttt{writeToChannel}: Metodo per scrivere dati sul canale di comunicazione specificato. Questo metodo può riuscire 
         o fallire con un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} non sono registrate nel protocollo tramite il metodo \texttt{setupChannel}.
         \item \texttt{readFromChannel}: Metodo per leggere dati dal canale di comunicazione specificato. Questo metodo restituisce un \texttt{Flow} 
@@ -440,7 +447,7 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/package-diagram.png}
-    \caption{Diagramma dei package e dei moduli del progetto}
+    \caption{Diagramma dei package}
     \label{fig:diagramma-package}
 \end{figure}
 
