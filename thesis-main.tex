@@ -22,7 +22,7 @@
 \acrodef{IoT}{Internet of Thing}
 \acrodef{JVM}{Java Virtual Machine}
 \acrodef{JS}{JavaScript}
-\acrodef{MQTT}{Message Queuing Telemetry Transpor}
+\acrodef{MQTT}{Message Queuing Telemetry Transport}
 \acrodef{QoS}{Quality of Service}
 
 \mainlinespacing{1.241}
@@ -113,12 +113,19 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
  garantendo la ridondanza, la resilienza e la flessibilità delle applicazioni su piattaforme eterogenee
 \end{itemize}
 
-\section{Message Queuing Telemetry Transport (MQTT)}
+\section{Protocollo MQTT}
 
-Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, \ac{MQTT}  si distingue come 
-uno dei protocolli di comunicazione più importanti e ampiamente adottati. In quanto si presenta come una soluzione elegante per risolvere le sfide di comunicazione 
-proposte in ambito \ac*{IoT}. Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i dispositivi
-con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi tra i partecipanti alla rete.
+Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, Message Queuing Telemetry Transport (MQTT) 
+si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati. In quanto si presenta come una soluzione elegante per risolvere le sfide di 
+comunicazione proposte in ambito \ac*{IoT}. Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i 
+dispositivi con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi tra i partecipanti alla rete.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/mqtt-example.png}
+    \caption{ Esempio di comunicazione tramite MQTT}
+    \label{fig:mqtt-example}
+\end{figure}
 
 Nel modello publish-subscribe di \ac{MQTT} i dispositivi si dividono in due ruoli principali:
  i publisher, che inviano i messaggi su specifici topic, e i subscriber, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
@@ -289,7 +296,7 @@ su più piattaforme.
 
 \section{Requisiti funzionali}
 
-Il progetto si propone di offrire un gestore delle comunicazioni utilizzabile in divbersi ambiti, in particolare è stato progettato con in mente le funzionalità necessarie
+Il progetto si propone di offrire un gestore delle comunicazioni utilizzabile in diversi ambiti, in particolare è stato progettato con in mente le funzionalità necessarie
 all'interno di un sistema distribuito ed eterogeneo quale PulvReAKt. Caratterizzato dalla presenza di componenti dislocate in posizioni 
 geografiche diverse e con capacità e risorse variabili. Questo sistema deve essere in grado di operare efficacemente in contesti molto diversificati, inclusi quelli 
 \ac{IoT}, dove le macchine coinvolte dispongono spesso di risorse hardware limitate. Inoltre, il sistema deve essere progettato per funzionare correttamente anche in ambienti 
@@ -302,7 +309,7 @@ sovraccarichi di rete e per mantenere l'integrità e la sicurezza delle comunica
 
 La gestione dei canali di comunicazione deve essere trasparente per l'utente finale. Tuttavia, è responsabilità dell'utente formattare correttamente i messaggi, 
 poiché il sistema è progettato per ricevere il messaggio in input, insieme alle entità sorgente e destinazione, e per inviarlo al destinatario corretto mantenendo 
-l'integrità del mittente e del contenuto del messaggio. La formattazione non sarà unificata se non per quanto strettamente necessario per garantire l'invio e 
+l'integrità del mittente e del contenuto del messaggio. La formattazione non sarà unificata se non per quanto riguarda l'incapsulamento necessario per garantire l'invio e 
 la ricezione corretti dei messaggi, utilizzando il protocollo \ac{MQTT}. 
 
 \section{Scalabilità}
@@ -497,6 +504,8 @@ l'API comune tra i diversi target. Utilizzando \texttt{commonTest}, è possibile
 assicurando la coerenza e l'affidabilità del progetto. I test inclusi in \texttt{commonTest} coprono una vasta gamma di scenari, dalle unit test alle integration test, assicurando che 
 ogni parte del sistema funzioni correttamente sia individualmente che nel contesto dell'intero progetto.
 
+\section{Dettagli relativi ad MQTT}
+
 \section{Scenari Soggetti a Test}
 
 Il test valuta la robustezza di un protocollo di comunicazione MQTT attraverso una serie di scenari distinti. Innanzitutto, viene verificato che il protocollo possa essere 
@@ -513,8 +522,6 @@ l'efficacia del protocollo nella gestione della comunicazione bidirezionale tra 
 
 Questi scenari, inclusi nei test, mirano a garantire che il protocollo MQTT implementato risponda in modo affidabile e robusto in una varietà di situazioni, sia in condizioni 
 ideali di funzionamento che in presenza di errori o situazioni impreviste.
-
-Ecco una versione più estesa del capitolo:
 
 \section{Tecnologie Utilizzate}
 
