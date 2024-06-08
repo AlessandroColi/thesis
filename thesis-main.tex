@@ -123,7 +123,7 @@ dispositivi con risorse limitate, e il modello di comunicazione publish-subscrib
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mqtt-example.png}
-    \caption{ Esempio di comunicazione tramite MQTT}
+    \caption{Esempio di comunicazione tramite MQTT}
     \label{fig:mqtt-example}
 \end{figure}
 
@@ -151,14 +151,43 @@ I principali tipi di messaggi MQTT sono quattro:
     \item \textbf{Subscribe}: iscrive il client all’argomento specificato;
 \end{itemize}
 
+\subsection{Formato pacchetti MQTT}
+Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddivisa nelle seguenti componenti principali:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/mqtt-packet.png}
+    \caption{formato di un pacchetto MQTT}
+    \label{fig:mqtt-packet}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{Fixed Header (Intestazione Fissa):} Ogni pacchetto MQTT contiene un'intestazione fissa che è obbligatoria e ha una lunghezza di 2 byte. 
+L'intestazione fissa include il tipo di messaggio, il livello di \ac{QoS}, la lunghezza rimanente del pacchetto e informazioni sui flag di controllo
+tra cui DUP (duplicate) che indica se è il primo tentativo di invio di tale pacchetto e RET (retain) che indica se tale pacchetto deve essere salvato nel server.
+I tipi di messaggio possono includere CONNECT, PUBLISH, SUBSCRIBE, UNSUBSCRIBE, DISCONNECT.
+\item \textbf{Variable Header (Intestazione Variabile):} L'intestazione variabile è opzionale e viene utilizzata in base al tipo di pacchetto. 
+Questa sezione può includere diversi campi come l'identificatore del pacchetto, i codici di ritorno e altre informazioni specifiche del tipo di messaggio. 
+Ad esempio, nei pacchetti di tipo PUBLISH, l'intestazione variabile include il topic del messaggio.
+\item \textbf{Payload (Corpo del Messaggio):} Il corpo del messaggio o payload è anch'esso opzionale e contiene i dati effettivi da trasmettere. 
+La lunghezza del payload può variare e nei pacchetti PUBLISH, esso contiene il contenuto del messaggio che viene inviato agli abbonati al topic specifico. 
+La presenza e il contenuto del payload dipendono dal tipo di messaggio specifico.
+\end{itemize}
+
 \subsection{Quality of Service (QoS)}
 
-\ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (\ac*{QoS}), che consentono di personalizzare e ottimizzare 
-la comunicazione in base alle esigenze specifiche dell'applicazione.  Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, 
+\ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (\ac{QoS}), che consentono di personalizzare e ottimizzare 
+la comunicazione in base alle esigenze specifiche dell'applicazione. Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, 
 in grado di soddisfare una vasta gamma di requisiti e casi d'uso nell'ambito dell'\ac{IoT}. 
 Ogni livello di \ac{QoS} in MQTT offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
-specifiche dell'applicazione.
+specifiche dell'applicazione semplicemente modificando il valore dei due bit che indicano il livello QoS nei pachetti, tramite le APi fornite dalle librerie. 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/mqtt-qos.png}
+    \caption{funzionamento dei diversi livelli di QoS}
+    \label{fig:mqtt-qos}
+\end{figure}
 
 Il livello di \ac{QoS} 0, noto anche come `al massimo una volta' (at most once), garantisce che i messaggi vengano inviati senza conferma di ricezione. 
 I messaggi vengono consegnati in modo best effort, il che significa che non ci sono garanzie di consegna. Questo livello di \ac{QoS} è utilizzato quando la perdita 
@@ -175,6 +204,7 @@ Questo livello di \ac{QoS} utilizza un meccanismo di handshake a quattro fasi pe
 affidabilità. Questo livello di \ac{QoS} è utilizzato in scenari dove è fondamentale evitare duplicati e garantire la consegna esatta di ogni messaggio, come nelle applicazioni 
 finanziarie o nei sistemi di controllo industriale.
 
+\pagebreak %avoids first 2 line of next subsection to be at the bottom of the page
 \subsection{MQTT over WebSocket}
 
 MQTT over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
