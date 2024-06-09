@@ -510,19 +510,20 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
     \label{fig:diagramma-package}
 \end{figure}
 
-Data la natura multiplatform del progetto, si è scelto di utilizzare una libreria comune per la \ac{JVM} e native, mentre, data la natura singlethread di \ac{JS}, 
-si è optato per una libreria specifica per lo sviluppo con target NodeJS. Per questo motivo, il progetto è stato strutturato in modo tale da avere moduli 
-distinti per ciascun ambiente, con un modulo specifico per \ac{JS} e un modulo comune per \ac{JVM} e native.
+Dovendo il progetto funzionare su diverse Piattaforme, si è scelto di unificare i target \ac{JVM} e native e utilizzare una libreria comune per lo sviluppo, 
+mentre, data la natura singlethread di \ac{JS} che non ha permesso l'unificazione dei 3 target, si è optato per una libreria specifica per lo sviluppo con target NodeJS. 
+Per questo motivo, il progetto è stato strutturato in modo tale da avere moduli distinti per ciascun ambiente, con un modulo specifico per \ac{JS} 
+e un modulo comune per \ac{JVM} e native.
 
-Il modulo comune per la \ac{JVM} e native è chiamato \texttt{multithreadedMain} e contiene l'implementazione comune ad entrambi i target. Questo modulo include tutte 
-le funzionalità che possono essere eseguite in un ambiente multithread, sfruttando le capacità di concorrenza della \ac{JVM} e delle piattaforme native. In \texttt{multithreadedMain} 
+Il modulo comune per la \ac{JVM} e native è chiamato \texttt{jvmNativeMain} e contiene l'implementazione comune ad entrambi i target. Questo modulo include tutte 
+le funzionalità che possono essere eseguite in un ambiente multithread, sfruttando le capacità di concorrenza della \ac{JVM} e delle piattaforme native. In \texttt{jvmNativeMain} 
 sono implementati i componenti core del sistema, garantendo che la logica di base sia condivisa e riutilizzabile tra le diverse piattaforme. Questo approccio riduce la duplicazione 
 del codice e facilita la manutenzione del progetto.
 
-Dalla struttura di \texttt{multithreadedMain} dipendono due moduli specifici per ogni target:
+Dalla struttura di \texttt{jvmNativeMain} dipendono due moduli specifici per ogni target:
 \begin{itemize}
-    \item \texttt{jvmMain}: Questo modulo estende \texttt{multithreadedMain} per includere ottimizzazioni e integrazioni necessarie per funzionare efficacemente in un ambiente \ac{JVM}. Qui vengono implementate le funzionalità specifiche che sfruttano le caratteristiche avanzate della \ac{JVM}, come la gestione avanzata dei thread e l'ottimizzazione delle prestazioni.
-    \item \texttt{nativeMain}: Questo modulo estende \texttt{multithreadedMain} per le piattaforme native, includendo le implementazioni necessarie per funzionare su tali ambienti. Viene adattato per sfruttare le peculiarità delle diverse piattaforme native, garantendo efficienza e compatibilità con il codice nativo.
+    \item \texttt{jvmMain}: Questo modulo estende \texttt{jvmNativeMain} per includere ottimizzazioni e integrazioni necessarie per funzionare efficacemente in un ambiente \ac{JVM}. Qui vengono implementate le funzionalità specifiche che sfruttano le caratteristiche avanzate della \ac{JVM}, come la gestione avanzata dei thread e l'ottimizzazione delle prestazioni.
+    \item \texttt{nativeMain}: Questo modulo estende \texttt{jvmNativeMain} per le piattaforme native, includendo le implementazioni necessarie per funzionare su tali ambienti. Viene adattato per sfruttare le peculiarità delle diverse piattaforme native, garantendo efficienza e compatibilità con il codice nativo.
 \end{itemize}
 
 Per quanto riguarda lo sviluppo con \ac{JS}, data la natura singlethread dell'ambiente, si è sviluppato un modulo specifico chiamato \texttt{jsMain}. 
