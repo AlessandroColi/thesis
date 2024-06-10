@@ -384,26 +384,33 @@ indipendentemente dal numero di entità coinvolte e dalle condizioni di rete. Ma
 avvengano in modo fluido e continuo, soddisfacendo le esigenze di un ambiente di rete variabile e potenzialmente instabile.
 
 \section{Affidabilità}
-Un aspetto cruciale nella comunicazione tra i componenti è che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. I componenti 
-devono poter inviare e ricevere messaggi utilizzando il protocollo di comunicazione \ac{MQTT}. Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, assicurando 
-che i messaggi possano essere formattati, inviati e ricevuti correttamente. Deve essere garantita l'affidabilità nella consegna dei messaggi, in alcuni casi assicurando che ogni 
-messaggio venga ricevuto dal destinatario previsto. Ciò implica la gestione di conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e 
-gestione delle code di messaggi per evitare perdite, che sono tutti compresi all'interno del protocollo \ac{MQTT} in caso si decida di usare una \ac{QoS} di livello 1 o 2.
 
-La gestione delle code di messaggi è un'altra componente critica. Un sistema di coda ben progettato può aiutare a prevenire la perdita di messaggi in situazioni di traffico elevato 
-o in caso di disconnessioni temporanee. Implementare meccanismi di bufferizzazione e di ritrasmissione può migliorare significativamente l'affidabilità complessiva del sistema.
+Un aspetto cruciale nella comunicazione tra i componenti di un sistema distribuito è la robustezza e l'affidabilità, elementi fondamentali per garantire 
+il corretto funzionamento complessivo del sistema. I componenti devono essere in grado di inviare e ricevere messaggi utilizzando il protocollo \ac{MQTT}. 
+Questo richiede l'integrazione di librerie specifiche per \ac{MQTT}, assicurando che i messaggi possano essere formattati, inviati e ricevuti correttamente. 
+È imperativo garantire l'affidabilità nella consegna dei messaggi, assicurando in alcuni casi che ogni messaggio venga ricevuto dal destinatario previsto. 
+Per raggiungere questo obiettivo, è necessario implementare la gestione delle conferme di ricezione, meccanismi di ritrasmissione in caso di fallimento e 
+gestione delle code di messaggi per evitare perdite.
 
-Il modulo di comunicazione deve includere funzionalità di logging e monitoraggio per tracciare l'attività e le performance del sistema. Questi strumenti permettono di identificare 
-e risolvere rapidamente eventuali problemi, migliorando la reattività del sistema alle condizioni di errore. Il logging dettagliato degli eventi di comunicazione aiuta anche nella 
-diagnosi e nella prevenzione di guasti futuri, fornendo dati preziosi per l'analisi delle cause principali dei problemi.
+Il progetto offre questa possibilità utilizzando una \ac{QoS} di livello 1 o 2, permettendo allo sviluppatore di scegliere di utilizzare tali garanzie di ricezione 
+e non duplicaione.Il progetto offre anche la possibilità di usare \ac{QoS} 0 e quindi non garantire la consegna ma consente avere prestazioni più elevate, 
+in particolare su dispositivi \ac{IoT} dotati di scarsa poternza hardware.
 
-L'implementazione di meccanismi di failover e ripristino automatico è essenziale per garantire la disponibilità continua del servizio. Ad esempio, l'uso di cluster di broker MQTT 
-ridondanti può prevenire l'interruzione del servizio in caso di guasto di uno dei nodi. Inoltre, la configurazione di backup e ripristino regolari dei dati critici garantisce che 
-il sistema possa essere rapidamente riportato allo stato operativo in caso di disastri.
+La gestione delle code di messaggi rappresenta un'altra componente critica. Un sistema di coda ben progettato può aiutare a prevenire la perdita di messaggi in 
+situazioni di traffico elevato o in caso di disconnessioni temporanee. Implementare meccanismi di bufferizzazione e di ritrasmissione può migliorare significativamente 
+l'affidabilità complessiva del sistema. In particolare, le code devono essere in grado di gestire i picchi di traffico senza perdere dati e devono poter recuperare 
+rapidamente in caso di disconnessione, assicurando che i messaggi vengano consegnati non appena la connessione viene ristabilita.
 
-L'affidabilità può essere ulteriormente migliorata attraverso l'uso di tecniche di testing rigorose, come i test di stress e i test di carico, per valutare le prestazioni del 
-sistema sotto condizioni estreme. L'adozione di pratiche DevOps, con pipeline \ac{CI/CD}, assicura che le nuove versioni del software 
-vengano distribuite in modo sicuro e senza interruzioni, mantenendo un elevato standard di qualità e affidabilità.
+Il modulo di comunicazione deve includere funzionalità di logging e monitoraggio per tracciare l'attività e le performance del sistema. Questi strumenti permettono 
+di identificare e risolvere rapidamente eventuali problemi, migliorando la reattività del sistema alle condizioni di errore. Il logging dettagliato degli eventi di 
+comunicazione aiuta anche nella diagnosi e nella prevenzione di guasti futuri, fornendo dati preziosi per l'analisi delle cause principali dei problemi. 
+Un sistema di monitoraggio efficiente può allertare gli operatori in caso di anomalie, permettendo interventi tempestivi e mirati per minimizzare l'impatto sugli utenti finali.
+
+L'affidabilità può essere ulteriormente migliorata attraverso l'adozione di pratiche DevOps, con pipeline \ac{CI/CD}, che assicurano che le nuove versioni del software 
+vengano distribuite in modo sicuro e senza interruzioni, mantenendo un elevato standard di qualità e affidabilità. La continua integrazione e distribuzione permette di 
+rilevare e risolvere rapidamente i bug, riducendo al minimo il rischio di errori introdotti da nuove funzionalità o aggiornamenti. Queste pratiche, combinate con tecniche 
+di testing rigorose come i test di stress e i test di carico, valutano le prestazioni del sistema sotto condizioni estreme, identificando i punti deboli del sistema e 
+apportando le necessarie migliorie prima che i problemi si manifestino in produzione.
 
 \section{Interoperabilità}
 
