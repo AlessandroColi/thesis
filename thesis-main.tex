@@ -571,6 +571,21 @@ Il payload dei messaggi viene trattato con attenzione: viene preso e inserito al
 e successivamente rimosso dal pacchetto \ac{MQTT} per essere restituito all'entità destinataria. Questa gestione assicura che il contenuto del messaggio mantenga la sua 
 integrità e che la comunicazione avvenga in modo trasparente ed efficace, rispettando le esigenze di affidabilità e performance del sistema.
 
+Si è inoltre scelto di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
+Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, in quanto WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}.
+Questa forma utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT che la trasmissione dei dati, riducendo quindi il sovraccarico di rete.
+Un altro fattore importante nella scelta è il fatto che il protocollo WebSocket consente alle comunicazioni \ac{MQTT} di utilizzare le strutture HTTP già esistenti 
+quali la porta HTTP 80, firewall e proxy, strutture che non sarebbero invece usufruibili in caso di utilizzo di \ac{MQTT} tramite \ac{TCP} direttamente.
+
+Si è inoltre deciso di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
+Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, poiché WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}. 
+Questa configurazione utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT sia la trasmissione dei dati, riducendo il sovraccarico di rete. 
+In tal modo, si ottiene un miglioramento significativo delle prestazioni complessive del sistema, garantendo una comunicazione più fluida ed efficiente.
+Un altro fattore importante nella scelta di WebSocket è la compatibilità con le infrastrutture HTTP esistenti. WebSocket consente alle comunicazioni \ac{MQTT} 
+di utilizzare strutture HTTP già presenti, come la porta HTTP 80, firewall e proxy. Questi elementi non sarebbero utilizzabili nel caso di utilizzo di \ac{MQTT} tramite 
+\ac{TCP} direttamente. Questa compatibilità offre un ulteriore vantaggio in termini di sicurezza e gestione della rete, facilitando l'integrazione del protocollo \ac{MQTT} 
+in ambienti con restrizioni di rete più rigide.
+
 \section{Struttura dei Test}
 
 Il modulo contenente i test valuta in maniera approfondita la robustezza del progetto attraverso una serie di scenari distinti. 
