@@ -6,6 +6,7 @@
 \usepackage{notes}
 \usepackage{shortcuts}
 \usepackage{acronym}
+\usepackage{float}
 
 \school{\unibo}
 \programme{Corso di Laurea in Ingegneria e Scienze Informatiche}
@@ -130,7 +131,7 @@ comunicazione proposte in ambito \ac*{IoT}. Le sue caratteristiche distintive in
 dispositivi con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi anche grazie al protocollo 
 \ac{TCP} a cui si appoggia per la trasmissione dei messaggi.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mqtt-example.png}
     \caption{Esempio di comunicazione tramite MQTT}
@@ -164,7 +165,7 @@ I principali tipi di messaggi MQTT sono quattro:
 \subsection{Formato pacchetti MQTT}
 Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddivisa nelle seguenti componenti principali:
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mqtt-packet.png}
     \caption{formato di un pacchetto MQTT}
@@ -192,7 +193,7 @@ in grado di soddisfare una vasta gamma di requisiti e casi d'uso nell'ambito del
 Ogni livello di \ac{QoS} in MQTT offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
 specifiche dell'applicazione semplicemente modificando il valore dei due bit che indicano il livello QoS nei pachetti, tramite le APi fornite dalle librerie. 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mqtt-qos.png}
     \caption{funzionamento dei diversi livelli di QoS}
@@ -529,7 +530,7 @@ in ambienti con restrizioni di rete più rigide.
 
 \section{Struttura delle classi}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/class-diagram.png}
     \caption{Diagramma delle classi}
@@ -575,7 +576,7 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
 
 
 \section{Struttura dei Package}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/package-diagram.png}
     \caption{Diagramma dei package}
