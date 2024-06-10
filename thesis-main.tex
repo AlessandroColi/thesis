@@ -25,6 +25,7 @@
 \acrodef{MQTT}{Message Queuing Telemetry Transport}
 \acrodef{QoS}{Quality of Service}
 \acrodef{CI/CD}{Continuous Integration and Continuous Deployment}
+\acrodef{TCP}{Transmission Control Protocol}
 
 \mainlinespacing{1.241}
 
@@ -126,7 +127,8 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, Message Queuing Telemetry Transport (MQTT) 
 si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati. In quanto si presenta come una soluzione elegante per risolvere le sfide di 
 comunicazione proposte in ambito \ac*{IoT}. Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i 
-dispositivi con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi tra i partecipanti alla rete.
+dispositivi con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi anche grazie al protocollo 
+\ac{TCP} a cui si appoggia per la trasmissione dei messaggi.
 
 \begin{figure}[h]
     \centering
@@ -216,7 +218,7 @@ finanziarie o nei sistemi di controllo industriale.
 \subsection{MQTT over WebSocket}
 
 MQTT over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
-di comunicazione che fornisce un canale full-duplex su una singola connessione TCP, consentendo una comunicazione bidirezionale in tempo reale tra il client e il server.
+di comunicazione che fornisce un canale full-duplex su una singola connessione \ac{TCP}, consentendo una comunicazione bidirezionale in tempo reale tra il client e il server.
 
 L'integrazione di \ac{MQTT} con WebSocket permette ai client basati su web di comunicare direttamente con un broker \ac{MQTT}, eliminando la necessità di intermediari o di 
 soluzioni di polling inefficaci. Questo è particolarmente utile per le applicazioni \ac{IoT} che richiedono aggiornamenti in tempo reale e un'interazione continua tra 
@@ -226,7 +228,7 @@ dispositivi e interfacce utente basate su web. Le principali caratteristiche di 
     \item \textbf{Compatibilità Browser}: 
     Consente ai browser web di stabilire connessioni \ac{MQTT} direttamente, facilitando lo sviluppo di applicazioni web interattive e in tempo reale.
     \item \textbf{Efficienza della Connessione}: 
-    Utilizza una singola connessione TCP per gestire sia il canale di comunicazione \ac{MQTT} che la trasmissione dei dati, riducendo il sovraccarico di rete.
+    Utilizza una singola connessione \ac{TCP} per gestire sia il canale di comunicazione \ac{MQTT} che la trasmissione dei dati, riducendo il sovraccarico di rete.
     \item \textbf{Sicurezza}: 
     Supporta la crittografia SSL/TLS per garantire che la comunicazione tra il client e il server sia sicura, proteggendo i dati trasmessi da intercettazioni e attacchi.
     \item \textbf{Flessibilità}: 
@@ -550,7 +552,7 @@ l'API comune tra i diversi target. Utilizzando \texttt{commonTest}, è possibile
 assicurando la coerenza e l'affidabilità del progetto. I test inclusi in \texttt{commonTest} coprono una vasta gamma di scenari, dalle unit test alle integration test, assicurando che 
 ogni parte del sistema funzioni correttamente sia individualmente che nel contesto dell'intero progetto.
 
-\section{Struttura dei messaggi e dei topic MQTT}
+\section{Struttura di MQTT}
 
 La discrepanza tra il modello caratteristico di \ac{MQTT} di tipo publish-subscribe e la necessità di comunicazione diretta tra le entità, 
 che il progetto si propone di offrire, rende necessaria un'attenta definizione della struttura dei topic di \ac{MQTT}. Per affrontare questa sfida, 
