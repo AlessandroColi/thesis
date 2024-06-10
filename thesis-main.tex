@@ -327,9 +327,10 @@ su più piattaforme.
 \section{Requisiti funzionali}
 
 Il progetto si propone di offrire un gestore delle comunicazioni utilizzabile in diversi ambiti, in particolare è stato progettato con in mente le funzionalità necessarie
-all'interno di un sistema distribuito ed eterogeneo quale PulvReAKt. Caratterizzato dalla presenza di componenti dislocate in posizioni 
-geografiche diverse e con capacità e risorse variabili. Questo sistema deve essere in grado di operare efficacemente in contesti molto diversificati, inclusi quelli 
-\ac{IoT}, dove le macchine coinvolte dispongono spesso di risorse hardware limitate. Inoltre, il sistema deve essere progettato per funzionare correttamente anche in ambienti 
+all'interno di un sistema distribuito ed eterogeneo quale PulvReAKt, nel quale è stato poi integrato in un secondo momento. 
+Caratterizzato dalla presenza di componenti dislocate in posizioni geografiche diverse e con capacità e risorse variabili. 
+Questo sistema deve essere in grado di operare efficacemente in contesti molto diversificati, inclusi quelli \ac{IoT}, dove le macchine coinvolte 
+dispongono spesso di risorse hardware limitate. Inoltre, il sistema deve essere progettato per funzionare correttamente anche in ambienti 
 con connettività di rete instabile o variabile, garantendo prestazioni adeguate indipendentemente dalle condizioni di rete.
 
 Uno degli obiettivi principali del progetto è assicurare che le comunicazioni avvengano in modo efficiente e affidabile, con particolare attenzione a garantire 
@@ -510,14 +511,20 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
     \label{fig:diagramma-package}
 \end{figure}
 
-Dovendo il progetto funzionare su diverse Piattaforme, si è scelto di unificare i target \ac{JVM} e native e utilizzare una libreria comune per lo sviluppo, 
-mentre, data la natura singlethread di \ac{JS} che non ha permesso l'unificazione dei 3 target, si è optato per una libreria specifica per lo sviluppo con target NodeJS. 
-Per questo motivo, il progetto è stato strutturato in modo tale da avere moduli distinti per ciascun ambiente, con un modulo specifico per \ac{JS} 
-e un modulo comune per \ac{JVM} e native.
+Dovendo il progetto funzionare su diverse Piattaforme, si è cercato di unificare quanti più target possibili, in modo tale da potere scrivere e revisionare il codice una sola volta,
+si è riusciti ad utilizzare una libreria comune e di conseguenza un modulo unificato per lo sviluppo di \ac{JVM} e native,.
+Mentre, data la natura singlethread di \ac{JS} è stato necessario separare il target dagli altri due, si è quindi optato per una libreria specifica 
+per lo sviluppo con target NodeJS, in modo che questa fosse ottimizzata per l'ambiente specifico. 
 
-Il modulo comune per la \ac{JVM} e native è chiamato \texttt{jvmNativeMain} e contiene l'implementazione comune ad entrambi i target. Questo modulo include tutte 
-le funzionalità che possono essere eseguite in un ambiente multithread, sfruttando le capacità di concorrenza della \ac{JVM} e delle piattaforme native. In \texttt{jvmNativeMain} 
-sono implementati i componenti core del sistema, garantendo che la logica di base sia condivisa e riutilizzabile tra le diverse piattaforme. Questo approccio riduce la duplicazione 
+Per questo motivo, il progetto è stato strutturato in modo tale da avere moduli distinti per ciascun ambiente, con un modulo specifico per \ac{JS} 
+e un modulo comune per \ac{JVM} e native.  Entrambi questi moduli implementano una API fornita nel modulo comune (\texttt{commonMain}) grazie
+alla struttura degli \texttt{expected} e degli \texttt{actual} fornita da Kotlin apposta per queste casistiche, in cui le stesse funzionalità
+e gli stessi metodi devono essere comuni alle diverse piattaforme ma richiedono implementazioni o librerie sottostanti differenti.
+
+Il modulo comune per la \ac{JVM} e native è chiamato \texttt{jvmNativeMain} e contiene 
+un'implementazione comune ai due target. Questo modulo include tutte le funzionalità che possono essere eseguite in un ambiente multithread, 
+sfruttando le capacità di concorrenza della \ac{JVM} e delle piattaforme native. In \texttt{jvmNativeMain} sono implementati i componenti core del sistema, 
+garantendo che la logica di base sia condivisa e riutilizzabile tra le diverse piattaforme. Questo approccio riduce la duplicazione 
 del codice e facilita la manutenzione del progetto.
 
 Dalla struttura di \texttt{jvmNativeMain} dipendono due moduli specifici per ogni target:
@@ -556,20 +563,25 @@ integrità e che la comunicazione avvenga in modo trasparente ed efficace, rispe
 
 \section{Struttura dei Test}
 
-Il test valuta la robustezza di un protocollo di comunicazione MQTT attraverso una serie di scenari distinti. Innanzitutto, viene verificato che il protocollo possa essere 
-inizializzato e finalizzato senza incorrere in errori. Questa fase è critica poiché assicura che tutte le operazioni di setup e di chiusura del protocollo siano eseguite 
-correttamente, garantendo uno stato coerente prima e dopo il test.
+Il modulo contenente i test valuta in maniera approfondita la robustezza del progetto attraverso una serie di scenari distinti. 
+Tra questi scenari, viene verificato che il gestore delle comunicazioni possa essere inizializzato e finalizzato correttamente, senza incorrere in errori. 
+Questa verifica è cruciale poiché assicura che tutte le operazioni di setup e di chiusura del protocollo siano eseguite correttamente, garantendo uno 
+stato coerente del sistema sia prima che dopo l'esecuzione.
 
-Uno degli aspetti cruciali della valutazione consiste nell'esaminare come il protocollo gestisce gli errori in situazioni critiche. In particolare, si verifica come il protocollo 
-si comporta quando si tenta di scrivere su un canale non registrato e quando si tenta di leggere da un canale non registrato. È fondamentale che il protocollo sia in grado di 
-identificare e segnalare tali errori in modo accurato, fornendo messaggi di errore comprensibili che facilitino la risoluzione dei problemi.
+Un altro aspetto fondamentale della valutazione consiste nell'esaminare come il progetto gestisca correttamente gli errori in situazioni critiche. 
+In particolare, vengono analizzati i comportamenti del protocollo quando si tenta di scrivere su un canale non registrato e quando si tenta di leggere 
+da un canale non registrato. È essenziale che il protocollo sia in grado di identificare e segnalare tali errori con precisione, fornendo messaggi di 
+errore comprensibili che facilitino la risoluzione dei problemi.
 
-Infine, il test include scenari che simulano la comunicazione effettiva tra due entità registrate nel protocollo. Questi scenari permettono di verificare il flusso completo 
-di comunicazione, dall'inizializzazione alla trasmissione e alla ricezione dei messaggi, fino alla finalizzazione del protocollo. Questa fase del test è cruciale poiché dimostra 
-l'efficacia del protocollo nella gestione della comunicazione bidirezionale tra le entità coinvolte.
+Inoltre, i test includono scenari che simulano la comunicazione effettiva tra due entità registrate correttamente. Questi scenari 
+permettono di verificare il flusso completo della comunicazione, dall'inizializzazione alla trasmissione e ricezione dei messaggi, 
+fino alla finalizzazione del protocollo. Questa verifica è particolarmente importante poiché dimostra l'efficacia del protocollo nella gestione della comunicazione 
+tra le entità coinvolte e permette di controllare che il progetto funzioni correttamente senza generare errori inattesi.
 
-Questi scenari, inclusi nei test, mirano a garantire che il protocollo MQTT implementato risponda in modo affidabile e robusto in una varietà di situazioni, sia in condizioni 
-ideali di funzionamento che in presenza di errori o situazioni impreviste.
+Questi scenari, inclusi nei test, sono progettati per garantire che il protocollo \ac{MQTT} implementato risponda in modo affidabile e robusto in una varietà di situazioni, 
+sia in condizioni ideali di funzionamento che in presenza di errori o situazioni impreviste. L'obiettivo è assicurare che il protocollo mantenga prestazioni elevate e affidabili, 
+indipendentemente dalle circostanze operative. Il risultato atteso è che il sistema risponda adeguatamente alle esigenze di comunicazione e gestione degli errori, 
+offrendo una soluzione solida e stabile per l'uso previsto.
 
 \section{Tecnologie Utilizzate}
 
