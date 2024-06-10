@@ -361,20 +361,27 @@ l'intero processo di comunicazione. Solo attraverso una rigorosa attività di te
 operi come atteso in tutte le casistiche di utilizzo.
 
 \section{Scalabilità}
-Il modulo di comunicazione sviluppato per il sistema di pulverizzazione e computazione distribuita PulvReAKt deve supportare la scalabilità orizzontale, permettendo l'aggiunta 
-di nuovi nodi senza interruzioni del servizio. Questo implica che l'architettura deve essere in grado di adattarsi dinamicamente all'aumento delle richieste, distribuendo il carico 
-tra i nuovi nodi in modo efficiente. Una soluzione di scalabilità orizzontale efficace dovrebbe prevedere meccanismi di auto-scaling, dove i nuovi nodi vengono aggiunti 
-automaticamente in risposta a picchi di carico e ridotti durante i periodi di bassa domanda, ottimizzando l'uso delle risorse e minimizzando i costi operativi. Inoltre, 
-il sistema deve essere in grado di gestire l'elasticità dell'infrastruttura, permettendo il provisioning e de-provisioning dei nodi in maniera automatizzata e senza interruzioni.
 
-Per gestire la comunicazione diretta tra molteplici componenti, è stata scelta una struttura dei topic \ac{MQTT} con un topic principale (PulvReAKt) all'interno del quale avvengono 
-tutte le comunicazioni, secondo una struttura organizzata gerarchicamente. Seguendo lo schema PulvReAKt/mittente/destinatario, ad esempio, se un componente A volesse scrivere a un 
-componente B, il topic del messaggio sarebbe PulvReAKt/A/B. Questo approccio consente una gestione ordinata e tracciabile della comunicazione, facilitando la manutenzione e 
-l'analisi dei flussi di messaggi all'interno del sistema distribuito.
+Il modulo di comunicazione, progettato per utilizzare \ac{MQTT}, deve essere in grado di scalare efficacemente per gestire un numero variabile 
+di entità comunicanti, sia che esse siano poche o molte, sia che queste comunichino spesso o raramente.
 
-Inoltre, questa struttura permette di filtrare e gestire facilmente i messaggi in base alla sorgente e alla destinazione, migliorando l'efficienza della comunicazione e riducendo 
-il rischio di collisioni o confusione tra i messaggi inviati dai diversi componenti. La scelta di una struttura dei topic chiara e ben definita è cruciale per assicurare che la 
-comunicazione tra i componenti rimanga scalabile e mantenibile man mano che il sistema cresce e si evolve.
+Il sistema deve essere modulare per facilitare l'aggiunta o la rimozione di componenti senza compromettere il funzionamento generale. 
+Utilizzando \ac{MQTT} come middleware per la comunicazione asincrona, deve garantire la capacità di scalare orizzontalmente. 
+È essenziale che il protocollo di comunicazione sia leggero e ad alte prestazioni, permettendo di gestire un elevato numero di connessioni simultanee 
+con un overhead minimo. Per ottimizzare l'uso delle risorse di rete, deve essere supportato il multiplexing, che consente di gestire più connessioni 
+su un singolo canale di comunicazione.
+
+Per quanto riguarda la gestione delle connessioni, il sistema deve mantenere connessioni persistenti per ridurre il costo di stabilire connessioni multiple. 
+Inoltre, deve utilizzare un pool di connessioni per riutilizzare connessioni esistenti, migliorando così l'efficienza complessiva del sistema. 
+La gestione efficiente delle connessioni è cruciale per assicurare che il sistema possa gestire un numero crescente di entità comunicanti senza degradare le prestazioni.
+
+Un altro aspetto fondamentale per la scalabilità è la gestione della coda di messaggi. Il sistema deve utilizzare code di messaggi distribuite per gestire efficacemente 
+l'accodamento e la distribuzione dei messaggi tra le varie entità. Questo approccio garantisce che il sistema possa scalare in modo lineare con l'aumento del numero 
+di messaggi e delle entità coinvolte, mantenendo alta la performance e l'affidabilità.
+
+Questi requisiti sono necessari per assicurare che il modulo di comunicazione sia in grado di operare in modo efficiente e affidabile, 
+indipendentemente dal numero di entità coinvolte e dalle condizioni di rete. Mantenendo alte prestazioni e stabilità del sistema, si garantisce che le comunicazioni 
+avvengano in modo fluido e continuo, soddisfacendo le esigenze di un ambiente di rete variabile e potenzialmente instabile.
 
 \section{Affidabilità}
 Un aspetto cruciale nella comunicazione tra i componenti è che deve essere robusta e affidabile per garantire il corretto funzionamento del sistema distribuito. I componenti 
@@ -403,7 +410,6 @@ vengano distribuite in modo sicuro e senza interruzioni, mantenendo un elevato s
 L'interoperabilità si riferisce alla capacità dei diversi sistemi e componenti software di lavorare insieme senza problemi, scambiando dati e utilizzando le informazioni scambiate 
 in modo efficace. Nel contesto di PulvReAKt, questo significa che i componenti sviluppati per \ac{JVM} devono poter interagire con quelli sviluppati in JavaScript o con quelli 
 che girano su piattaforme native. Questo richiede che il protocollo di comunicazione, in questo caso \ac{MQTT}, sia implementato in modo standard e conforme su tutte le piattaforme.
-
 \subsection{Java Virtual Machine}
 
 La \ac{JVM} è una macchina virtuale che esegue bytecode Java, ed è la piattaforma di riferimento per lo sviluppo in Java e Kotlin. 
@@ -626,7 +632,7 @@ Per garantire la completezza e l'affidabilità dei test, tutti i test sono stati
 Questa diversificazione è stata necessaria per valutare come il sistema si comporta in ambienti eterogenei, riflettendo le diverse configurazioni hardware
 e le diverse condizioni di rete che potrebbero essere incontrate nel mondo reale. I test hanno incluso scenari con alta latenza, perdita di pacchetti e 
 variabilità della larghezza di banda, permettendo di verificare che il sistema mantenga prestazioni adeguate anche in situazioni di rete non ottimali. 
-Questo ha assicurato che il protocollo \ac{MQTT} possa essere utilizzato con successo in moltelplici di situazioni operative, 
+Questo ha assicurato che il protocollo \ac{MQTT} possa essere utilizzato con successo in moltelplici di situazioni operative funzionando come atteso.
 
 \section{Tecnologie Utilizzate}
 
@@ -659,7 +665,7 @@ MQTT.js è una libreria per lo sviluppo di applicazioni web che richiedono comun
 MQTT.js è progettata per essere leggera, altamente performante e sempliceda usare, consentendo di gestire un elevato numero di messaggi con una latenza minima. 
 La libreria supporta tutti i principali meccanismi di sicurezza, inclusa la crittografia SSL/TLS e l'autenticazione basata su username e password, garantendo una comunicazione 
 sicura anche in contesti sensibili.
-
+\pagebreak
 \subsection{Mosquitto}
 
 Mosquitto rappresenta il cuore dell'infrastruttura \ac{MQTT} del progetto, offrendo un broker \ac{MQTT} open source che supporta sia l'hosting locale che il servizio pubblico. 
