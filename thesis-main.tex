@@ -533,7 +533,7 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
     Fornisce infatti un metodo per ognuna delle tre operazioni fondamentali:
     \begin{itemize}
         \item \texttt{setupChannel}: metodo per configurare i canali di comunicazione tra due entità \texttt{source} e \texttt{destination}. 
-        Nello specifico verrà aperto un canale \texttt{nomeProgetto/source/destination} e un canale \texttt{nomeProgetto/destination/source}, 
+        Nello specifico verrà aperto un canale \texttt{/source/destination} e un canale \texttt{/destination/source}, 
         in quanto ci si aspetta la comunicazione tra le due entità sarà bidirezionale nella maggior parte delle casistiche di utilizzo, 
         evitando in questo modo di rendere necessarie due chiamate al metodo, una per direzione di comunicazione nella coppia.
         Una volta chiamato il setup sarà valido per tutto il tempo di esecuzione, sarà quindi sufficiente chiamarlo una volta per ogni coppia 
