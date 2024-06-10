@@ -473,6 +473,40 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 
 \chapter{Design}\label{chap:Design}
 
+\section{Struttura di MQTT}
+
+La discrepanza tra il modello caratteristico di \ac{MQTT} di tipo publish-subscribe e la necessità di comunicazione diretta tra le entità, 
+che il progetto si propone di offrire, rende necessaria un'attenta definizione della struttura dei topic di \ac{MQTT}. Per affrontare questa sfida, 
+è stato deciso di strutturare i topic nella forma \texttt{nomeProgetto/mittente/destinatario}. In questa struttura, `nomeProgetto' rappresenta un topic 
+unico all'interno del progetto, che al suo interno ospita tutti i topic necessari per la comunicazione tra le singole entità. Ad esempio, nel progetto PulvReAKt, 
+il nome del progetto è `PulvReAKt', ma può essere personalizzato tramite il costruttore del gestore delle comunicazioni.
+I componenti `mittente' e `destinatario' rappresentano rispettivamente il nome dell'entità che invia il messaggio e il nome dell'entità a cui è destinato. 
+I nomi di queste entità sono definiti esternamente al modulo comunicativo, pertanto è responsabilità dell'utente garantirne l'unicità all'interno del sistema 
+per evitare ambiguità. In alternativa, l'utente può utilizzare nomi comuni tra le entità che devono ricevere gli stessi messaggi.
+
+Per quanto riguarda le caratteristiche dei messaggi inviati e ricevuti, è stato deciso di utilizzare come impostazione predefinita il livello di \ac{QoS} 2 (exactly once), 
+poiché è il livello più affidabile, anche se meno efficiente. Tuttavia, si offre all'utente la possibilità di specificare un valore diverso per il livello di \ac{QoS}, 
+il valore del ServerKeepAlive (impostato di default a 10 secondi) e il flag retain del messaggio (impostato di default a true). 
+
+Il payload dei messaggi viene trattato con attenzione: viene preso e inserito all'interno del pacchetto \ac{MQTT} esattamente come ricevuto dall'utente, inviato al broker, 
+e successivamente rimosso dal pacchetto \ac{MQTT} per essere restituito all'entità destinataria. Questa gestione assicura che il contenuto del messaggio mantenga la sua 
+integrità e che la comunicazione avvenga in modo trasparente ed efficace, rispettando le esigenze di affidabilità e performance del sistema.
+
+Si è inoltre scelto di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
+Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, in quanto WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}.
+Questa forma utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT che la trasmissione dei dati, riducendo quindi il sovraccarico di rete.
+Un altro fattore importante nella scelta è il fatto che il protocollo WebSocket consente alle comunicazioni \ac{MQTT} di utilizzare le strutture HTTP già esistenti 
+quali la porta HTTP 80, firewall e proxy, strutture che non sarebbero invece usufruibili in caso di utilizzo di \ac{MQTT} tramite \ac{TCP} direttamente.
+
+Si è inoltre deciso di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
+Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, poiché WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}. 
+Questa configurazione utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT sia la trasmissione dei dati, riducendo il sovraccarico di rete. 
+In tal modo, si ottiene un miglioramento significativo delle prestazioni complessive del sistema, garantendo una comunicazione più fluida ed efficiente.
+Un altro fattore importante nella scelta di WebSocket è la compatibilità con le infrastrutture HTTP esistenti. WebSocket consente alle comunicazioni \ac{MQTT} 
+di utilizzare strutture HTTP già presenti, come la porta HTTP 80, firewall e proxy. Questi elementi non sarebbero utilizzabili nel caso di utilizzo di \ac{MQTT} tramite 
+\ac{TCP} direttamente. Questa compatibilità offre un ulteriore vantaggio in termini di sicurezza e gestione della rete, facilitando l'integrazione del protocollo \ac{MQTT} 
+in ambienti con restrizioni di rete più rigide.
+
 \section{Struttura delle classi}
 
 \begin{figure}[h]
@@ -551,40 +585,6 @@ In aggiunta ai moduli funzionali, è stato creato un modulo comune per i test ch
 l'API comune tra i diversi target. Utilizzando \texttt{commonTest}, è possibile garantire che tutte le funzionalità comuni siano testate in modo uniforme su tutte le piattaforme, 
 assicurando la coerenza e l'affidabilità del progetto. I test inclusi in \texttt{commonTest} coprono una vasta gamma di scenari, dalle unit test alle integration test, assicurando che 
 ogni parte del sistema funzioni correttamente sia individualmente che nel contesto dell'intero progetto.
-
-\section{Struttura di MQTT}
-
-La discrepanza tra il modello caratteristico di \ac{MQTT} di tipo publish-subscribe e la necessità di comunicazione diretta tra le entità, 
-che il progetto si propone di offrire, rende necessaria un'attenta definizione della struttura dei topic di \ac{MQTT}. Per affrontare questa sfida, 
-è stato deciso di strutturare i topic nella forma \texttt{nomeProgetto/mittente/destinatario}. In questa struttura, `nomeProgetto' rappresenta un topic 
-unico all'interno del progetto, che al suo interno ospita tutti i topic necessari per la comunicazione tra le singole entità. Ad esempio, nel progetto PulvReAKt, 
-il nome del progetto è `PulvReAKt', ma può essere personalizzato tramite il costruttore del gestore delle comunicazioni.
-I componenti `mittente' e `destinatario' rappresentano rispettivamente il nome dell'entità che invia il messaggio e il nome dell'entità a cui è destinato. 
-I nomi di queste entità sono definiti esternamente al modulo comunicativo, pertanto è responsabilità dell'utente garantirne l'unicità all'interno del sistema 
-per evitare ambiguità. In alternativa, l'utente può utilizzare nomi comuni tra le entità che devono ricevere gli stessi messaggi per motivi logistici.
-
-Per quanto riguarda le caratteristiche dei messaggi inviati e ricevuti, è stato deciso di utilizzare come impostazione predefinita il livello di \ac{QoS} 2 (exactly once), 
-poiché è il livello più affidabile, anche se meno efficiente. Tuttavia, si offre all'utente la possibilità di specificare un valore diverso per il livello di \ac{QoS}, 
-il valore del ServerKeepAlive (impostato di default a 10 secondi) e il flag retain del messaggio (impostato di default a true). 
-
-Il payload dei messaggi viene trattato con attenzione: viene preso e inserito all'interno del pacchetto \ac{MQTT} esattamente come ricevuto dall'utente, inviato al broker, 
-e successivamente rimosso dal pacchetto \ac{MQTT} per essere restituito all'entità destinataria. Questa gestione assicura che il contenuto del messaggio mantenga la sua 
-integrità e che la comunicazione avvenga in modo trasparente ed efficace, rispettando le esigenze di affidabilità e performance del sistema.
-
-Si è inoltre scelto di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
-Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, in quanto WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}.
-Questa forma utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT che la trasmissione dei dati, riducendo quindi il sovraccarico di rete.
-Un altro fattore importante nella scelta è il fatto che il protocollo WebSocket consente alle comunicazioni \ac{MQTT} di utilizzare le strutture HTTP già esistenti 
-quali la porta HTTP 80, firewall e proxy, strutture che non sarebbero invece usufruibili in caso di utilizzo di \ac{MQTT} tramite \ac{TCP} direttamente.
-
-Si è inoltre deciso di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
-Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, poiché WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}. 
-Questa configurazione utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT sia la trasmissione dei dati, riducendo il sovraccarico di rete. 
-In tal modo, si ottiene un miglioramento significativo delle prestazioni complessive del sistema, garantendo una comunicazione più fluida ed efficiente.
-Un altro fattore importante nella scelta di WebSocket è la compatibilità con le infrastrutture HTTP esistenti. WebSocket consente alle comunicazioni \ac{MQTT} 
-di utilizzare strutture HTTP già presenti, come la porta HTTP 80, firewall e proxy. Questi elementi non sarebbero utilizzabili nel caso di utilizzo di \ac{MQTT} tramite 
-\ac{TCP} direttamente. Questa compatibilità offre un ulteriore vantaggio in termini di sicurezza e gestione della rete, facilitando l'integrazione del protocollo \ac{MQTT} 
-in ambienti con restrizioni di rete più rigide.
 
 \section{Struttura dei Test}
 
