@@ -336,22 +336,29 @@ su più piattaforme.
 
 \section{Requisiti funzionali}
 
-Il progetto si propone di offrire un gestore delle comunicazioni utilizzabile in diversi ambiti, in particolare è stato progettato con in mente le funzionalità necessarie
-all'interno di un sistema distribuito ed eterogeneo quale PulvReAKt, nel quale è stato poi integrato in un secondo momento. 
-Caratterizzato dalla presenza di componenti dislocate in posizioni geografiche diverse e con capacità e risorse variabili. 
-Questo sistema deve essere in grado di operare efficacemente in contesti molto diversificati, inclusi quelli \ac{IoT}, dove le macchine coinvolte 
-dispongono spesso di risorse hardware limitate. Inoltre, il sistema deve essere progettato per funzionare correttamente anche in ambienti 
-con connettività di rete instabile o variabile, garantendo prestazioni adeguate indipendentemente dalle condizioni di rete.
+Il progetto si propone di offrire un gestore delle comunicazioni versatile, capace di adattarsi a diversi ambiti applicativi. 
+In particolare, è stato progettato pensando alle funzionalità richieste da un sistema distribuito ed eterogeneo come PulvReAKt, nel quale è stato successivamente integrato. 
+PulvReAKt è caratterizzato dalla possibilità di avere componenti dislocate in posizioni geografiche diverse, con capacità e risorse variabili. 
+Questo sistema deve essere quindi in grado di operare efficacemente in contesti molto diversificati, incluso l'ambito \ac{IoT}, dove le macchine coinvolte dispongono 
+spesso di risorse hardware limitate. Inoltre, il sistema deve essere progettato per funzionare correttamente anche in ambienti con connettività di rete instabile o variabile, 
+garantendo prestazioni adeguate indipendentemente dalle condizioni di rete.
 
-Uno degli obiettivi principali del progetto è assicurare che le comunicazioni avvengano in modo efficiente e affidabile, con particolare attenzione a garantire 
+Uno degli obiettivi principali del progetto è assicurare che le comunicazioni avvengano in modo efficiente e affidabile. Particolare attenzione è stata posta nel garantire 
 che i messaggi vengano recapitati esclusivamente ai destinatari interessati. Questo richiede l'implementazione di meccanismi sofisticati di gestione dei messaggi, 
-che consentano un indirizzamento preciso e prevengano lo spreco di risorse. La capacità di indirizzare correttamente i messaggi è fondamentale per evitare 
-sovraccarichi di rete e per mantenere l'integrità e la sicurezza delle comunicazioni.
+che consentano un indirizzamento preciso e prevengano lo spreco di risorse. La capacità di indirizzare correttamente i messaggi è fondamentale per evitare sovraccarichi 
+di rete e per mantenere l'integrità e la sicurezza delle comunicazioni.
 
-La gestione dei canali di comunicazione deve essere trasparente per l'utente finale. Tuttavia, è responsabilità dell'utente formattare correttamente i messaggi, 
-poiché il sistema è progettato per ricevere il messaggio in input, insieme alle entità sorgente e destinazione, e per inviarlo al destinatario corretto mantenendo 
-l'integrità del mittente e del contenuto del messaggio. La formattazione non sarà unificata se non per quanto riguarda l'incapsulamento necessario per garantire l'invio e 
-la ricezione corretti dei messaggi, utilizzando il protocollo \ac{MQTT}. 
+La gestione dei canali di comunicazione deve essere trasparente per l'utente finale. Tuttavia, è responsabilità dell'utente definire quali entità debbado comunicare
+tra loro, definire un formato per i messaggi e conseguentemente formattarli correttamente, poiché il sistema è progettato per ricevere il messaggio in input, 
+insieme alle entità sorgente e destinazione, e per inviarlo al destinatario corretto mantenendo l'integrità del mittente e del contenuto del messaggio. 
+La formattazione non sarà unificata, se non per quanto riguarda l'incapsulamento necessario per garantire l'invio e la ricezione corretti dei messaggi, utilizzando \ac{MQTT}.
+
+Un ulteriore aspetto critico del progetto è la necessità di sviluppare test esaustivi. La scrittura di test approfonditi è fondamentale per garantire la robustezza 
+e l'affidabilità del sistema. I test devono coprire un'ampia gamma di scenari, inclusi quelli più comuni e quelli meno frequenti ma potenzialmente problematici. 
+È essenziale che vengano testati tutti i possibili casi d'uso, compresi quelli che coinvolgono condizioni di rete instabili, errori di comunicazione e gestione 
+delle risorse limitate. I test devono inoltre verificare che il sistema risponda correttamente a input non validi e che mantenga l'integrità dei dati durante 
+l'intero processo di comunicazione. Solo attraverso una rigorosa attività di testing è possibile assicurare che il sistema soddisfi i requisiti funzionali e 
+operi come atteso in tutte le casistiche di utilizzo.
 
 \section{Scalabilità}
 Il modulo di comunicazione sviluppato per il sistema di pulverizzazione e computazione distribuita PulvReAKt deve supportare la scalabilità orizzontale, permettendo l'aggiunta 
