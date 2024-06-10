@@ -516,33 +516,40 @@ in ambienti con restrizioni di rete più rigide.
     \label{fig:class-diagram}
 \end{figure}
 
-Il diagramma delle classi presentato in Figura\ref{fig:class-diagram} illustra l'architettura e le relazioni tra le interfacce di PulvReAKt e le classi implementate nel progetto. 
+Il diagramma delle classi presentato in Figura\ref{fig:class-diagram} illustra l'architettura e le relazioni tra le interfacce e le classi implementate nel progetto. 
 Di seguito, viene fornita una descrizione dettagliata di ciascun componente e delle loro interazioni:
 
 \begin{itemize}
-    \item \texttt{InjectAwareResource}: è un'interfaccia che definisce il metodo utilizzato per configurare l'iniettore delle dipendenze.
+    \item \texttt{InjectAwareResource}: è un'interfaccia che definisce il metodo utilizzato per configurare l'iniettore delle dipendenze all'interno di PulvReAKt .
 
     \item \texttt{ProtocolError}: è un'interfaccia che rappresenta gli errori relativi al protocollo. Viene implementata da due classi concrete:
     \begin{itemize}
         \item \texttt{EntityNotRegistered}: rappresenta un errore che si verifica quando un'entità non è registrata.
-        \item \texttt{ProtocolException}: rappresenta un'eccezione generale del protocollo.
+        \item \texttt{ProtocolException}: rappresenta un'eccezione generata direttamente dal protocollo \ac{MQTT}, riportata all' interno di Kotlin 
+        in modo tale da poterla gestire correttamente e minimizzare gli errori durante l'esecuzione.
     \end{itemize}
 
-    \item \texttt{Protocol}: è un'interfaccia che definisce i metodi essenziali per la gestione del protocollo di comunicazione. Questi metodi includono:
+    \item \texttt{Protocol}: è un'interfaccia che definisce i metodi essenziali per l'utilizzo di un generico protocollo di comunicazione. 
+    Fornisce infatti un metodo per ognuna delle tre operazioni fondamentali:
     \begin{itemize}
-        \item \texttt{setupChannel}: metodo per configurare il canale di comunicazione tra due entità \texttt{source} e \texttt{destination}. 
-        Una volta chiamato il setup sarà valiudo per tutto il tempo di eseguzione, sarà quindi sufficiente chiamarlo una volta per ogni coppia 
-        \texttt{source} e \texttt{destination}. Questo metodo è trasparente all'utente finale, che non dovrebbe mai interagire direttamente con questo metodo.
-        \item \texttt{writeToChannel}: Metodo per scrivere dati sul canale di comunicazione specificato. Questo metodo può riuscire 
-        o fallire con un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} non sono registrate nel protocollo tramite il metodo \texttt{setupChannel}.
+        \item \texttt{setupChannel}: metodo per configurare i canali di comunicazione tra due entità \texttt{source} e \texttt{destination}. 
+        Nello specifico verrà aperto un canale \texttt{nomeProgetto/source/destination} e un canale \texttt{nomeProgetto/destination/source}, 
+        in quanto ci si aspetta la comunicazione tra le due entità sarà bidirezionale nella maggior parte delle casistiche di utilizzo, 
+        evitando in questo modo di rendere necessarie due chiamate al metodo, una per direzione di comunicazione nella coppia.
+        Una volta chiamato il setup sarà valido per tutto il tempo di esecuzione, sarà quindi sufficiente chiamarlo una volta per ogni coppia 
+        \texttt{source} e \texttt{destination}.
+        \item \texttt{writeToChannel}: Metodo per scrivere un messaggio al destinatario specificato \texttt{to} rendendo noto il mittente \texttt{from}. 
+        Questo metodo può riuscire o fallire con un \texttt{ProtocolError}. Fallisce se il canale di comunicazione tra le entità \texttt{from} e \texttt{to}
+        non è stato creato correttamente tramite il metodo \texttt{setupChannel} prima di tentare di mandare un messaggio.
         \item \texttt{readFromChannel}: Metodo per leggere dati dal canale di comunicazione specificato. Questo metodo restituisce un \texttt{Flow} 
-        caldo di messaggi che può essere consumato dal runtime. Può riuscire o fallire restituendo un \texttt{ProtocolError}. Fallisce se le entità \texttt{from} e \texttt{to} 
-        non sono registrate nel protocollo tramite il metodo \texttt{setupChannel}.
+        di messaggi che può essere consumato a runtime. Può riuscire o fallire restituendo un \texttt{ProtocolError}. 
+        Fallisce se il canale di comunicazione tra le entità \texttt{from} e \texttt{to}
+        non è stato creato correttamente tramite il metodo \texttt{setupChannel} prima di tentare di leggere quanto scritto sul canale.
     \end{itemize}
 
-    \item \texttt{MqttProtocol}: Una classe concreta che implementa l'interfaccia \texttt{Protocol}. Questa classe fornisce l'implementazione specifica per il protocollo MQTT, 
-    includendo i metodi definiti in \texttt{Protocol}. L'implementazione in \texttt{MqttProtocol} sfrutta le funzionalità di MQTT per gestire le comunicazioni tra i nodi nel sistema 
-    distribuito.
+    \item \texttt{MqttProtocol}: Una classe concreta che implementa l'interfaccia \texttt{Protocol}. Questa classe fornisce l'implementazione 
+    specifica per il protocollo MQTT per le differenti piattaforme, includendo i metodi definiti in \texttt{Protocol}.
+    L'implementazione in \texttt{MqttProtocol} sfrutta le funzionalità di \ac{MQTT} per gestire le comunicazioni tra i nodi nel sistema distribuito.
 
 \end{itemize}
 
