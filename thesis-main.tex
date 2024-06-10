@@ -126,7 +126,7 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 \section{Protocollo MQTT}
 
 Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, Message Queuing Telemetry Transport (MQTT) 
-si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati. In quanto si presenta come una soluzione elegante per risolvere le sfide di 
+si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati, in quanto si presenta come una soluzione elegante per risolvere le sfide di 
 comunicazione proposte in ambito \ac*{IoT}. Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i 
 dispositivi con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi anche grazie al protocollo 
 \ac{TCP} a cui si appoggia per la trasmissione dei messaggi.
@@ -143,10 +143,10 @@ Nel modello publish-subscribe di \ac{MQTT} i dispositivi si dividono in due ruol
  Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità
  di conoscere direttamente gli indirizzi dei destinatari.
 
-Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variablie di client. Il broker \ac{MQTT} è un server 
+Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variabile di client. Il broker \ac{MQTT} è un server 
 con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client MQTT è un qualsiasi dispositivo che esegue una libreria 
 \ac{MQTT} e si connette a un broker \ac{MQTT} e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
-invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client ch si sono iscritti a quell’argomento. 
+invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client che si sono iscritti a quell’argomento. 
 Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher.
 
 Un aspetto cruciale del protocollo MQTT è la sua capacità di mantenere aperte le connessioni tra i dispositivi per lunghi periodi, riducendo al minimo la latenza 
@@ -163,7 +163,7 @@ I principali tipi di messaggi MQTT sono quattro:
 \end{itemize}
 
 \subsection{Formato pacchetti MQTT}
-Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddivisa nelle seguenti componenti principali:
+Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddiviso nelle seguenti componenti principali:
 
 \begin{figure}[H]
     \centering
@@ -191,7 +191,7 @@ La presenza e il contenuto del payload dipendono dal tipo di messaggio specifico
 la comunicazione in base alle esigenze specifiche dell'applicazione. Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, 
 in grado di soddisfare una vasta gamma di requisiti e casi d'uso nell'ambito dell'\ac{IoT}. 
 Ogni livello di \ac{QoS} in MQTT offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
-specifiche dell'applicazione semplicemente modificando il valore dei due bit che indicano il livello QoS nei pachetti, tramite le APi fornite dalle librerie. 
+specifiche dell'applicazione, semplicemente modificando il valore dei due bit che indicano il livello QoS nei pachetti, tramite le API fornite dalle librerie. 
 
 \begin{figure}[H]
     \centering
@@ -349,7 +349,7 @@ che i messaggi vengano recapitati esclusivamente ai destinatari interessati. Que
 che consentano un indirizzamento preciso e prevengano lo spreco di risorse. La capacità di indirizzare correttamente i messaggi è fondamentale per evitare sovraccarichi 
 di rete e per mantenere l'integrità e la sicurezza delle comunicazioni.
 
-La gestione dei canali di comunicazione deve essere trasparente per l'utente finale. Tuttavia, è responsabilità dell'utente definire quali entità debbado comunicare
+La gestione dei canali di comunicazione deve essere trasparente per l'utente finale. Tuttavia, è responsabilità dell'utente definire quali entità debbano comunicare
 tra loro, definire un formato per i messaggi e conseguentemente formattarli correttamente, poiché il sistema è progettato per ricevere il messaggio in input, 
 insieme alle entità sorgente e destinazione, e per inviarlo al destinatario corretto mantenendo l'integrità del mittente e del contenuto del messaggio. 
 La formattazione non sarà unificata, se non per quanto riguarda l'incapsulamento necessario per garantire l'invio e la ricezione corretti dei messaggi, utilizzando \ac{MQTT}.
@@ -363,7 +363,7 @@ operi come atteso in tutte le casistiche di utilizzo.
 
 \section{Scalabilità}
 
-Il modulo di comunicazione, progettato per utilizzare \ac{MQTT}, deve essere in grado di scalare efficacemente per gestire un numero variabile 
+Il modulo di comunicazione progettato per utilizzare \ac{MQTT}, deve essere in grado di scalare efficacemente per gestire un numero variabile 
 di entità comunicanti, sia che esse siano poche o molte, sia che queste comunichino spesso o raramente.
 
 Il sistema deve essere modulare per facilitare l'aggiunta o la rimozione di componenti senza compromettere il funzionamento generale. 
@@ -394,7 +394,7 @@ Per raggiungere questo obiettivo, è necessario implementare la gestione delle c
 gestione delle code di messaggi per evitare perdite.
 
 Il progetto offre questa possibilità utilizzando una \ac{QoS} di livello 1 o 2, permettendo allo sviluppatore di scegliere di utilizzare tali garanzie di ricezione 
-e non duplicaione.Il progetto offre anche la possibilità di usare \ac{QoS} 0 e quindi non garantire la consegna ma consente avere prestazioni più elevate, 
+e non duplicazione.Il progetto offre anche la possibilità di usare \ac{QoS} 0 e quindi non garantire la consegna, ma consente avere prestazioni più elevate, 
 in particolare su dispositivi \ac{IoT} dotati di scarsa poternza hardware.
 
 La gestione delle code di messaggi rappresenta un'altra componente critica. Un sistema di coda ben progettato può aiutare a prevenire la perdita di messaggi in 
@@ -469,13 +469,13 @@ applicazioni robuste e performanti.
 \item \textbf{Event-driven e Non-blocking I/O}: Node.js utilizza un modello event-driven e non-blocking per le operazioni di I/O, consentendo di gestire un numero elevato di connessioni
  concorrenti con un singolo thread grazie al meccanismo delle promise in \ac{JS}.
 \item \textbf{Ecosistema di Moduli }: Node.js ha un vasto ecosistema di moduli e pacchetti disponibili tramite npm (Node Package Manager). 
-Questi moduli coprono una vasta gamma di funzionalità, come la gestione del database, la manipolazione dei file e la creazione di server wen. 
+Questi moduli coprono una vasta gamma di funzionalità, come la gestione del database, la manipolazione dei file e la creazione di server web. 
 \end{itemize}
 
 \subsection{Native}
 
 Kotlin/Native permette di compilare codice Kotlin direttamente in codice macchina eseguibile su dispositivi target, senza la necessità di una macchina virtuale o un interprete.
-Le caratteristche principali delle diverse piattaforme native sono:
+Le caratteristiche principali delle diverse piattaforme native sono:
 
 \begin{itemize}
 \item \textbf{Esecuzione Diretta}: Compilazione in codice nativo che viene eseguito direttamente dall'hardware, senza layer di interpretazione. 
@@ -487,7 +487,7 @@ grazie alla compilazione diretta. Questo è particolarmente importante per le ap
 Consente agli sviluppatori di creare applicazioni che interagiscono direttamente con l'hardware sottostante, sfruttando appieno le capacità del dispositivo target.
 \item \textbf{Assenza di Overhead}: Sebbene Kotlin/Native includa un garbage collector, quando viene eseguito su piattaforme native non vi è nessun overhead dovuto alla 
 gestione della macchina virtuale. Questo significa che le risorse del sistema possono essere utilizzate in modo più efficiente, riducendo il consumo di memoria e CPU.
-\item \textbf{Cross-platform}: La capacità di supportare per diverse piattaforme, inclusi iOS, Windows, Linux e macOS, facilita lo sviluppo di applicazioni multi-piattaforma, 
+\item \textbf{Cross-platform}: La capacità di supportare diverse piattaforme, inclusi iOS, Windows, Linux e macOS, facilita lo sviluppo di applicazioni multi-piattaforma e 
 consente agli sviluppatori di scrivere un'unica base di codice Kotlin che può essere compilato ed eseguito su una varietà di dispositivi e sistemi operativi, 
 riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 \end{itemize}
@@ -513,12 +513,6 @@ Il payload dei messaggi viene trattato con attenzione: viene preso e inserito al
 e successivamente rimosso dal pacchetto \ac{MQTT} per essere restituito all'entità destinataria. Questa gestione assicura che il contenuto del messaggio mantenga la sua 
 integrità e che la comunicazione avvenga in modo trasparente ed efficace, rispettando le esigenze di affidabilità e performance del sistema.
 
-Si è inoltre scelto di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
-Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, in quanto WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}.
-Questa forma utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT che la trasmissione dei dati, riducendo quindi il sovraccarico di rete.
-Un altro fattore importante nella scelta è il fatto che il protocollo WebSocket consente alle comunicazioni \ac{MQTT} di utilizzare le strutture HTTP già esistenti 
-quali la porta HTTP 80, firewall e proxy, strutture che non sarebbero invece usufruibili in caso di utilizzo di \ac{MQTT} tramite \ac{TCP} direttamente.
-
 Si è inoltre deciso di optare per l'utilizzo di \ac{MQTT} over WebSocket, in cui il pacchetto \ac{MQTT} viene inserito all'interno di un messaggio WebSocket per diversi motivi.
 Il principale motivo di questa scelta è la maggiore efficienza nell'utilizzo della rete, poiché WebSocket fornisce un canale full-duplex su una singola connessione \ac{TCP}. 
 Questa configurazione utilizza una singola connessione TCP per gestire sia il canale di comunicazione MQTT sia la trasmissione dei dati, riducendo il sovraccarico di rete. 
@@ -527,7 +521,7 @@ Un altro fattore importante nella scelta di WebSocket è la compatibilità con l
 di utilizzare strutture HTTP già presenti, come la porta HTTP 80, firewall e proxy. Questi elementi non sarebbero utilizzabili nel caso di utilizzo di \ac{MQTT} tramite 
 \ac{TCP} direttamente. Questa compatibilità offre un ulteriore vantaggio in termini di sicurezza e gestione della rete, facilitando l'integrazione del protocollo \ac{MQTT} 
 in ambienti con restrizioni di rete più rigide.
-
+\pagebreak
 \section{Struttura delle classi}
 
 \begin{figure}[H]
@@ -537,7 +531,7 @@ in ambienti con restrizioni di rete più rigide.
     \label{fig:class-diagram}
 \end{figure}
 
-Il diagramma delle classi presentato in Figura\ref{fig:class-diagram} illustra l'architettura e le relazioni tra le interfacce e le classi implementate nel progetto. 
+Il diagramma delle classi presentato in Figura \ref{fig:class-diagram} illustra l'architettura e le relazioni tra le interfacce e le classi implementate nel progetto. 
 Di seguito, viene fornita una descrizione dettagliata di ciascun componente e delle loro interazioni:
 
 \begin{itemize}
@@ -555,7 +549,7 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
     \begin{itemize}
         \item \texttt{setupChannel}: metodo per configurare i canali di comunicazione tra due entità \texttt{source} e \texttt{destination}. 
         Nello specifico verrà aperto un canale \texttt{/source/destination} e un canale \texttt{/destination/source}, 
-        in quanto ci si aspetta la comunicazione tra le due entità sarà bidirezionale nella maggior parte delle casistiche di utilizzo, 
+        in quanto ci si aspetta la comunicazione tra le due entità sia bidirezionale nella maggior parte delle casistiche di utilizzo, 
         evitando in questo modo di rendere necessarie due chiamate al metodo, una per direzione di comunicazione nella coppia.
         Una volta chiamato il setup sarà valido per tutto il tempo di esecuzione, sarà quindi sufficiente chiamarlo una volta per ogni coppia 
         \texttt{source} e \texttt{destination}.
@@ -583,14 +577,14 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
     \label{fig:diagramma-package}
 \end{figure}
 
-Dovendo il progetto funzionare su diverse Piattaforme, si è cercato di unificare quanti più target possibili, in modo tale da potere scrivere e revisionare il codice una sola volta,
-si è riusciti ad utilizzare una libreria comune e di conseguenza un modulo unificato per lo sviluppo di \ac{JVM} e native,.
-Mentre, data la natura singlethread di \ac{JS} è stato necessario separare il target dagli altri due, si è quindi optato per una libreria specifica 
+Dovendo il progetto funzionare su diverse piattaforme, si è cercato di unificare quanti più target possibili, in modo tale da potere scrivere e revisionare il codice una sola volta.
+Si è riusciti ad utilizzare una libreria comune e di conseguenza un modulo unificato per lo sviluppo di \ac{JVM} e native 
+mentre, data la natura singlethread di \ac{JS} è stato necessario separare il target dagli altri due. Si è quindi optato per una libreria specifica 
 per lo sviluppo con target NodeJS, in modo che questa fosse ottimizzata per l'ambiente specifico. 
 
-Per questo motivo, il progetto è stato strutturato in modo tale da avere moduli distinti per ciascun ambiente, con un modulo specifico per \ac{JS} 
-e un modulo comune per \ac{JVM} e native.  Entrambi questi moduli implementano una API fornita nel modulo comune (\texttt{commonMain}) grazie
-alla struttura degli \texttt{expected} e degli \texttt{actual} fornita da Kotlin apposta per queste casistiche, in cui le stesse funzionalità
+Per questo motivo il progetto è stato strutturato in modo tale da avere moduli distinti per ciascun ambiente, con un modulo specifico per \ac{JS} 
+e un modulo comune per \ac{JVM} e native. Entrambi questi moduli implementano una API fornita nel modulo comune (\texttt{commonMain}) grazie
+alla struttura degli \texttt{expected} e degli \texttt{actual} fornita da Kotlin specificatamente per queste casistiche, in cui le stesse funzionalità
 e gli stessi metodi devono essere comuni alle diverse piattaforme ma richiedono implementazioni o librerie sottostanti differenti.
 
 Il modulo comune per la \ac{JVM} e native è chiamato \texttt{jvmNativeMain} e contiene 
@@ -612,7 +606,7 @@ per garantire che tutte le operazioni asincrone e le chiamate di rete siano gest
 In aggiunta ai moduli funzionali, è stato creato un modulo comune per i test chiamato \texttt{commonTest}. Questo modulo contiene tutti i test necessari per verificare 
 l'API comune tra i diversi target. Utilizzando \texttt{commonTest}, è possibile garantire che tutte le funzionalità comuni siano testate in modo uniforme su tutte le piattaforme, 
 assicurando la coerenza e l'affidabilità del progetto. I test inclusi in \texttt{commonTest} coprono una vasta gamma di scenari, dalle unit test alle integration test, assicurando che 
-ogni parte del sistema funzioni correttamente sia individualmente che nel contesto dell'intero progetto.
+ogni parte del sistema funzioni in modo corretto sia individualmente che nel contesto dell'intero progetto.
 
 \section{Struttura dei Test}
 
@@ -670,7 +664,7 @@ un'implementazione unificata di \ac{MQTT} su tutte le piattaforme di interesse a
 
 \subsection{MQTT.js}
 MQTT.js è una libreria per lo sviluppo di applicazioni web che richiedono comunicazione \ac{MQTT} in ambienti JavaScript. 
-MQTT.js è progettata per essere leggera, altamente performante e sempliceda usare, consentendo di gestire un elevato numero di messaggi con una latenza minima. 
+MQTT.js è progettata per essere leggera, altamente performante e semplice da usare, consentendo di gestire un elevato numero di messaggi con una latenza minima. 
 La libreria supporta tutti i principali meccanismi di sicurezza, inclusa la crittografia SSL/TLS e l'autenticazione basata su username e password, garantendo una comunicazione 
 sicura anche in contesti sensibili.
 
