@@ -716,7 +716,7 @@ In particolare fornisce tra metodi per le principali azioni di \ac{MQTT}:
 \begin{itemize}
     \item \texttt{connect}: metodo per connettere il client al broker, permette di specificare tutte le opzioni della connessione, tra cui cleanStart 
     e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Richiede inoltre come paramentro la funzione da eseguire ogni qualvolta il client 
-    riceve un messaggio su uno qualsiasi dei topic a cui è iscritto.
+    riceve un messaggio su uno qualsiasi dei topic a cui è iscritto. Connessione poi chiusa tramite il metodo \texttt{disconnect}
     
     \item \texttt{publish}: metodo per scrivere un messaggio sul topic specificato con i parametri specificati, tra cui la \ac{QoS} del messaggio inviato 
     e la flag retain del messaggio nel broker.
@@ -730,15 +730,28 @@ Poiché si è scelto di utilizzare la libreria KMQTT, che per funzionare su piat
 Questo è stato realizzato aggiungendo le dipendenze ai file specifici ai singoli target nativi per i singoli sourceset all'interno del file di configurazione Gradle, 
 consentendo così di specificare la dipendenza dal file corretto per ciascuna architettura.
 
-Per quanto riguarda invece lo sviluppo JavaScript 
+gestione courutines %TODO
 
-utilizzo di externa e inline JS
+Per quanto riguarda invece lo sviluppo JavaScript è stata utilizzata la libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript, 
+per lo sviluppo del modulo è stato necessario utilizzare le funzionalità di interoperabilità \ac{JS} disponibile in Kotlin. Si è infatti definita una classe 
+con il modificatore \texttt{external} per rispecchiare in kotlin la classe \ac{JS} che espone i seguenti metodi: %TODO: rivedi formulazione ita
+\begin{itemize}
+    \item \texttt{connect}: metodo per connettere il client al broker, permette di specificare tutte le opzioni della connessione, tra cui cleanStart 
+    e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Connessione poi chiusa tramite il metodo \texttt{end}
 
-gestione courutines
+    \item \texttt{subscribe}: metodo che permette al client di iscriversi a un topic del broker, per ognuno specificando le opzioni di iscrizione 
+    relative al singolo topic quali il livello di \ac{QoS} per la ricezione dei messaggi. 
+
+    \item \texttt{publish}: metodo per scrivere un messaggio sul topic specificato con i parametri specificati, tra cui la \ac{QoS} del messaggio inviato 
+    e la flag retain del messaggio nel broker.
+
+    \item \texttt{on}: metodo per specificare la funzione da eseguire come conseguenza dell'evento specificato quali connect e error. 
+    Di notevole importanza la chiamata con message come paramentro, in quanto è quella che specifica cosa fare come conseguenza alla ricezione di un messaggio.  
+\end{itemize}
 
 \section{Validazione}
 Dopo aver superato una fase iniziale di test abbastanza agevole con come target la \ac{JVM}, durante la quale lo sviluppo è proceduto senza intoppi, ci si è concentrati 
-sulle piattaforme native, con particolare riferimento a Linux e Windows ma considerando anche macOS. Mentre Linux non ha causato particolari problemi, 
+sulle piattaforme native, con particolare riferimento a Linux e Windows ma considerando anche macOs. Mentre Linux non ha causato particolari problemi, 
 consentendo un passaggio rapido a Windows, è stato riscontrato un problema significativo legato ai socket durante l'esecuzione nativa su Windows.
 In particolare, l'implementazione interna della libreria KMQTT causava un'eccezione Socket.IOException quando cercava di stabilire una connessione al socket per 
 qualsiasi operazione, segnalando l'errore \texttt{Error 10047: Address family not supported by protocol family}. Questo ha richiesto un'attenta analisi per individuare 
