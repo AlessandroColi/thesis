@@ -7,6 +7,7 @@
 \usepackage{shortcuts}
 \usepackage{acronym}
 \usepackage{float}
+\usepackage{pgfplots}
 
 \school{\unibo}
 \programme{Corso di Laurea in Ingegneria e Scienze Informatiche}
@@ -572,7 +573,6 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
 
 \end{itemize}
 
-
 \section{Struttura dei Package}
 \begin{figure}[H]
     \centering
@@ -704,14 +704,105 @@ L'uso di Detekt contribuisce a mantenere il codice pulito e manutenibile, facili
 Detekt può essere integrato nei processi di integrazione continua (\ac{CI/CD}) per garantire che il codice nuovo o modificato venga analizzato automaticamente, fornendo feedback 
 immediato agli sviluppatori e mantenendo alta la qualità del codice durante tutto il ciclo di sviluppo.
 
-
 \chapter{Implementazione e Validazione}\label{chap:Implementazione e Validazione}
 
 \section{Sviluppo}
 
 \section{Validazione}
 
+\subsection{Test Native}
+Dopo aver superato una fase iniziale di test abbastanza agevole con la JVM come target, durante la quale lo sviluppo procedeva senza intoppi, ci siamo concentrati 
+sulle versioni native (Linux e Windows). Mentre Linux non ha causato particolari problemi, consentendo un passaggio rapido a Windows, abbiamo incontrato un problema 
+significativo legato ai socket durante l'implementazione su questa piattaforma.
+In particolare, l'implementazione interna della libreria KMQTT causava un'eccezione Socket.IOException quando cercava di stabilire una connessione al socket per 
+qualsiasi operazione, segnalando l'errore \texttt{Error 10047: Address family not supported by protocol family}. Questo ha richiesto un'attenta analisi per individuare 
+la causa del problema. Dopo un'approfondita revisione del codice, abbiamo identificato che la libreria KMQTT non gestiva correttamente alcuni aspetti relativi alla 
+gestione dei socket su Windows.
+Per risolvere questa problematica, abbiamo dovuto apportare alcune modifiche al codice. Inoltre, abbiamo segnalato il problema allo sviluppatore di KMQTT, fornendo 
+dettagli specifici sull'errore riscontrato. Fortunatamente, l'attenzione immediata del team di sviluppo ha portato a una soluzione rapida e efficace. Il problema è 
+stato risolto e incorporato nella successiva release della libreria, assicurando una migliore compatibilità con le piattaforme Windows e garantendo un'esperienza più 
+stabile per gli utenti.
+
+\subsection{Test JS}
+
+Come ultimo target, ci siamo focalizzati su JavaScript, nello specifico su NodeJS, poiché la libreria KMQTT non è compatibile con JavaScript browser. 
+Affrontare questa piattaforma ha comportato le sfide più significative del progetto. La maggior parte di esse ha radici nella natura single-threaded di JavaScript, 
+che lo contraddistingue dai precedenti target capaci di operare su più thread, permettendo un vero parallelismo e l'uso di coroutine su thread separati.
+Questa peculiarità di JavaScript ha generato diversi ostacoli, alcuni dei quali risolti relativamente facilmente, mentre altri hanno richiesto strategie più intricate. 
+Ad esempio, abbiamo dovuto affrontare la gestione degli eventi asincroni in modo efficace, garantendo che le operazioni di rete non bloccassero il thread principale e 
+che l'applicazione rimanesse reattiva agli input.
+In particolare, la sostituzione della funzione di run fornita dalla libreria KMQTT con un'implementazione che rilasciasse la lock del thread è stata una delle sfide più 
+rilevanti. Questo adattamento è stato cruciale per garantire che l'applicazione potesse continuare a rimanere reattiva.
+
 \section{Prestazione sulle diverse piattaforme}
+
+Durante la fase di sviluppo e test è stata notata una differenza di tempo di esecuzione tra le diverse piattaforme. È stato quindi svolto un confronto tra le prestazioni 
+dello stesso codice sulle differenti piattaforme aventi la stessa architettura sottostante.
+Il parametro scelto per valutarne le prestazioni è la velocità media di completamento dei test utilizzando sempre tramite il comando \texttt{gradlew allTest --parallel --profile} 
+in differenti condizioni.
+I risultati dei test nativi su linux e windows sono stati effettuati sullo stesso computer in due partizioni separate e quindi aventi lo stesso hardware sottostante. 
+Mentre i risultati jvm e js sono stati eseguiti sia in ambito linux che in ambito windows.
+I test sono stati divisi in due tipologie principali differenziate in base al server. Nel primo caso è stato ospitato localmente tramite mosquitto che richiede autenticazione, 
+mentre nel secondo caso è stato utilizzato il broker remoto \texttt{test.mosquitto.org} senza autenticazione.
+
+\begin{tikzpicture}
+\begin{axis}[
+    height=8cm,
+    width=7cm,
+    ybar,
+    ymin=0,
+    ymax=7,
+    ylabel={Time (s)},
+    symbolic x coords={Windows Enviroment, Linux Enviroment},
+    xtick=data,
+    bar width=0.5cm,
+    enlarge x limits={abs=1cm},
+    legend style={at={(0.5,-0.1)},anchor=north,legend columns=3},
+    title={Local Broker},
+    ]
+\addplot[fill=green] coordinates{(Windows Enviroment,6.327) (Linux Enviroment,5.464)};
+\addplot[fill=blue] coordinates{(Windows Enviroment,5.614) (Linux Enviroment,5.553)};
+\addplot[fill=red] coordinates{(Windows Enviroment,2.133) (Linux Enviroment,0.311)};
+\legend{JVM, JS, NATIVE}
+
+\end{axis}
+\end{tikzpicture}\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    height=8cm,
+    width=7cm,
+    ymin=0,
+    ymax=7,
+    ylabel={Time (s)},
+    symbolic x coords={Windows Enviroment, Linux Enviroment},
+    xtick=data,
+    bar width=0.5cm,
+    enlarge x limits={abs=1cm},
+    legend style={at={(0.5,-0.1)},anchor=north,legend columns=3},
+    title = {Remote Broker}
+    ]
+\addplot[fill=green] coordinates{(Windows Enviroment,6.154)(Linux Enviroment,5.876)};
+\addplot[fill=blue] coordinates{(Windows Enviroment,6.189)(Linux Enviroment,6.273)};
+\addplot[fill=red] coordinates{(Windows Enviroment,2.542)(Linux Enviroment,1.739)};
+\legend{JVM, JS, NATIVE}
+
+\end{axis}
+\end{tikzpicture}
+
+Osservando i grafici che riassumono i risultati dei test si possono trarre le seguenti conclusioni:\begin{itemize}
+    \item Il sistema operativo ha un’influenza minima sulle prestazioni con la sola eccezione nel caso in cui il test è stato eseguito su target nativo con broker locale; 
+    in questo caso il tempo medio di esecuzione è stato di 2.133 secondi su Windows e di 0.311 su linux.
+
+    \item Il luogo in cui viene ospitato il broker dei messaggi (locale piuttosto che remoto) ha anch’esso una scarsa influenza sul risultato finale del test, 
+    in quanto le differenze sono sempre al di sotto dei 500 millisecondi ad esclusione del caso Linux Native in cui la differenza è di 1.5 secondi. 
+
+    \item L’elemento che influenza maggiormente le prestazioni è rappresentato dall’utilizzo di una piattaforma native ed emerge chiaramente quando si confrontano 
+    le tre piattaforme nello stesso ambiente (Windows o Linux); infatti è estremamente evidente che quando il codice viene eseguito nativamente si ottiene un tempo 
+    di esecuzione di parecchi secondi inferiore rispetto a quando ci si appoggia alla Java virtual Machine o a NodeJS. Non si osserva invece un reale vantaggio nell’utilizzo 
+    di JS rispetto a JVM o viceversa dal momento che la differenza tra queste due piattaforme è sempre inferiore al secondo, in alcuni casi a favore di un target e in altri a 
+    favore dell'altro.
+
+\end{itemize}
 
 \section{Integrazione in PulvReAKt}
 
