@@ -9,9 +9,6 @@
 \usepackage{float}
 \usepackage{pgfplots}
 
-\usepackage{verbatim} % TODO TOGLI alla fine
-
-
 \school{\unibo}
 \programme{Corso di Laurea in Ingegneria e Scienze Informatiche}
 \title{Kotlin Multiplatform e PulvReAKt: analisi e prototipazione di applicazioni IoT eterogenee}
@@ -707,24 +704,37 @@ L'uso di Detekt contribuisce a mantenere il codice pulito e manutenibile, facili
 Detekt può essere integrato nei processi di integrazione continua (\ac{CI/CD}) per garantire che il codice nuovo o modificato venga analizzato automaticamente, fornendo feedback 
 immediato agli sviluppatori e mantenendo alta la qualità del codice durante tutto il ciclo di sviluppo.
 
-\chapter{Implementazione e Validazione}\label{chap:Implementazione e Validazione}
+\chapter{Implementazione e Validazione}\label{chap:Implementazione e Validazione} %TODO rivedi tutto
 
-\section{Sviluppo}
+\section{Sviluppo} 
 
-\begin{comment}
-La fase iniziale di sviluppo si è concetrata sul modulo \texttt{jvmNativeMain} e quindi sui target Native e \ac{JVM}, lasciando momentaneamente \ac{JS} in secondo piano.
-Durante questa fase sono stati definiti
+Dopo la prima fase di documentazione e Design spiegata precedentemente si è passati a sviluppare e scrivere il codice effettivo.
+Durante questa fase ci si è concetrati sul modulo \texttt{jvmNativeMain} e conseguentemente sui target Native e \ac{JVM}, lasciando momentaneamente \ac{JS} in secondo piano.
 
-Tuttavia, poiché KMQTT dipende dall'utilizzo di OpenSSL, che è specifico della piattaforma, è stato necessario incorporare le implementazioni 
-specifiche per ogni piattaforma all'interno del progetto in una struttura apposita. Questo è stato realizzato aggiungendo le dipendenze ai file specifici 
-ai singoli target nativi come sourceset all'interno del file di configurazione Gradle, consentendo così di specificare la dipendenza dal file 
-corretto per ciascuna architettura.
+Per lo sviluppo di questo modulo ci si è appoggiati alla liberia KMQTT, la quale fornisce un implementazione e relativa di un client \ac{MQTT} in Kotlin. 
+In particolare fornisce tra metodi per le principali azioni di \ac{MQTT}:
+\begin{itemize}
+    \item \texttt{connect}: metodo per connettere il client al broker, permette di specificare tutte le opzioni della connessione, tra cui cleanStart 
+    e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Richiede inoltre come paramentro la funzione da eseguire ogni qualvolta il client 
+    riceve un messaggio su uno qualsiasi dei topic a cui è iscritto.
+    
+    \item \texttt{publish}: metodo per scrivere un messaggio sul topic specificato con i parametri specificati, tra cui la \ac{QoS} del messaggio inviato 
+    e la flag retain del messaggio nel broker.
+
+    \item \texttt{subscribe}: metodo che permette al client di iscriversi a uno o più topic, per ognuno specificando le opzioni di iscrizione 
+    relative al singolo topic quali il livello di \ac{QoS} per la ricezione dei messaggi. 
+\end{itemize}
+
+Poiché si è scelto di utilizzare la libreria KMQTT, che per funzionare su piattaforme native dipende a sua volta dall'utilizzo di OpenSSL, che è specifico per ogni piattaforma. 
+è stato necessario incorporare le implementazioni specifiche per ogni piattaforma all'interno del progetto in una struttura apposita(texttt{src/nativeLibs}). 
+Questo è stato realizzato aggiungendo le dipendenze ai file specifici ai singoli target nativi per i singoli sourceset all'interno del file di configurazione Gradle, 
+consentendo così di specificare la dipendenza dal file corretto per ciascuna architettura.
+
+Per quanto riguarda invece lo sviluppo JavaScript 
 
 utilizzo di externa e inline JS
 
 gestione courutines
-\end{comment}
-
 
 \section{Validazione}
 Dopo aver superato una fase iniziale di test abbastanza agevole con come target la \ac{JVM}, durante la quale lo sviluppo è proceduto senza intoppi, ci si è concentrati 
