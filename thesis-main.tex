@@ -851,7 +851,9 @@ Questo setup ha simulato un ambiente più realistico e variabile, permettendo di
 Questa doppia configurazione di test ha permesso di ottenere una visione completa e approfondita delle capacità e dei limiti del progetto nelle diverse condizioni operative. 
 L'utilizzo di un broker locale ha fornito un punto di riferimento per le migliori prestazioni possibili, mentre il broker remoto ha evidenziato come il sistema si comporta 
 in situazioni di rete meno prevedibili. Questo approccio ha garantito che le valutazioni fossero complete e rappresentative delle varie situazioni in cui il sistema potrebbe 
-essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglioramenti.
+essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglioramenti. L'analisi dettagliata dei risultati, evidenziata dai grafici sottostanti che illustrano 
+visivamente le differenze nei tempi di esecuzione per ciascuna piattaforma e ambiente di test, ha permesso di identificare chiaramente i punti di forza 
+e le aree in cui sono possibili miglioramenti, assicurando che il progetto possa raggiungere livelli ottimali di efficienza.
 
 \begin{tikzpicture}
 \begin{axis}[
@@ -901,7 +903,8 @@ essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglior
 \end{axis}
 \end{tikzpicture}
 
-Come evidenziato dai grafici, che mostrano i risultati dei test, si possono trarre le seguenti conclusioni:
+Dai risultati di questo semplice confronto tra i tempi di esecuzione nelle diverse condizioni, si possono trarre alcune 
+semplici ma utili conclusioni:
 
 \begin{itemize}
     \item Il sistema operativo ha un’influenza minima sulle prestazioni, con l’eccezione del caso in cui il test è stato eseguito su target nativo con broker locale. 
@@ -919,11 +922,6 @@ Come evidenziato dai grafici, che mostrano i risultati dei test, si possono trar
     di un target e in altri a favore dell'altro. Questo indica che entrambe le piattaforme hanno prestazioni comparabili e che la scelta tra di esse può essere guidata da 
     altri fattori come la familiarità del team con la tecnologia o esigenze specifiche del progetto.
 \end{itemize}
-
-I grafici allegati illustrano chiaramente queste osservazioni, fornendo una rappresentazione visiva delle differenze nei tempi di esecuzione per ciascuna piattaforma 
-e ambiente di test. L'analisi dei dati raccolti conferma che l’esecuzione nativa offre un significativo miglioramento delle prestazioni, mentre le differenze 
-tra l'uso di broker locale e remoto sono generalmente marginali. Questo tipo di valutazione è cruciale per informare le decisioni di sviluppo e ottimizzazione, 
-assicurando che le scelte tecnologiche adottate siano le più adatte per raggiungere le migliori prestazioni possibili. %TODO: spostalo prima delll'elenco e riformula
 
 \section{Integrazione in PulvReAKt}
 
