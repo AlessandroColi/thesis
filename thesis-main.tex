@@ -836,7 +836,7 @@ Durante la fase di sviluppo, ma soprattutto durante quella di validazione, è st
 Per comprendere meglio queste differenze, sono stati conseguentemente svolti dei semplici test con lo scopo di evidenziare tali differenze e confrontare le prestazioni 
 del progetto sulle differenti piattaforme aventi la stessa architettura sottostante. Il parametro scelto per svolgere tali valutazioni è stato la media dei tempi di completamento 
 dei test del progetto, un indicatore utile e significativo per comprendere le prestazioni relative. Tali test sono stati eseguiti sistematicamente tramite il comando 
-\texttt{gradlew allTest --parallel --profile} in differenti condizioni operative, garantendo un confronto equo e accurato.
+\texttt{gradlew allTest --parallel --profile} in differenti condizioni operative, garantendo un confronto equo e accurato tra le diverse configurazioni.
 
 I risultati dei test nativi su Linux e Windows sono stati ottenuti utilizzando lo stesso computer, configurato in due partizioni separate, e quindi con lo stesso hardware sottostante. 
 Questa configurazione ha permesso di isolare le variabili legate all'hardware e focalizzarsi sulle differenze di performance dovute esclusivamente ai sistemi operativi. 
@@ -844,10 +844,14 @@ I test per le piattaforme JVM e JS sono stati eseguiti sia in ambiente Linux che
 Ciò ha assicurato che qualsiasi differenza osservata fosse attribuibile esclusivamente alle piattaforme software e alle differenze tra le due librerie utilizzate.
 
 I test sono stati divisi in due tipologie principali, differenziate in base al server utilizzato per ospitare il broker \ac{MQTT}. Nel primo caso, il broker è stato ospitato 
-localmente tramite Mosquitto, configurato per richiedere autenticazione, offrendo così un contesto controllato e stabile per le misurazioni. Nel secondo caso, è stato utilizzato 
-il broker remoto \texttt{test.mosquitto.org}, che non richiede autenticazione, simulando un ambiente più realistico e variabile. Questa doppia configurazione ha permesso di 
-valutare le prestazioni del sistema in scenari sia controllati che più dinamici, fornendo una visione completa e approfondita delle capacità e dei limiti del progetto 
-nelle diverse condizioni operative. 
+localmente tramite Mosquitto, configurato per richiedere autenticazione. Questa configurazione ha offerto un contesto controllato e stabile per le misurazioni, consentendo 
+di osservare le prestazioni del sistema in un ambiente ideale. Nel secondo caso, è stato utilizzato il broker remoto \texttt{test.mosquitto.org}, che non richiede autenticazione. 
+Questo setup ha simulato un ambiente più realistico e variabile, permettendo di valutare le prestazioni del sistema in condizioni di utilizzo reale.
+
+Questa doppia configurazione di test ha permesso di ottenere una visione completa e approfondita delle capacità e dei limiti del progetto nelle diverse condizioni operative. 
+L'utilizzo di un broker locale ha fornito un punto di riferimento per le migliori prestazioni possibili, mentre il broker remoto ha evidenziato come il sistema si comporta 
+in situazioni di rete meno prevedibili. Questo approccio ha garantito che le valutazioni fossero complete e rappresentative delle varie situazioni in cui il sistema potrebbe 
+essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglioramenti.
 
 \begin{tikzpicture}
 \begin{axis}[
