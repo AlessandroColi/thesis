@@ -145,20 +145,20 @@ Nel modello publish-subscribe di \ac{MQTT} i dispositivi si dividono in due ruol
  di conoscere direttamente gli indirizzi dei destinatari.
 
 Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variabile di client. Il broker \ac{MQTT} è un server 
-con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client MQTT è un qualsiasi dispositivo che esegue una libreria 
+con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client \ac{MQTT} è un qualsiasi dispositivo che esegue una libreria 
 \ac{MQTT} e si connette a un broker \ac{MQTT} e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
 invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client che si sono iscritti a quell’argomento. 
 Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher.
 
-Un aspetto cruciale del protocollo MQTT è la sua capacità di mantenere aperte le connessioni tra i dispositivi per lunghi periodi, riducendo al minimo la latenza 
+Un aspetto cruciale del protocollo \ac{MQTT} è la sua capacità di mantenere aperte le connessioni tra i dispositivi per lunghi periodi, riducendo al minimo la latenza 
 e ottimizzando l'efficienza della comunicazione. Questo risulta particolarmente importante in contesti dove è essenziale uno scambio continuo e tempestivo di dati 
-in tempo reale, permettendo un monitoraggio costante e affidabile. Tale caratteristica rende MQTT ideale per applicazioni che richiedono una trasmissione dati 
+in tempo reale, permettendo un monitoraggio costante e affidabile. Tale caratteristica rende \ac{MQTT} ideale per applicazioni che richiedono una trasmissione dati 
 ininterrotta e reattiva, garantendo prestazioni ottimali anche in ambienti con risorse limitate e connettività intermittente.
 
-I principali tipi di messaggi MQTT sono quattro:
+I principali tipi di messaggi \ac{MQTT} sono quattro:
 \begin{itemize}
     \item \textbf{Connect}: il client attende che venga stabilita una connessione con il broker e crea un collegamento tra i nodi;
-    \item \textbf{Disconnect}: attende se il client MQTT deve terminare delle operazioni e poi chiude la sessione TCP/IP;
+    \item \textbf{Disconnect}: attende se il client \ac{MQTT} deve terminare delle operazioni e poi chiude la sessione TCP/IP;
     \item \textbf{Publish}: il client pubblica un messaggio nella classe specificato;
     \item \textbf{Subscribe}: iscrive il client all’argomento specificato;
 \end{itemize}
@@ -174,7 +174,7 @@ Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specific
 \end{figure}
 
 \begin{itemize}
-\item \textbf{Fixed Header (Intestazione Fissa):} Ogni pacchetto MQTT contiene un'intestazione fissa che è obbligatoria e ha una lunghezza di 2 byte. 
+\item \textbf{Fixed Header (Intestazione Fissa):} Ogni pacchetto \ac{MQTT} contiene un'intestazione fissa che è obbligatoria e ha una lunghezza di 2 byte. 
 L'intestazione fissa include il tipo di messaggio, il livello di \ac{QoS}, la lunghezza rimanente del pacchetto e informazioni sui flag di controllo
 tra cui DUP (duplicate) che indica se è il primo tentativo di invio di tale pacchetto e RET (retain) che indica se tale pacchetto deve essere salvato nel server.
 I tipi di messaggio possono includere CONNECT, PUBLISH, SUBSCRIBE, UNSUBSCRIBE, DISCONNECT.
@@ -191,8 +191,8 @@ La presenza e il contenuto del payload dipendono dal tipo di messaggio specifico
 \ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (\ac{QoS}), che consentono di personalizzare e ottimizzare 
 la comunicazione in base alle esigenze specifiche dell'applicazione. Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, 
 in grado di soddisfare una vasta gamma di requisiti e casi d'uso nell'ambito dell'\ac{IoT}. 
-Ogni livello di \ac{QoS} in MQTT offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
-specifiche dell'applicazione, semplicemente modificando il valore dei due bit che indicano il livello QoS nei pachetti, tramite le API fornite dalle librerie. 
+Ogni livello di \ac{QoS} in \ac{MQTT} offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
+specifiche dell'applicazione, semplicemente modificando il valore dei due bit che indicano il livello \ac{QoS} nei pachetti, tramite le API fornite dalle librerie. 
 
 \begin{figure}[H]
     \centering
@@ -219,12 +219,12 @@ finanziarie o nei sistemi di controllo industriale.
 \pagebreak %avoids first 2 line of next subsection to be at the bottom of the page
 \subsection{MQTT over WebSocket}
 
-MQTT over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
+\ac{MQTT} over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
 di comunicazione che fornisce un canale full-duplex su una singola connessione \ac{TCP}, consentendo una comunicazione bidirezionale in tempo reale tra il client e il server.
 
 L'integrazione di \ac{MQTT} con WebSocket permette ai client basati su web di comunicare direttamente con un broker \ac{MQTT}, eliminando la necessità di intermediari o di 
 soluzioni di polling inefficaci. Questo è particolarmente utile per le applicazioni \ac{IoT} che richiedono aggiornamenti in tempo reale e un'interazione continua tra 
-dispositivi e interfacce utente basate su web. Le principali caratteristiche di MQTT over WebSocket includono:
+dispositivi e interfacce utente basate su web. Le principali caratteristiche di \ac{MQTT} over WebSocket includono:
 
 \begin{itemize}
     \item \textbf{Compatibilità Browser}: 
@@ -237,7 +237,7 @@ dispositivi e interfacce utente basate su web. Le principali caratteristiche di 
     Permette una facile integrazione con le infrastrutture web esistenti, utilizzando lo stesso stack di tecnologia web e riducendo la complessità del sistema.
 \end{itemize}
 
-MQTT over WebSocket è ideale per le applicazioni che necessitano di aggiornamenti frequenti e rapidi, come dashboard di monitoraggio, sistemi di allarme in tempo reale, 
+\ac{MQTT} over WebSocket è ideale per le applicazioni che necessitano di aggiornamenti frequenti e rapidi, come dashboard di monitoraggio, sistemi di allarme in tempo reale, 
 e applicazioni di controllo remoto. La combinazione di \ac{MQTT} e WebSocket offre una soluzione robusta e scalabile per la comunicazione in tempo reale nel mondo dell'\ac{IoT}.
 
 \section{Dependency Injection}
@@ -568,7 +568,7 @@ Di seguito, viene fornita una descrizione dettagliata di ciascun componente e de
     \end{itemize}
 
     \item \texttt{MqttProtocol}: Una classe concreta che implementa l'interfaccia \texttt{Protocol}. Questa classe fornisce l'implementazione 
-    specifica per il protocollo MQTT per le differenti piattaforme, includendo i metodi definiti in \texttt{Protocol}.
+    specifica per il protocollo \ac{MQTT} per le differenti piattaforme, includendo i metodi definiti in \texttt{Protocol}.
     L'implementazione in \texttt{MqttProtocol} sfrutta le funzionalità di \ac{MQTT} per gestire le comunicazioni tra i nodi nel sistema distribuito.
 
 \end{itemize}
@@ -709,29 +709,36 @@ immediato agli sviluppatori e mantenendo alta la qualità del codice durante tut
 
 \section{Sviluppo} 
 
-Dopo la prima fase di documentazione e Design spiegata precedentemente si è passati a sviluppare e scrivere il codice effettivo.
-Durante questa fase ci si è concetrati sul modulo \texttt{jvmNativeMain} e conseguentemente sui target Native e \ac{JVM}, lasciando momentaneamente \ac{JS} in secondo piano.
+Dopo la prima fase di documentazione e design, descritta nei capitoli precedenti, si è passati alla fase di sviluppo e alla scrittura del codice effettivo. 
+Durante questa fase, l'attenzione si è concentrata in primo luogo sul modulo \texttt{jvmNativeMain} per i target Native e \ac{JVM}, lasciando momentaneamente 
+in secondo piano JavaScript.
 
-Per lo sviluppo di questo modulo ci si è appoggiati alla liberia KMQTT, la quale fornisce un implementazione e relativa di un client \ac{MQTT} in Kotlin. 
-In particolare fornisce tra metodi per le principali azioni di \ac{MQTT}:
+Per lo sviluppo di questo modulo, ci si è avvalsi della libreria KMQTT, la quale fornisce un'implementazione completa di un client \ac{MQTT} in Kotlin. 
+In particolare, questa libreria offre metodi per le principali operazioni del protocollo \ac{MQTT}:
 \begin{itemize}
-    \item \texttt{connect}: metodo per connettere il client al broker, permette di specificare tutte le opzioni della connessione, tra cui cleanStart 
-    e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Richiede inoltre come paramentro la funzione da eseguire ogni qualvolta il client 
-    riceve un messaggio su uno qualsiasi dei topic a cui è iscritto. Connessione poi chiusa tramite il metodo \texttt{disconnect}
-    \item \texttt{publish}: metodo per scrivere un messaggio sul topic specificato con i parametri specificati, tra cui la \ac{QoS} del messaggio inviato 
-    e la flag retain del messaggio nel broker.
-    \item \texttt{subscribe}: metodo che permette al client di iscriversi a uno o più topic, per ognuno specificando le opzioni di iscrizione 
-    relative al singolo topic quali il livello di \ac{QoS} per la ricezione dei messaggi. 
+    \item \texttt{connect}: Questo metodo consente di connettere il client al broker, permettendo di specificare tutte le opzioni della connessione, 
+    come cleanStart e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Richiede inoltre come parametro la funzione da eseguire ogni volta che 
+    il client riceve un messaggio su uno qualsiasi dei topic a cui è iscritto. La connessione può poi essere chiusa tramite il metodo \texttt{disconnect}.
+
+    \item \texttt{publish}: Questo metodo permette di pubblicare un messaggio sul topic specificato con i parametri desiderati, tra cui il livello di \ac{QoS} del messaggio inviato 
+    e la flag retain del messaggio all'interno del broker.
+
+    \item \texttt{subscribe}: Questo metodo consente al client di iscriversi a uno o più topic, specificando per ciascuno le opzioni di iscrizione relative al singolo topic, 
+    come il livello di \ac{QoS} per la ricezione dei messaggi.
 \end{itemize}
 
-Poiché si è scelto di utilizzare la libreria KMQTT, che per funzionare su piattaforme native dipende a sua volta dall'utilizzo di OpenSSL, che è specifico per ogni piattaforma. 
-è stato necessario incorporare le implementazioni specifiche per ogni piattaforma all'interno del progetto in una struttura apposita(texttt{src/nativeLibs}). 
-Questo è stato realizzato aggiungendo le dipendenze ai file specifici ai singoli target nativi per i singoli sourceset all'interno del file di configurazione Gradle, 
-consentendo così di specificare la dipendenza dal file corretto per ciascuna architettura. 
+Poiché si è scelto di utilizzare la libreria KMQTT, che per funzionare su piattaforme native dipende a sua volta dall'utilizzo di OpenSSL, è stato necessario incorporare 
+le implementazioni specifiche di OpenSSL per ogni piattaforma all'interno del progetto in una struttura apposita (\texttt{src/nativeLibs}). 
+Questo è stato realizzato aggiungendo le dipendenze ai file specifici per i singoli target nativi all'interno dei sourceset nel file di configurazione Gradle. 
+Questo approccio ha permesso di garantire la compatibilità del progetto con le diverse piattaforme target, rendendo possibile l'utilizzo delle funzionalità di KMQTT sia su 
+piattaforme \ac{JVM} che Native, superando le limitazioni imposte dalle dipendenze di basso livello come OpenSSL.
 
-Il modulo sviluppato per i target \ac{JVM} e native sfrutta le courutines di Kotlin per permettere un'esecuzione parallela del client \ac{MQTT} al gestore delle 
-comunicazioni tra le varie entità, questo infatti riceve tramite il builder il \texttt{CoroutineDispatcher}. Necessario per la corretta creazione ed esecuzione del 
-\texttt{CourutineScope}, con la funzione di ospitare ed eseguire il client per l'invio e la ricezione effettivi dei pacchetti \ac{MQTT}. 
+Il modulo sviluppato per i target \ac{JVM} e Native sfrutta le coroutines di Kotlin per permettere un'esecuzione parallela del client \ac{MQTT} e del gestore 
+delle comunicazioni tra le varie entità. Questo modulo riceve, tramite il builder, il parametro \texttt{CoroutineDispatcher}, necessario per la corretta 
+creazione ed esecuzione del \texttt{CoroutineScope}. Tale scope ha la funzione di ospitare ed eseguire il client per l'invio e la ricezione effettivi dei pacchetti \ac{MQTT}.
+L'utilizzo delle coroutines consente di gestire in modo efficiente le operazioni asincrone, garantendo che il client \ac{MQTT} possa operare in parallelo con altre 
+componenti del sistema senza bloccare il thread principale. Questo approccio migliora le prestazioni complessive dell'applicazione e facilita la gestione 
+delle comunicazioni \ac{MQTT}, rendendole più reattive e scalabili.
 
 Per quanto riguarda invece lo sviluppo JavaScript è stata utilizzata la libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript, 
 per lo sviluppo del modulo è stato necessario utilizzare le funzionalità di interoperabilità \ac{JS} disponibile in Kotlin. Si è infatti definita una classe 
@@ -839,7 +846,7 @@ Come evidenziato dai grafici, che mostrano i risultati dei test, si possono trar
     \item L’elemento che influenza maggiormente le prestazioni è rappresentato dall’utilizzo di una piattaforma native ed emerge chiaramente quando si confrontano 
     le tre piattaforme nello stesso ambiente (Windows o Linux); infatti è estremamente evidente che quando il codice viene eseguito nativamente si ottiene un tempo 
     di esecuzione di parecchi secondi inferiore rispetto a quando ci si appoggia alla Java virtual Machine o a NodeJS. Non si osserva invece un reale vantaggio nell’utilizzo 
-    di JS rispetto a JVM o viceversa dal momento che la differenza tra queste due piattaforme è sempre inferiore al secondo, in alcuni casi a favore di un target e in altri a 
+    di \ac{JS} rispetto a \ac{JVM} o viceversa dal momento che la differenza tra queste due piattaforme è sempre inferiore al secondo, in alcuni casi a favore di un target e in altri a 
     favore dell'altro.
 
 \end{itemize}
