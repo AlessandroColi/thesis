@@ -785,27 +785,43 @@ i seguenti metodi del client \ac{MQTT}:
 La definizione di queste interfacce in Kotlin ha permesso di sfruttare appieno le potenzialità della libreria MQTT.JS, mantenendo allo stesso tempo la coerenza con il 
 resto del progetto. L'approccio utilizzato ha facilitato l'integrazione del client \ac{MQTT} con le altre componenti del sistema, assicurando una gestione efficiente 
 delle comunicazioni e un'esperienza utente fluida.
-
+\pa
 \section{Validazione}
-Dopo aver superato una fase iniziale di test abbastanza agevole con come target la \ac{JVM}, durante la quale lo sviluppo è proceduto senza intoppi, ci si è concentrati 
-sulle piattaforme native, con particolare riferimento a Linux e Windows ma considerando anche macOs. Mentre Linux non ha causato particolari problemi, 
-consentendo un passaggio rapido a Windows, è stato riscontrato un problema significativo legato ai socket durante l'esecuzione nativa su Windows.
-In particolare, l'implementazione interna della libreria KMQTT causava un'eccezione Socket.IOException quando cercava di stabilire una connessione al socket per 
-qualsiasi operazione, segnalando l'errore \texttt{Error 10047: Address family not supported by protocol family}. Questo ha richiesto un'attenta analisi per individuare 
-la causa del problema. Dopo un'approfondita revisione del codice, è stata identificata la fonte del problema nella libreria KMQTT, in quanto
-non gestiva correttamente alcuni aspetti relativi ai socket di comunicazione su Windows.
-Per risolvere questa problematica, è stato necessario apportare alcune modifiche al codice. Inoltre, abbiamo segnalato il problema allo sviluppatore di KMQTT, fornendo 
-dettagli specifici sull'errore riscontrato. Fortunatamente, l'attenzione immediata del team di sviluppo ha portato a una soluzione rapida e efficace. Il problema è 
-stato risolto e incorporato nella successiva release della libreria, assicurando una migliore compatibilità con le piattaforme Windows e garantendone il funzionamento
-all'interno del progetto.
+Dopo aver superato una fase iniziale di test abbastanza agevole con come target la \ac{JVM}, durante la quale lo sviluppo è proceduto senza intoppi, 
+ci si è concentrati sulle piattaforme native, con particolare riferimento a Linux e Windows ma considerando anche macOS. 
+In questa fase, mentre Linux non ha causato particolari problemi, consentendo un passaggio rapido a Windows, è stato riscontrato un problema significativo legato 
+ai socket durante l'esecuzione nativa su sistema operativo Windows. Questo problema ha richiesto un'analisi approfondita per essere risolto e ha messo in luce 
+le differenze nelle implementazioni specifiche dei socket di rete tra i vari sistemi operativi.
 
-Come ultimo target, ci si è focalizzati su JavaScript, nello specifico su NodeJS, poiché non è stato possibile trovare una libreria \ac{JS} compatibile con Kotlin,
-che implementasse il protocollo \ac{MQTT} per il browser. 
-Affrontare questa piattaforma ha comportato le sfide più significative del progetto. La maggior parte di esse ha radici nella natura single-threaded di JavaScript, 
-che lo contraddistingue dai precedenti target capaci di operare su più thread, permettendo un vero parallelismo e l'uso di coroutine su thread separati.
-Questa peculiarità di JavaScript ha generato diversi ostacoli, alcuni dei quali risolti relativamente facilmente, mentre altri hanno richiesto strategie più intricate. 
-Ad esempio, abbiamo dovuto affrontare la gestione degli eventi asincroni in modo efficace, garantendo che le operazioni di rete non bloccassero il thread principale e 
-che l'applicazione rimanesse reattiva agli input.
+In particolare, l'implementazione interna della libreria KMQTT causava un'eccezione \texttt{Socket.IOException} quando tentava di stabilire una connessione al 
+socket per una qualsiasi operazione, segnalando l'errore \texttt{Error 10047: Address family not supported by protocol family}. 
+Questa situazione ha richiesto un'attenta analisi per individuare la causa del problema. Dopo una revisione approfondita del codice, è stata identificata 
+l'origine del problema nella libreria KMQTT, che non gestiva correttamente alcuni aspetti relativi ai socket di comunicazione su Windows. 
+Questo difetto ha reso evidente la necessità di porre attenzione specifica nei test per ogni singola piattaforma.
+
+Per risolvere questa problematica, è stato necessario apportare alcune modifiche al codice che utilizzava la libreria. Inoltre, è stato necessario segnalare 
+il problema allo sviluppatore di KMQTT, fornendo dettagli specifici sull'errore riscontrato. Fortunatamente, l'attenzione immediata del team di sviluppo 
+ha portato a una soluzione rapida ed efficace. Il problema è stato risolto e incorporato nella successiva release della libreria, assicurando una migliore 
+compatibilità con le piattaforme Windows e garantendone il funzionamento all'interno del progetto. Questo intervento ha permesso di superare un ostacolo 
+significativo e ha migliorato l'affidabilità e la robustezza del sistema.
+
+Dopo aver risolto le problematiche con i target nativi, l'attenzione si è spostata su JavaScript, la cui natura singlethread ha generato diversi ostacoli anche durante 
+la fase di testing. Per garantire che le operazioni di rete e i test non bloccassero il thread principale e che l'applicazione rimanesse reattiva agli input, 
+è stato necessario revisionare il codice dei test e adottare tecniche avanzate di gestione degli eventi asincroni. 
+%TODO: rivedi da qua in poi non mi piace particolarmente
+Durante i test, particolare attenzione è stata prestata alla gestione degli eventi asincroni. È stato fondamentale garantire che il sistema fosse in grado di gestire 
+correttamente le connessioni al broker \ac{MQTT}, l'invio e la ricezione dei messaggi, e la gestione degli errori. La fase di testing ha permesso di identificare e 
+risolvere diversi problemi legati alla natura asincrona di JavaScript. Ad esempio, è stato necessario assicurarsi che tutte le operazioni di rete fossero gestite 
+correttamente senza bloccare il thread principale, garantendo al contempo che l'applicazione rimanesse reattiva e rispondesse prontamente agli input dell'utente. 
+Questo approccio ha consentito di testare in modo efficace il modulo \ac{MQTT} in ambiente NodeJS, assicurando che il sistema funzionasse correttamente e fosse in grado 
+di gestire le comunicazioni \ac{MQTT} in modo affidabile ed efficiente.
+
+In conclusione, le diverse fasi di sviluppo e test hanno messo in luce le peculiarità e le sfide specifiche di ciascuna piattaforma. 
+L'uso combinato delle librerie KMQTT e MQTT.JS, insieme all'adozione di tecniche avanzate per la gestione delle operazioni asincrone, 
+ha permesso di sviluppare un sistema robusto e versatile, capace di operare efficacemente su piattaforme \ac{JVM}, native e JavaScript. 
+Le soluzioni implementate hanno garantito la compatibilità e la reattività del sistema, migliorando l'esperienza utente e assicurando un'ottima 
+gestione delle comunicazioni \ac{MQTT}. Questo progetto ha dimostrato l'importanza della flessibilità e dell'adattamento nell'affrontare le sfide 
+poste dalle diverse piattaforme di destinazione, assicurando il successo del sistema finale.
 
 \section{Prestazione sulle diverse piattaforme}
 
