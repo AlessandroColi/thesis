@@ -746,7 +746,19 @@ del sistema senza bloccare il thread principale. Questo approccio migliora le pr
 rendendole più reattive e scalabili. L'architettura basata su coroutines permette di ottenere un'applicazione più robusta e capace di gestire un elevato numero di messaggi 
 contemporaneamente, adattandosi alle esigenze dinamiche del sistema.
 
-Per quanto riguarda lo sviluppo del modulo JavaScript, è stata utilizzata la libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript. 
+Come ultimo target, ci si è focalizzati su JavaScript, nello specifico su NodeJS, poiché non è stato possibile trovare una libreria \ac{JS} compatibile con Kotlin 
+che implementasse il protocollo \ac{MQTT} per il browser. Affrontare questa piattaforma ha comportato le sfide più significative del progetto. 
+La natura single-threaded di JavaScript, che lo contraddistingue dai precedenti target capaci di operare su più thread, permettendo un vero parallelismo e l'uso 
+di coroutine su thread separati, ha rappresentato una sfida considerevole. Questa peculiarità di JavaScript ha richiesto un adattamento rispetto delle 
+strategie di programmazione rispetto a quelle adottate per gli altri target.
+
+Questa peculiarità di JavaScript ha generato diversi ostacoli, alcuni dei quali sono stati risolti relativamente facilmente, mentre altri hanno richiesto strategie più intricate. 
+Ad esempio, la gestione degli eventi asincroni è stata una delle principali difficoltà. È stato necessario garantire che le operazioni di rete non bloccassero il thread principale 
+e che l'applicazione rimanesse reattiva agli input. Per affrontare questa sfida, abbiamo adottato tecniche avanzate di gestione degli eventi per mantenere il codice leggibile 
+e manutenibile, pur garantendo prestazioni ottimali. L'integrazione di queste tecniche ha permesso di gestire in modo efficiente le operazioni asincrone, assicurando che il 
+client \ac{MQTT} per NodeJS fosse reattivo e affidabile.
+
+Nello sviluppo di questo modulo ci si è appoggiati alla libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript. 
 Questa libreria è stata scelta per la sua facilità d'uso e la sua ampia adozione nella comunità, che garantisce una buona documentazione e un supporto continuo. 
 L'integrazione di MQTT.JS in Kotlin ha richiesto l'utilizzo delle funzionalità di interoperabilità \ac{JS} disponibili in Kotlin, che permettono di interagire 
 facilmente con le librerie JavaScript.
@@ -755,7 +767,7 @@ L'interoperabilità tra Kotlin e JavaScript è stata cruciale per il successo di
 che mappano direttamente sulle controparti JavaScript, permettendo di chiamare funzioni JavaScript come se fossero parte del codice Kotlin. Questo ha reso il processo di 
 sviluppo più fluido e ha ridotto significativamente la complessità legata alla gestione delle differenze tra i due linguaggi.
 In particolare è stata definita una classe con il modificatore \texttt{external} per rispecchiare in Kotlin la classe \ac{JS} che espone 
-i seguenti metodi, fondamentali per il funzionamento del client \ac{MQTT}:
+i seguenti metodi del client \ac{MQTT}:
 \begin{itemize}
     \item \texttt{connect}: Questo metodo consente di connettere il client al broker, permettendo di specificare tutte le opzioni della connessione, 
     tra cui \textit{cleanStart} e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. La connessione può poi essere chiusa tramite il metodo \texttt{end}.
