@@ -902,20 +902,28 @@ essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglior
 \end{tikzpicture}
 
 Come evidenziato dai grafici, che mostrano i risultati dei test, si possono trarre le seguenti conclusioni:
+
 \begin{itemize}
-    \item Il sistema operativo ha un’influenza minima sulle prestazioni con la sola eccezione nel caso in cui il test è stato eseguito su target nativo con broker locale; 
-    in questo caso il tempo medio di esecuzione è stato di 2.133 secondi su Windows e di 0.311 su linux.
+    \item Il sistema operativo ha un’influenza minima sulle prestazioni, con l’eccezione del caso in cui il test è stato eseguito su target nativo con broker locale. 
+    In questo caso specifico, il tempo medio di esecuzione è stato di 2.133 secondi su Windows e di 0.311 secondi su Linux. Questa notevole differenza evidenzia 
+    un comportamento significativamente più efficiente su Linux quando si lavora su target nativo.
 
-    \item Il luogo in cui viene ospitato il broker dei messaggi (locale piuttosto che remoto) ha anch’esso una scarsa influenza sul risultato finale del test, 
-    in quanto le differenze sono sempre al di sotto dei 500 millisecondi ad esclusione del caso Linux Native in cui la differenza è di 1.5 secondi. 
+    \item Il luogo in cui viene ospitato il broker dei messaggi (locale piuttosto che remoto) ha anch’esso una scarsa influenza sul risultato finale del test. 
+    Le differenze nei tempi di esecuzione sono sempre al di sotto dei 500 millisecondi, con l’eccezione del caso Linux Native, in cui la differenza tra broker locale e remoto 
+    è di 1.5 secondi. Questo suggerisce che, a meno di condizioni estremamente specifiche, l'ubicazione del broker non rappresenta un fattore critico nelle prestazioni complessive.
 
-    \item L’elemento che influenza maggiormente le prestazioni è rappresentato dall’utilizzo di una piattaforma native ed emerge chiaramente quando si confrontano 
-    le tre piattaforme nello stesso ambiente (Windows o Linux); infatti è estremamente evidente che quando il codice viene eseguito nativamente si ottiene un tempo 
-    di esecuzione di parecchi secondi inferiore rispetto a quando ci si appoggia alla Java virtual Machine o a NodeJS. Non si osserva invece un reale vantaggio nell’utilizzo 
-    di \ac{JS} rispetto a \ac{JVM} o viceversa dal momento che la differenza tra queste due piattaforme è sempre inferiore al secondo, in alcuni casi a favore di un target e in altri a 
-    favore dell'altro.
-
+    \item L’elemento che influenza maggiormente le prestazioni è rappresentato dall’utilizzo di una piattaforma nativa, emergendo chiaramente quando si confrontano 
+    le tre piattaforme nello stesso ambiente (Windows o Linux). È estremamente evidente che quando il codice viene eseguito nativamente si ottiene un tempo 
+    di esecuzione di parecchi secondi inferiore rispetto a quando ci si appoggia alla Java Virtual Machine o a NodeJS. Non si osserva invece un reale vantaggio nell’utilizzo 
+    di \ac{JS} rispetto a \ac{JVM} o viceversa, poiché la differenza tra queste due piattaforme è sempre inferiore al secondo, con variazioni minime in alcuni casi a favore 
+    di un target e in altri a favore dell'altro. Questo indica che entrambe le piattaforme hanno prestazioni comparabili e che la scelta tra di esse può essere guidata da 
+    altri fattori come la familiarità del team con la tecnologia o esigenze specifiche del progetto.
 \end{itemize}
+
+I grafici allegati illustrano chiaramente queste osservazioni, fornendo una rappresentazione visiva delle differenze nei tempi di esecuzione per ciascuna piattaforma 
+e ambiente di test. L'analisi dei dati raccolti conferma che l’esecuzione nativa offre un significativo miglioramento delle prestazioni, mentre le differenze 
+tra l'uso di broker locale e remoto sono generalmente marginali. Questo tipo di valutazione è cruciale per informare le decisioni di sviluppo e ottimizzazione, 
+assicurando che le scelte tecnologiche adottate siano le più adatte per raggiungere le migliori prestazioni possibili. %TODO: spostalo prima delll'elenco e riformula
 
 \section{Integrazione in PulvReAKt}
 
