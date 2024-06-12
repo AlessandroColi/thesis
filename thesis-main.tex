@@ -832,15 +832,22 @@ piattaforme di destinazione, assicurando il successo del sistema finale.
 \pagebreak
 \section{Prestazione sulle diverse piattaforme}
 
-Durante la fase di sviluppo, ma soprattutto durante quella di Validazione è stata notata una notevole differenza di tempo di esecuzione tra le diverse piattaforme. 
-Sono stati quindi svolti dei semplici test con lo scopo di evidenziare tali differenze e confrontare tra le prestazioni del progetto sulle differenti piattaforme 
-aventi la stessa architettura hardware sottostante.
-Il parametro scelto per valutarne le prestazioni è la media dei tesmpi di completamento dei test del progetto,
- che sono sempre stati eseguiti tramite il comando \texttt{gradlew allTest --parallel --profile} in differenti condizioni.
-I risultati dei test nativi su linux e windows sono stati effettuati sullo stesso computer in due partizioni separate e quindi aventi lo stesso hardware sottostante. 
-Mentre i risultati jvm e js sono stati eseguiti sia in ambito linux che in ambito windows sempre sullo stesso dispositivo.
-I test sono stati divisi in due tipologie principali differenziate in base al server. Nel primo caso è stato ospitato localmente tramite mosquitto richiedendo autenticazione, 
-mentre nel secondo caso è stato utilizzato il broker remoto \texttt{test.mosquitto.org} senza autenticazione.
+Durante la fase di sviluppo, ma soprattutto durante quella di validazione, è stata notata una notevole differenza di tempo di esecuzione tra le diverse piattaforme. 
+Per comprendere meglio queste differenze, sono stati conseguentemente svolti dei semplici test con lo scopo di evidenziare tali differenze e confrontare le prestazioni 
+del progetto sulle differenti piattaforme aventi la stessa architettura sottostante. Il parametro scelto per svolgere tali valutazioni è stato la media dei tempi di completamento 
+dei test del progetto, un indicatore utile e significativo per comprendere le prestazioni relative. Tali test sono stati eseguiti sistematicamente tramite il comando 
+\texttt{gradlew allTest --parallel --profile} in differenti condizioni operative, garantendo un confronto equo e accurato.
+
+I risultati dei test nativi su Linux e Windows sono stati ottenuti utilizzando lo stesso computer, configurato in due partizioni separate, e quindi con lo stesso hardware sottostante. 
+Questa configurazione ha permesso di isolare le variabili legate all'hardware e focalizzarsi sulle differenze di performance dovute esclusivamente ai sistemi operativi. 
+I test per le piattaforme JVM e JS sono stati eseguiti sia in ambiente Linux che in ambiente Windows, sempre utilizzando lo stesso dispositivo già impiegato per i test nativi. 
+Ciò ha assicurato che qualsiasi differenza osservata fosse attribuibile esclusivamente alle piattaforme software e alle differenze tra le due librerie utilizzate.
+
+I test sono stati divisi in due tipologie principali, differenziate in base al server utilizzato per ospitare il broker \ac{MQTT}. Nel primo caso, il broker è stato ospitato 
+localmente tramite Mosquitto, configurato per richiedere autenticazione, offrendo così un contesto controllato e stabile per le misurazioni. Nel secondo caso, è stato utilizzato 
+il broker remoto \texttt{test.mosquitto.org}, che non richiede autenticazione, simulando un ambiente più realistico e variabile. Questa doppia configurazione ha permesso di 
+valutare le prestazioni del sistema in scenari sia controllati che più dinamici, fornendo una visione completa e approfondita delle capacità e dei limiti del progetto 
+nelle diverse condizioni operative. 
 
 \begin{tikzpicture}
 \begin{axis}[
