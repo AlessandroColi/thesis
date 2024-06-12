@@ -746,19 +746,33 @@ del sistema senza bloccare il thread principale. Questo approccio migliora le pr
 rendendole più reattive e scalabili. L'architettura basata su coroutines permette di ottenere un'applicazione più robusta e capace di gestire un elevato numero di messaggi 
 contemporaneamente, adattandosi alle esigenze dinamiche del sistema.
 
-Per quanto riguarda invece lo sviluppo JavaScript è stata utilizzata la libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript, 
-per lo sviluppo del modulo è stato necessario utilizzare le funzionalità di interoperabilità \ac{JS} disponibile in Kotlin. Si è infatti definita una classe 
-con il modificatore \texttt{external} per rispecchiare in kotlin la classe \ac{JS} che espone i seguenti metodi: %TODO: rivedi formulazione ita
+Per quanto riguarda lo sviluppo del modulo JavaScript, è stata utilizzata la libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript. 
+Questa libreria è stata scelta per la sua facilità d'uso e la sua ampia adozione nella comunità, che garantisce una buona documentazione e un supporto continuo. 
+L'integrazione di MQTT.JS in Kotlin ha richiesto l'utilizzo delle funzionalità di interoperabilità \ac{JS} disponibili in Kotlin, che permettono di interagire 
+facilmente con le librerie JavaScript.
+
+L'interoperabilità tra Kotlin e JavaScript è stata cruciale per il successo di questa integrazione. Grazie a Kotlin/JS, è stato possibile definire classi e metodi esterni 
+che mappano direttamente sulle controparti JavaScript, permettendo di chiamare funzioni JavaScript come se fossero parte del codice Kotlin. Questo ha reso il processo di 
+sviluppo più fluido e ha ridotto significativamente la complessità legata alla gestione delle differenze tra i due linguaggi.
+In particolare è stata definita una classe con il modificatore \texttt{external} per rispecchiare in Kotlin la classe \ac{JS} che espone 
+i seguenti metodi, fondamentali per il funzionamento del client \ac{MQTT}:
 \begin{itemize}
-    \item \texttt{connect}: metodo per connettere il client al broker, permette di specificare tutte le opzioni della connessione, tra cui cleanStart 
-    e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Connessione poi chiusa tramite il metodo \texttt{end}
-    \item \texttt{subscribe}: metodo che permette al client di iscriversi a un topic del broker, per ognuno specificando le opzioni di iscrizione 
-    relative al singolo topic quali il livello di \ac{QoS} per la ricezione dei messaggi. 
-    \item \texttt{publish}: metodo per scrivere un messaggio sul topic specificato con i parametri specificati, tra cui la \ac{QoS} del messaggio inviato 
-    e la flag retain del messaggio nel broker.
-    \item \texttt{on}: metodo per specificare la funzione da eseguire come conseguenza dell'evento specificato quali connect e error. 
-    Di notevole importanza la chiamata con message come paramentro, in quanto è quella che specifica cosa fare come conseguenza alla ricezione di un messaggio.  
+    \item \texttt{connect}: Questo metodo consente di connettere il client al broker, permettendo di specificare tutte le opzioni della connessione, 
+    tra cui \textit{cleanStart} e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. La connessione può poi essere chiusa tramite il metodo \texttt{end}.
+    
+    \item \texttt{subscribe}: Questo metodo permette al client di iscriversi a un topic del broker, specificando per ciascuno le opzioni di iscrizione 
+    relative al singolo topic, come il livello di \ac{QoS} per la ricezione dei messaggi.
+    
+    \item \texttt{publish}: Questo metodo consente di pubblicare un messaggio sul topic specificato con i parametri desiderati, tra cui la \ac{QoS} del messaggio 
+    inviato e la flag \textit{retain} del messaggio nel broker.
+    
+    \item \texttt{on}: Questo metodo permette di specificare la funzione da eseguire come conseguenza dell'evento specificato, come \textit{connect} ed \textit{error}. 
+    Di particolare importanza è la chiamata con \textit{message} come parametro, in quanto specifica cosa fare in risposta alla ricezione di un messaggio.
 \end{itemize}
+
+La definizione di queste interfacce in Kotlin ha permesso di sfruttare appieno le potenzialità della libreria MQTT.JS, mantenendo allo stesso tempo la coerenza con il 
+resto del progetto. L'approccio utilizzato ha facilitato l'integrazione del client \ac{MQTT} con le altre componenti del sistema, assicurando una gestione efficiente 
+delle comunicazioni e un'esperienza utente fluida.
 
 \section{Validazione}
 Dopo aver superato una fase iniziale di test abbastanza agevole con come target la \ac{JVM}, durante la quale lo sviluppo è proceduto senza intoppi, ci si è concentrati 
