@@ -711,34 +711,40 @@ immediato agli sviluppatori e mantenendo alta la qualità del codice durante tut
 
 Dopo la prima fase di documentazione e design, descritta nei capitoli precedenti, si è passati alla fase di sviluppo e alla scrittura del codice effettivo. 
 Durante questa fase, l'attenzione si è concentrata in primo luogo sul modulo \texttt{jvmNativeMain} per i target Native e \ac{JVM}, lasciando momentaneamente 
-in secondo piano JavaScript.
+in secondo piano JavaScript. Questa decisione è stata presa in modo da poter affrontare le complessità delle piattaforme Native e JVM prima di occuparsi delle 
+peculiarità di JavaScript.
 
 Per lo sviluppo di questo modulo, ci si è avvalsi della libreria KMQTT, la quale fornisce un'implementazione completa di un client \ac{MQTT} in Kotlin. 
-In particolare, questa libreria offre metodi per le principali operazioni del protocollo \ac{MQTT}:
+KMQTT è stata scelta per la sua robustezza e la sua aderenza agli standard del protocollo \ac{MQTT}, che garantiscono un'ottima interoperabilità con vari 
+broker MQTT e una gestione efficiente delle comunicazioni. In particolare, questa libreria offre metodi per le principali operazioni del protocollo \ac{MQTT},
+facilitando così l'implementazione delle funzionalità necessarie nel progetto:
 \begin{itemize}
     \item \texttt{connect}: Questo metodo consente di connettere il client al broker, permettendo di specificare tutte le opzioni della connessione, 
-    come cleanStart e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Richiede inoltre come parametro la funzione da eseguire ogni volta che 
-    il client riceve un messaggio su uno qualsiasi dei topic a cui è iscritto. La connessione può poi essere chiusa tramite il metodo \texttt{disconnect}.
+    come \textit{cleanStart} e le opzioni relative all'utilizzo di \ac{MQTT} over WebSocket. Richiede inoltre come parametro la funzione da eseguire 
+    ogni volta che il client riceve un messaggio su uno qualsiasi dei topic a cui è iscritto. La connessione può poi essere chiusa tramite il metodo \texttt{disconnect}.
 
-    \item \texttt{publish}: Questo metodo permette di pubblicare un messaggio sul topic specificato con i parametri desiderati, tra cui il livello di \ac{QoS} del messaggio inviato 
-    e la flag retain del messaggio all'interno del broker.
+    \item \texttt{publish}: Questo metodo permette di pubblicare un messaggio sul topic specificato con i parametri desiderati, tra cui il livello di 
+    \ac{QoS} del messaggio inviato e la flag \textit{retain} del messaggio all'interno del broker.
 
-    \item \texttt{subscribe}: Questo metodo consente al client di iscriversi a uno o più topic, specificando per ciascuno le opzioni di iscrizione relative al singolo topic, 
-    come il livello di \ac{QoS} per la ricezione dei messaggi.
+    \item \texttt{subscribe}: Questo metodo consente al client di iscriversi a uno o più topic, specificando per ciascuno le opzioni di iscrizione relative 
+    al singolo topic, come il livello di \ac{QoS} per la ricezione dei messaggi.
 \end{itemize}
 
-Poiché si è scelto di utilizzare la libreria KMQTT, che per funzionare su piattaforme native dipende a sua volta dall'utilizzo di OpenSSL, è stato necessario incorporare 
-le implementazioni specifiche di OpenSSL per ogni piattaforma all'interno del progetto in una struttura apposita (\texttt{src/nativeLibs}). 
-Questo è stato realizzato aggiungendo le dipendenze ai file specifici per i singoli target nativi all'interno dei sourceset nel file di configurazione Gradle. 
-Questo approccio ha permesso di garantire la compatibilità del progetto con le diverse piattaforme target, rendendo possibile l'utilizzo delle funzionalità di KMQTT sia su 
-piattaforme \ac{JVM} che Native, superando le limitazioni imposte dalle dipendenze di basso livello come OpenSSL.
+Poiché si è scelto di utilizzare la libreria KMQTT, che per funzionare su piattaforme native dipende a sua volta dall'utilizzo di OpenSSL, 
+è stato necessario incorporare le implementazioni specifiche di OpenSSL per ogni piattaforma all'interno del progetto in una struttura apposita (\texttt{src/nativeLibs}). 
+Questa operazione ha comportato l'aggiunta delle dipendenze ai file specifici per i singoli target nativi all'interno dei sourceset nel file di configurazione Gradle. 
+In questo modo, si è potuta garantire la compatibilità del progetto con le diverse piattaforme target, rendendo possibile l'utilizzo delle funzionalità di KMQTT sia su 
+piattaforme \ac{JVM} che Native, superando le limitazioni imposte dalle dipendenze di basso livello come OpenSSL. Questo approccio strutturato ha facilitato l'integrazione 
+delle librerie necessarie, assicurando un ambiente di sviluppo stabile e coerente.
 
-Il modulo sviluppato per i target \ac{JVM} e Native sfrutta le coroutines di Kotlin per permettere un'esecuzione parallela del client \ac{MQTT} e del gestore 
-delle comunicazioni tra le varie entità. Questo modulo riceve, tramite il builder, il parametro \texttt{CoroutineDispatcher}, necessario per la corretta 
+Il modulo sviluppato per i target \ac{JVM} e Native sfrutta le coroutines di Kotlin per permettere un'esecuzione parallela del client \ac{MQTT} e del gestore delle 
+comunicazioni tra le varie entità. Le coroutines di Kotlin offrono un modo efficace per gestire operazioni asincrone senza bloccare il thread principale, il che è cruciale 
+per le applicazioni che devono mantenere alta reattività. Questo modulo riceve, tramite il builder, il parametro \texttt{CoroutineDispatcher}, necessario per la corretta 
 creazione ed esecuzione del \texttt{CoroutineScope}. Tale scope ha la funzione di ospitare ed eseguire il client per l'invio e la ricezione effettivi dei pacchetti \ac{MQTT}.
-L'utilizzo delle coroutines consente di gestire in modo efficiente le operazioni asincrone, garantendo che il client \ac{MQTT} possa operare in parallelo con altre 
-componenti del sistema senza bloccare il thread principale. Questo approccio migliora le prestazioni complessive dell'applicazione e facilita la gestione 
-delle comunicazioni \ac{MQTT}, rendendole più reattive e scalabili.
+L'utilizzo delle coroutines consente di gestire in modo efficiente le operazioni asincrone, garantendo che il client \ac{MQTT} possa operare in parallelo con altre componenti 
+del sistema senza bloccare il thread principale. Questo approccio migliora le prestazioni complessive dell'applicazione e facilita la gestione delle comunicazioni \ac{MQTT}, 
+rendendole più reattive e scalabili. L'architettura basata su coroutines permette di ottenere un'applicazione più robusta e capace di gestire un elevato numero di messaggi 
+contemporaneamente, adattandosi alle esigenze dinamiche del sistema.
 
 Per quanto riguarda invece lo sviluppo JavaScript è stata utilizzata la libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript, 
 per lo sviluppo del modulo è stato necessario utilizzare le funzionalità di interoperabilità \ac{JS} disponibile in Kotlin. Si è infatti definita una classe 
