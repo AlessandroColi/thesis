@@ -921,7 +921,17 @@ da cui si possono trarre alcune conclusioni semplici ma al contempo utili in fas
     altri fattori come la familiarità del team con la tecnologia o esigenze specifiche del progetto.
 \end{itemize}
 
-\section{Integrazione in PulvReAKt}
+\section{Integrazione in PulvReAKt}  %TODO: rivedi tutto e lega le frasi bene 
+
+La fase finale del progetto si è concentrata nell'integrarlo all'interno di PulvReAKt.
+Per prima cosa è stato necessario adattare lievemente le interfacce del progetto singolo a quelle utilizzate in PulvReAKt.
+In particolare è stato necessario gestire la Dependency Injection, in quanto il progetto singolarmente non necessita dell'utilizzo di questo meccanismo, 
+ma una volta inserito nel più ampio contesto di PulvReAKt è risultato necessario gestire anche questo aspetto. 
+In PulvReAKt, e di conseguenza nel progetto una volta integrato, è stato gestito tramite kodein\footnote{
+    Kodein è un framework di Dependency Injection per Kotlin che facilita l'inversione del controllo, consentendo di iniettare le 
+    dipendenze in modo flessibile ed efficiente. Semplifica la gestione delle dipendenze all'interno di un'applicazione Kotlin, 
+    migliorando la modularità e la testabilità del codice.
+} 
 
 \chapter{Conclusioni}\label{chap:Conclusioni}
 
