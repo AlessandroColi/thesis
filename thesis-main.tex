@@ -50,7 +50,6 @@ A mio nonno Gianni.
 %----------------------------------------------------------------------------------------
 \tableofcontents
 \listoffigures
-%\lstlistoflistings
 %----------------------------------------------------------------------------------------
 
 \mainmatter
@@ -216,7 +215,7 @@ Questo livello di \ac{QoS} utilizza un meccanismo di handshake a quattro fasi pe
 affidabilità. Questo livello di \ac{QoS} è utilizzato in scenari dove è fondamentale evitare duplicati e garantire la consegna esatta di ogni messaggio, come nelle applicazioni 
 finanziarie o nei sistemi di controllo industriale.
 
-\pagebreak %avoids first 2 line of next subsection to be at the bottom of the page
+\pagebreak
 \subsection{MQTT over WebSocket}
 
 \ac{MQTT} over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
@@ -862,9 +861,9 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     ymin=0,
     ymax=7,
     ylabel={Time (s)},
-    symbolic x coords={%
-        {\shortstack{Windows\\Environment}},%
-        {\shortstack{Linux\\Environment}}%
+    symbolic x coords={
+        {\shortstack{Windows\\Environment}},
+        {\shortstack{Linux\\Environment}}
     },
     xtick=data,
     bar width=0.5cm,
@@ -932,12 +931,12 @@ da cui si possono trarre alcune conclusioni semplici ma al contempo utili in fas
 
 \backmatter
 
-\nocite{*} % Remove this as soon as you have the first citation
+\nocite{*}
 
 \bibliographystyle{alpha}
 \bibliography{bibliography}
 
-\begin{acknowledgements} % this is optional
+\begin{acknowledgements}
 Optional. Max 1 page.
 \end{acknowledgements}
 
