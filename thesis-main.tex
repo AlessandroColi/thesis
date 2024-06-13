@@ -859,51 +859,51 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
 
 \begin{center}
 \begin{tikzpicture}
-\begin{axis}[
-    height=10cm,
-    width=7cm,
-    ybar,
-    ymin=0,
-    ymax=7,
-    ylabel={Time (s)},
-    symbolic x coords={
-        {\shortstack{Windows\\Environment}},
-        {\shortstack{Linux\\Environment}}
-    },
-    xtick=data,
-    bar width=0.5cm,
-    enlarge x limits={abs=1cm},
-    legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
-    title={Local Broker},
-    ]
-\addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},6.327) ({\shortstack{Linux\\Environment}},5.464)};
-\addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},5.614) ({\shortstack{Linux\\Environment}},5.553)};
-\addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},2.133) ({\shortstack{Linux\\Environment}},0.311)};
-\legend{JVM, JS, NATIVE}    
-\end{axis}
+    \begin{axis}[
+        height=10cm,
+        width=7cm,
+        ybar,
+        ymin=0,
+        ymax=7,
+        symbolic x coords={
+            {\shortstack{Windows\\Environment}},
+            {\shortstack{Linux\\Environment}}
+        },
+        xtick=data,
+        bar width=0.5cm,
+        enlarge x limits={abs=1cm},
+        legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+        title={Local Broker},
+        yticklabel pos=right,
+        ]
+    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},6.327) ({\shortstack{Linux\\Environment}},5.464)};
+    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},5.614) ({\shortstack{Linux\\Environment}},5.553)};
+    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},2.133) ({\shortstack{Linux\\Environment}},0.311)};
+    \legend{JVM, JS, NATIVE}    
+    \end{axis}
 \end{tikzpicture}\begin{tikzpicture}
-\begin{axis}[
-    ybar,
-    height=10cm,
-    width=7cm,
-    ymin=0,
-    ymax=7,
-    ylabel={Time (s)},
-    symbolic x coords={
-        {\shortstack{Windows\\Environment}},
-        {\shortstack{Linux\\Environment}}
-    },
-    xtick=data,
-    bar width=0.5cm,
-    enlarge x limits={abs=1cm},
-    legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
-    title = {Remote Broker}
-    ]
-\addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},6.154)({\shortstack{Linux\\Environment}},5.876)};
-\addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},6.189)({\shortstack{Linux\\Environment}},6.273)};
-\addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},2.542)({\shortstack{Linux\\Environment}},1.739)};
-\legend{JVM, JS, NATIVE}
-\end{axis}
+    \begin{axis}[
+        ybar,
+        height=10cm,
+        width=7cm,
+        ymin=0,
+        ymax=7,
+        ylabel={Time (s)},
+        symbolic x coords={
+            {\shortstack{Windows\\Environment}},
+            {\shortstack{Linux\\Environment}}
+        },
+        xtick=data,
+        bar width=0.5cm,
+        enlarge x limits={abs=1cm},
+        legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+        title = {Remote Broker}
+        ]
+    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},6.154)({\shortstack{Linux\\Environment}},5.876)};
+    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},6.189)({\shortstack{Linux\\Environment}},6.273)};
+    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},2.542)({\shortstack{Linux\\Environment}},1.739)};
+    \legend{JVM, JS, NATIVE}
+    \end{axis}
 \end{tikzpicture}
 \end{center}
 \pagebreak
