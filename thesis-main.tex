@@ -864,7 +864,7 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
         width=8cm,
         ybar=.2cm,
         ymin=0,
-        ymax=7,
+        ymax=9,
         symbolic x coords={
             {\shortstack{Windows\\Environment}},
             {\shortstack{Linux\\Environment}}
@@ -876,9 +876,9 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
         title={Local Broker},
         yticklabel pos=right,
         ]
-    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},6.327) ({\shortstack{Linux\\Environment}},5.464)};
-    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},5.614) ({\shortstack{Linux\\Environment}},5.553)};
-    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},2.133) ({\shortstack{Linux\\Environment}},0.311)};
+    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},8.200) ({\shortstack{Linux\\Environment}},4.633)};
+    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.865) ({\shortstack{Linux\\Environment}},0.920)};
+    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.235) ({\shortstack{Linux\\Environment}},0.190)};
     \legend{JVM, JS, NATIVE}    
     \end{axis}
 \end{tikzpicture}\begin{tikzpicture}
@@ -887,7 +887,7 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
         height=10cm,
         width=8cm,
         ymin=0,
-        ymax=7,
+        ymax=9,
         ylabel={Time (s)},
         symbolic x coords={
             {\shortstack{Windows\\Environment}},
@@ -899,15 +899,15 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
         legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
         title = {Remote Broker}
         ]
-    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},6.154)({\shortstack{Linux\\Environment}},5.876)};
-    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},6.189)({\shortstack{Linux\\Environment}},6.273)};
-    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},2.542)({\shortstack{Linux\\Environment}},1.739)};
+    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},7.593)({\shortstack{Linux\\Environment}},4.853)};
+    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.590)({\shortstack{Linux\\Environment}},1.076)};
+    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.430)({\shortstack{Linux\\Environment}},0.120)};
     \legend{JVM, JS, NATIVE}
     \end{axis}
 \end{tikzpicture}
 \end{center}
 \pagebreak
-
+%TODO: rivedi con i dati veri
 I risultati delle diverse esecuzioni dei test nelle diverse condizioni, sono rappresentati graficici soprastanti che ne evidenziano i differenti tempi d'esecuzione medi, 
 da cui si possono trarre alcune conclusioni semplici ma al contempo utili in fase di progettazione qualora si voglia utilizzare questo progetto all'interno di un nuovo progetto:
 
