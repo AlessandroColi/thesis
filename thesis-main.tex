@@ -861,8 +861,8 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
 \begin{tikzpicture}
     \begin{axis}[
         height=10cm,
-        width=7cm,
-        ybar,
+        width=8cm,
+        ybar=.2cm,
         ymin=0,
         ymax=7,
         symbolic x coords={
@@ -870,8 +870,8 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
             {\shortstack{Linux\\Environment}}
         },
         xtick=data,
-        bar width=0.5cm,
-        enlarge x limits={abs=1cm},
+        bar width=0.6cm,
+        enlarge x limits={abs=1.5cm},
         legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
         title={Local Broker},
         yticklabel pos=right,
@@ -883,9 +883,9 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     \end{axis}
 \end{tikzpicture}\begin{tikzpicture}
     \begin{axis}[
-        ybar,
+        ybar=.2cm,
         height=10cm,
-        width=7cm,
+        width=8cm,
         ymin=0,
         ymax=7,
         ylabel={Time (s)},
@@ -894,8 +894,8 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
             {\shortstack{Linux\\Environment}}
         },
         xtick=data,
-        bar width=0.5cm,
-        enlarge x limits={abs=1cm},
+        bar width=0.6cm,
+        enlarge x limits={abs=1.5cm},
         legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
         title = {Remote Broker}
         ]
