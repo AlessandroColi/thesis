@@ -856,57 +856,59 @@ in situazioni di rete meno prevedibili. Questo approccio ha garantito che le val
 essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglioramenti. L'analisi dettagliata dei risultati ha permesso di identificare chiaramente i 
 punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il progetto possa raggiungere livelli ottimali di efficienza.
 
-\begin{center}
-\begin{tikzpicture}
-    \begin{axis}[
-        height=10cm,
-        width=8cm,
-        ybar=.2cm,
-        ymin=0,
-        ymax=9,
-        symbolic x coords={
-            {\shortstack{Windows\\Environment}},
-            {\shortstack{Linux\\Environment}}
-        },
-        xtick=data,
-        bar width=0.6cm,
-        enlarge x limits={abs=1.5cm},
-        legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
-        title={Local Broker},
-        yticklabel pos=right,
-        ]
-    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},8.200) ({\shortstack{Linux\\Environment}},4.633)};
-    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.865) ({\shortstack{Linux\\Environment}},0.920)};
-    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.235) ({\shortstack{Linux\\Environment}},0.190)};
-    \legend{JVM, JS, NATIVE}    
-    \end{axis}
-\end{tikzpicture}\begin{tikzpicture}
-    \begin{axis}[
-        ybar=.2cm,
-        height=10cm,
-        width=8cm,
-        ymin=0,
-        ymax=9,
-        ylabel={Time (s)},
-        symbolic x coords={
-            {\shortstack{Windows\\Environment}},
-            {\shortstack{Linux\\Environment}}
-        },
-        xtick=data,
-        bar width=0.6cm,
-        enlarge x limits={abs=1.5cm},
-        legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
-        title = {Remote Broker}
-        ]
-    \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},7.593)({\shortstack{Linux\\Environment}},4.853)};
-    \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.590)({\shortstack{Linux\\Environment}},1.076)};
-    \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.430)({\shortstack{Linux\\Environment}},0.120)};
-    \legend{JVM, JS, NATIVE}
-    \end{axis}
-\end{tikzpicture}
-\end{center}
-
-\begin{figure}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            height=9cm,
+            width=7cm,
+            ybar=.2cm,
+            ymin=0,
+            ymax=8.5,
+            symbolic x coords={
+                {\shortstack{Windows\\Environment}},
+                {\shortstack{Linux\\Environment}}
+            },
+            xtick=data,
+            bar width=0.6cm,
+            enlarge x limits={abs=1.5cm},
+            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+            title={Local Broker},
+            yticklabel pos=right,
+            ]
+        \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},8.200) ({\shortstack{Linux\\Environment}},4.633)};
+        \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.865) ({\shortstack{Linux\\Environment}},0.920)};
+        \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.235) ({\shortstack{Linux\\Environment}},0.190)};
+        \legend{JVM, JS, NATIVE}    
+        \end{axis}
+    \end{tikzpicture}\begin{tikzpicture}
+        \begin{axis}[
+            ybar=.2cm,
+            height=9cm,
+            width=7cm,
+            ymin=0,
+            ymax=8.5,
+            ylabel={Time (s)},
+            symbolic x coords={
+                {\shortstack{Windows\\Environment}},
+                {\shortstack{Linux\\Environment}}
+            },
+            xtick=data,
+            bar width=0.6cm,
+            enlarge x limits={abs=1.5cm},
+            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+            title = {Remote Broker}
+            ]
+        \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},7.593)({\shortstack{Linux\\Environment}},4.853)};
+        \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.590)({\shortstack{Linux\\Environment}},1.076)};
+        \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.430)({\shortstack{Linux\\Environment}},0.120)};
+        \legend{JVM, JS, NATIVE}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{tempi di esecuzione medi nelle diverse condizioni}
+    \label{fig:tempi di esecuzione medi}
+\end{figure}
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
         \begin{axis}[
@@ -937,7 +939,7 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
             point meta=explicit symbolic,
             reverse legend,
             yticklabel style={align=left, text width=4em, inner sep=0pt},
-            every node near coord/.append style={font=\tiny, anchor=west}
+            every node near coord/.append style={font=\tiny, anchor=east}
         ]
 
         \addplot[fill=lime] coordinates {(8.200,{locale\\Windows}) (4.633,{locale\\Linux}) (7.593,{remoto\\Windows}) (4.853,{remoto\\Linux})};
@@ -952,8 +954,8 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
         \legend{JVM min, JVM max, JS min, JS max, NATIVE min, NATIVE max}
         \end{axis}
     \end{tikzpicture}
-    \caption{range di tempi di esecuzione nelle diverse condizioni: massimo e minimo registarti durante la fase di raccolta dati}
-    \label{fig:range di tempi di esecuzione}
+    \caption{range dei tempi di esecuzione nelle diverse condizioni}
+    \label{fig:range dei tempi di esecuzione}
 \end{figure}
 
 %TODO: rivedi con i dati veri
