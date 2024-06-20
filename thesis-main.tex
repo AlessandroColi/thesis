@@ -704,12 +704,11 @@ Detekt può essere integrato nei processi di integrazione continua (\ac{CI/CD}) 
 immediato agli sviluppatori e mantenendo alta la qualità del codice durante tutto il ciclo di sviluppo.
 
 \chapter{Implementazione e Validazione}\label{chap:Implementazione e Validazione} 
-%TODO rivedi tutto, in particolare formulazione ita e connessione logica tra i paragrafi
 
 \section{Sviluppo} 
 
-Dopo la prima fase di documentazione e design, descritta nei capitoli precedenti, si è passati alla fase di sviluppo e alla scrittura del codice effettivo. 
-Durante questa fase, l'attenzione si è concentrata in primo luogo sul modulo \texttt{jvmNativeMain} per i target Native e \ac{JVM}, lasciando momentaneamente 
+Conclusa la prima fase di documentazione e design descritta nei capitoli precedenti, è stata affrontata la fase di sviluppo e alla scrittura del codice effettivo. 
+All'inizio di questa fase è stato deciso di focallizare l'attenzione sul modulo \texttt{jvmNativeMain} per i target Native e \ac{JVM}, lasciando momentaneamente 
 in secondo piano JavaScript. Questa decisione è stata presa in modo da poter affrontare le complessità delle piattaforme Native e JVM prima di occuparsi delle 
 peculiarità di JavaScript.
 
@@ -737,7 +736,7 @@ piattaforme \ac{JVM} che Native, superando le limitazioni imposte dalle dipenden
 delle librerie necessarie, assicurando un ambiente di sviluppo stabile e coerente.
 
 Il modulo sviluppato per i target \ac{JVM} e Native sfrutta le coroutines di Kotlin per permettere un'esecuzione parallela del client \ac{MQTT} e del gestore delle 
-comunicazioni tra le varie entità. Le coroutines di Kotlin offrono un modo efficace per gestire operazioni asincrone senza bloccare il thread principale, il che è cruciale 
+comunicazioni tra le varie entità. Le coroutines di Kotlin offrono un modo efficace per gestire operazioni asincrone senza bloccare il thread principale, un elemento cruciale 
 per le applicazioni che devono mantenere alta reattività. Questo modulo riceve, tramite il builder, il parametro \texttt{CoroutineDispatcher}, necessario per la corretta 
 creazione ed esecuzione del \texttt{CoroutineScope}. Tale scope ha la funzione di ospitare ed eseguire il client per l'invio e la ricezione effettivi dei pacchetti \ac{MQTT}.
 L'utilizzo delle coroutines consente di gestire in modo efficiente le operazioni asincrone, garantendo che il client \ac{MQTT} possa operare in parallelo con altre componenti 
@@ -745,21 +744,21 @@ del sistema senza bloccare il thread principale. Questo approccio migliora le pr
 rendendole più reattive e scalabili. L'architettura basata su coroutines permette di ottenere un'applicazione più robusta e capace di gestire un elevato numero di messaggi 
 contemporaneamente, adattandosi alle esigenze dinamiche del sistema.
 
-Come ultimo target, ci si è focalizzati su JavaScript, nello specifico su NodeJS, poiché non è stato possibile trovare una libreria \ac{JS} 
+L'ultimo target della fase di sviluppo è stato JavaScript, nello specifico NodeJS, poiché non è stato possibile trovare una libreria \ac{JS} 
 che implementasse il protocollo \ac{MQTT} per il browser e che fosse compatibile con lo sviluppo in Kotlin. La scelta di concentrarsi su questa piattaforma 
 ha comportato le sfide più significative dell'intero progetto. La natura single-threaded di JavaScript, che lo contraddistingue dai precedenti target capaci 
 di operare su più thread, permettendo un vero parallelismo e l'uso di coroutine su thread separati, ha rappresentato una sfida considerevole. 
 A differenza delle piattaforme multi-threaded, JavaScript gestisce tutte le operazioni su un singolo thread, il che complica la gestione di operazioni concorrenti e asincrone. 
 Questa peculiarità di JavaScript ha richiesto un adattamento delle strategie di programmazione rispetto a quelle adottate per gli altri target e ha generato diversi ostacoli, 
-alcuni dei quali sono stati risolti relativamente facilmente, mentre altri hanno richiesto strategie più intricate.
+alcuni dei quali sono stati risolti in modo relativamente facile, mentre altri hanno richiesto strategie più intricate.
 
 Ad esempio, la gestione degli eventi asincroni è stata una delle principali difficoltà incontrate. È stato necessario garantire che le operazioni di rete non bloccassero 
 il thread principale e che l'applicazione rimanesse sempre reattiva agli input dell'utente. La gestione asincrona in JavaScript, pur essendo molto potente, 
-può diventare complessa quando si tratta di garantire che tutte le operazioni avvengano in modo coordinato e senza interferenze. Per affrontare questa sfida, 
-abbiamo adottato tecniche avanzate di gestione degli eventi per mantenere il codice leggibile e manutenibile, pur garantendo prestazioni ottimali. 
+può diventare complessa da gestire quando si tratta di garantire che tutte le operazioni avvengano in modo coordinato e senza interferenze. Per affrontare questa sfida, 
+sono state adottate tecniche avanzate di gestione degli eventi per mantenere il codice leggibile e manutenibile, pur garantendo prestazioni ottimali. 
 L'integrazione di queste tecniche ha permesso di gestire in modo efficiente le operazioni asincrone, assicurando che il client \ac{MQTT} per NodeJS fosse reattivo e affidabile.
 
-Nello sviluppo di questo modulo, ci si è appoggiati alla libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript. 
+Nello sviluppo di questo modulo, è stata sfruttata la libreria MQTT.JS, che offre un'implementazione di un client \ac{MQTT} in JavaScript. 
 Questa libreria è stata scelta per la sua facilità d'uso e la sua ampia adozione nella comunità, che garantisce una buona documentazione e un supporto continuo. 
 L'integrazione di MQTT.JS in Kotlin ha richiesto l'utilizzo delle funzionalità di interoperabilità \ac{JS} disponibili in Kotlin, che permettono di interagire 
 facilmente con le librerie JavaScript. Questa interoperabilità è stata fondamentale per permettere a Kotlin di chiamare funzioni JavaScript e viceversa senza problemi, 
@@ -784,8 +783,7 @@ In particolare, è stata definita una classe con il modificatore \texttt{externa
     Di particolare importanza è la chiamata con \textit{message} come parametro, in quanto specifica cosa fare in risposta alla ricezione di un messaggio.
 \end{itemize}
 
-La definizione di queste interfacce in Kotlin ha permesso di sfruttare appieno le potenzialità della libreria MQTT.JS, mantenendo allo stesso tempo la coerenza con il resto 
-del progetto. L'approccio utilizzato ha facilitato l'integrazione del client \ac{MQTT} con le altre componenti del sistema, assicurando una gestione efficiente delle comunicazioni 
+L'approccio utilizzato ha facilitato l'integrazione del client \ac{MQTT} con le altre componenti del sistema, assicurando una gestione efficiente delle comunicazioni 
 e un'esperienza utente fluida.
 
 \pagebreak
@@ -796,30 +794,31 @@ La validazione è iniziata con la piattaforma \ac{JVM}, considerata il target in
 includendo Linux, Windows e macOS, per poi concentrarsi su JavaScript, in particolare NodeJS. Ogni piattaforma ha richiesto strategie specifiche 
 per garantire la compatibilità e le prestazioni ottimali del sistema, considerando le diverse caratteristiche e limitazioni di ciascuna.
 
-Dopo aver superato una fase iniziale di test abbastanza agevole con come target la \ac{JVM}, durante la quale lo sviluppo è proceduto senza intoppi, 
-ci si è concentrati sulle piattaforme native, con particolare riferimento a Linux e Windows. In questa fase, mentre Linux non ha causato particolari problemi, 
+Dopo aver superato una fase iniziale di test abbastanza agevole avente come target la \ac{JVM}, durante la quale lo sviluppo è proceduto senza intoppi, 
+il focus è stato spostato sulle piattaforme native, con particolare riferimento a Linux e Windows. In questa fase, mentre Linux non ha causato particolari problemi, 
 è stato riscontrato un problema significativo legato ai socket durante l'esecuzione nativa su sistema operativo Windows. Questo problema ha richiesto un'analisi 
 approfondita per essere risolto e ha messo in luce le differenze nelle implementazioni specifiche dei socket di rete tra i vari sistemi operativi.
 
 In particolare, l'implementazione interna della libreria KMQTT causava un'eccezione \texttt{Socket.IOException} quando tentava di stabilire una connessione 
 al socket per una qualsiasi operazione, segnalando l'errore \texttt{Error 10047: Address family not supported by protocol family}. 
-Questa situazione ha richiesto un'attenta analisi per individuare la causa del problema. Dopo una revisione approfondita del codice, è stata identificata 
+Questa situazione ha richiesto un'attenta analisi per riuscire ad individuare la causa del problema. Dopo una revisione approfondita del codice, è stata identificata 
 l'origine del problema nella libreria KMQTT, che non gestiva correttamente alcuni aspetti relativi ai socket di comunicazione su Windows e di conseguenza generava l'errore 
-di tipologia Winsock Errors. Questo difetto ha reso evidente la necessità di porre attenzione specifica nei test per ogni singola piattaforma.
+di tipologia Winsock Errors. Questo difetto ha reso evidente la necessità di focallizare una specifica attenzione nei test per ogni singola piattaforma.
 
-Per risolvere questa problematica, è stato necessario apportare alcune modifiche al codice che utilizzava la libreria esegnalare il problema allo sviluppatore 
+Per risolvere questa problematica, è stato necessario apportare alcune modifiche al codice che utilizzava la libreria e segnalare il problema allo sviluppatore 
 di KMQTT, fornendo dettagli specifici sull'errore riscontrato. Fortunatamente, l'attenzione immediata del team di sviluppo ha portato a una soluzione rapida ed efficace. 
-Il problema è stato risolto e incorporato nella successiva release della libreria, assicurando una migliore compatibilità con le piattaforme Windows e garantendone 
-il funzionamento all'interno del progetto. Questo intervento ha permesso di superare un ostacolo significativo e ha migliorato l'affidabilità e la robustezza del sistema.
+Il problema è stato risolto e incorporato nella successiva release della libreria, assicurando una migliore compatibilità con le piattaforme Windows.
+Rappresentando un genrale miglioramento alla libreria KMQTT in termini di funzionalità ed affidabilità e garantendone il corretto funzionamento all'interno del progetto. 
+Questo intervento ha permesso di superare un ostacolo significativo e ha migliorato l'affidabilità e la robustezza del sistema.
 
-Dopo aver risolto le problematiche con i target nativi, l'attenzione si è spostata su JavaScript, la cui natura single-threaded ha generato diversi ostacoli 
-anche durante la fase di testing. Per garantire che la logica dei test non bloccassero il thread principale e che l'applicazione rimanesse 
-reattiva, è stato necessario revisionare il codice dei test. Durante i test, particolare attenzione è stata prestata alla gestione degli eventi asincroni. 
-È stato fondamentale garantire che il sistema fosse in grado di gestire correttamente le connessioni al broker \ac{MQTT}. La fase di testing ha permesso di identificare 
-e risolvere diversi problemi legati alla natura asincrona di JavaScript. Ad esempio, è stato necessario assicurarsi che tutte le operazioni di rete fossero gestite 
-correttamente senza bloccare il thread principale, garantendo al contempo che l'applicazione rimanesse reattiva e rispondesse prontamente agli input dell'utente. 
-Questo approccio ha consentito di testare in modo efficace il modulo \ac{MQTT} in ambiente NodeJS, assicurando che il sistema funzionasse correttamente e 
-fosse in grado di gestire le comunicazioni \ac{MQTT} in modo affidabile ed efficiente.
+Dopo aver risolto le problematiche con i target nativi, l'attenzione si è spostata su JavaScript, la cui natura single-threaded ha generato diversi ostacoli anche durante 
+la fase di testing. Per garantire che la logica dei test non portasse a bloccare il thread principale a prescindere dal funzionamento del codice soggetto a validazione e che 
+l'applicazione rimanesse reattiva, è stato necessario revisionare il codice dei test. Durante la progettazione e l'esecuzione dei test è stata prestata particolare attenzione 
+alla gestione degli eventi asincroni, ed è stato fondamentale garantire che il sistema fosse in grado di gestire correttamente le connessioni al broker \ac{MQTT}. 
+La fase di testing ha permesso di identificare e risolvere diversi problemi legati alla natura asincrona di JavaScript. Ad esempio, è stato necessario assicurarsi 
+che tutte le operazioni di rete fossero gestite correttamente senza bloccare il thread principale, garantendo al contempo che l'applicazione rimanesse reattiva 
+e rispondesse prontamente agli input dell'utente. Questo approccio ha consentito di testare in modo efficace il modulo \ac{MQTT} in ambiente NodeJS, 
+assicurando che il sistema funzionasse correttamente e fosse in grado di gestire le comunicazioni \ac{MQTT} in modo affidabile ed efficiente.
 
 In conclusione, le diverse fasi di sviluppo e test hanno messo in luce le peculiarità e le sfide specifiche di ciascuna piattaforma. 
 L'uso combinato delle librerie KMQTT e MQTT.JS, insieme all'adozione di tecniche avanzate per la gestione delle operazioni asincrone, 
