@@ -905,7 +905,49 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     \end{axis}
 \end{tikzpicture}
 \end{center}
-\pagebreak
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            xbar,
+            width=15cm,
+            height=15cm,
+            xmin=0,
+            xmax=10,
+            bar width=0.3cm,
+            ylabel={},
+            xlabel={Time (s)},
+            symbolic y coords={
+                {locale\\Windows},
+                {locale\\Linux},
+                {remoto\\Windows},
+                {remoto\\Linux}
+            },
+            ytick=data,
+            yticklabels={},
+            nodes near coords,
+            enlarge y limits=0.1,
+            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+            point meta=explicit symbolic,
+            reverse legend,
+            yticklabel style={align=left, text width=8em},
+            every node near coord/.append style={font=\tiny, anchor=west}
+        ]
+
+        \addplot[fill=green] coordinates {(8.200,{locale\\Windows})[min] (4.633,{locale\\Linux})[min] (7.593,{remoto\\Windows})[min] (4.853,{remoto\\Linux})[min]};
+        \addplot[fill=green,draw=none] coordinates {(9.324,{locale\\Windows})[max] (4.986,{locale\\Linux})[max] (9.972,{remoto\\Windows})[max] (5.559,{remoto\\Linux})[max]};
+        
+        \addplot[fill=blue] coordinates {(1.865,{locale\\Windows})[min] (0.920,{locale\\Linux})[min] (1.590,{remoto\\Windows})[min] (1.076,{remoto\\Linux})[min]};
+        \addplot[fill=blue,draw=none] coordinates {(2.335,{locale\\Windows})[max] (1.108,{locale\\Linux})[max] (2.039,{remoto\\Windows})[max] (1.183,{remoto\\Linux})[max]};
+        
+        \addplot[fill=red] coordinates {(0.235,{locale\\Windows})[min] (0.190,{locale\\Linux})[min] (0.430,{remoto\\Windows})[min] (0.307,{remoto\\Linux})[min]};
+        \addplot[fill=red,draw=none] coordinates {(0.278,{locale\\Windows})[max] (0.246,{locale\\Linux})[max] (1.363,{remoto\\Windows})[max] (0.390,{remoto\\Linux})[max]};
+
+        \legend{JVM, JS, NATIVE}
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+
+
 %TODO: rivedi con i dati veri
 I risultati delle diverse esecuzioni dei test nelle diverse condizioni, sono rappresentati graficici soprastanti che ne evidenziano i differenti tempi d'esecuzione medi, 
 da cui si possono trarre alcune conclusioni semplici ma al contempo utili in fase di progettazione qualora si voglia utilizzare questo progetto all'interno di un nuovo progetto:
