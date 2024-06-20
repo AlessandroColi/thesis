@@ -905,14 +905,16 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     \end{axis}
 \end{tikzpicture}
 \end{center}
-\begin{center}
+
+\begin{figure}
+    \centering
     \begin{tikzpicture}
         \begin{axis}[
             xbar,
-            width=15cm,
-            height=15cm,
+            width=14cm,
+            height=12cm,
             xmin=0,
-            xmax=10,
+            xmax=10.2,
             bar width=0.3cm,
             ylabel={},
             xlabel={Time (s)},
@@ -923,30 +925,36 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
                 {remoto\\Linux}
             },
             ytick=data,
-            yticklabels={},
+            yticklabels={
+                {locale\\Windows},
+                {locale\\Linux},
+                {remoto\\Windows},
+                {remoto\\Linux}
+            },
             nodes near coords,
-            enlarge y limits=0.1,
-            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+            enlarge y limits={abs=1.5cm},
+            legend style={at={(0.5,1.1)},anchor=north,legend columns=6},
             point meta=explicit symbolic,
             reverse legend,
-            yticklabel style={align=left, text width=8em},
+            yticklabel style={align=left, text width=4em, inner sep=0pt},
             every node near coord/.append style={font=\tiny, anchor=west}
         ]
 
-        \addplot[fill=green] coordinates {(8.200,{locale\\Windows})[min] (4.633,{locale\\Linux})[min] (7.593,{remoto\\Windows})[min] (4.853,{remoto\\Linux})[min]};
-        \addplot[fill=green,draw=none] coordinates {(9.324,{locale\\Windows})[max] (4.986,{locale\\Linux})[max] (9.972,{remoto\\Windows})[max] (5.559,{remoto\\Linux})[max]};
+        \addplot[fill=lime] coordinates {(8.200,{locale\\Windows}) (4.633,{locale\\Linux}) (7.593,{remoto\\Windows}) (4.853,{remoto\\Linux})};
+        \addplot[fill=green] coordinates {(9.324,{locale\\Windows}) (4.986,{locale\\Linux}) (9.972,{remoto\\Windows}) (5.559,{remoto\\Linux})};
         
-        \addplot[fill=blue] coordinates {(1.865,{locale\\Windows})[min] (0.920,{locale\\Linux})[min] (1.590,{remoto\\Windows})[min] (1.076,{remoto\\Linux})[min]};
-        \addplot[fill=blue,draw=none] coordinates {(2.335,{locale\\Windows})[max] (1.108,{locale\\Linux})[max] (2.039,{remoto\\Windows})[max] (1.183,{remoto\\Linux})[max]};
+        \addplot[fill=cyan] coordinates {(1.865,{locale\\Windows}) (0.920,{locale\\Linux}) (1.590,{remoto\\Windows}) (1.076,{remoto\\Linux})};
+        \addplot[fill=blue] coordinates {(2.335,{locale\\Windows}) (1.108,{locale\\Linux}) (2.039,{remoto\\Windows}) (1.183,{remoto\\Linux})};
         
-        \addplot[fill=red] coordinates {(0.235,{locale\\Windows})[min] (0.190,{locale\\Linux})[min] (0.430,{remoto\\Windows})[min] (0.307,{remoto\\Linux})[min]};
-        \addplot[fill=red,draw=none] coordinates {(0.278,{locale\\Windows})[max] (0.246,{locale\\Linux})[max] (1.363,{remoto\\Windows})[max] (0.390,{remoto\\Linux})[max]};
+        \addplot[fill=orange] coordinates {(0.235,{locale\\Windows}) (0.190,{locale\\Linux}) (0.430,{remoto\\Windows}) (0.307,{remoto\\Linux})};
+        \addplot[fill=red] coordinates {(0.278,{locale\\Windows}) (0.246,{locale\\Linux}) (1.363,{remoto\\Windows}) (0.390,{remoto\\Linux})};
 
-        \legend{JVM, JS, NATIVE}
+        \legend{JVM min, JVM max, JS min, JS max, NATIVE min, NATIVE max}
         \end{axis}
     \end{tikzpicture}
-\end{center}
-
+    \caption{range di tempi di esecuzione nelle diverse condizioni: massimo e minimo registarti durante la fase di raccolta dati}
+    \label{fig:range di tempi di esecuzione}
+\end{figure}
 
 %TODO: rivedi con i dati veri
 I risultati delle diverse esecuzioni dei test nelle diverse condizioni, sono rappresentati graficici soprastanti che ne evidenziano i differenti tempi d'esecuzione medi, 
