@@ -990,11 +990,20 @@ La fase finale del progetto si è concentrata nell'integrarlo all'interno di Pul
 Per prima cosa è stato necessario adattare lievemente le interfacce del progetto singolo a quelle utilizzate in PulvReAKt.
 In particolare è stato necessario gestire la Dependency Injection, in quanto il progetto singolarmente non necessita dell'utilizzo di questo meccanismo, 
 ma una volta inserito nel più ampio contesto di PulvReAKt è risultato necessario gestire anche questo aspetto. 
-In PulvReAKt, e di conseguenza nel progetto una volta integrato, è stato gestito tramite kodein\footnote{
+Che in PulvReAKt è gestito tramite il framework kodein\footnote{
     Kodein è un framework di Dependency Injection per Kotlin che facilita l'inversione del controllo, consentendo di iniettare le 
     dipendenze in modo flessibile ed efficiente. Semplifica la gestione delle dipendenze all'interno di un'applicazione Kotlin, 
     migliorando la modularità e la testabilità del codice.
-} 
+}, è stato infatti necessario implementare la funzione \texttt{setupInjector(kodein: DI)} per rendere la classe utilizzabile all'interno di PulvReAKt.
+
+è stato inoltre necessario svolgere altre modifiche minori necessarie per conformare il progetto e la qualità del codice agli standard proposti da PulvReAKt,
+questo ha compreso una ridefinizione della documentazione delle interfacce e dei test. Per renderle più chiare e congruenti allo stile proposto all'interno di PulvReAKt.
+
+La componente che ha richiesto più attenzione durante l'integrazione del progetto all'interno di PulvReAKt è stata la struttura di gradle, in particolare è stato necessario
+aggiornare il file \texttt{build.gradle} per adattarlo ad essere relativo ad un modulo all'interno di un progetto più ampio anzichè essere per un progetto intero. 
+Questo ha richiesto un'attenta analisi della gestione di gradle all'Interno di PulvReAKt, che ha permesso di evitare duplicazioni di codice, 
+mantenendo però tutte le funzionalità necessarie. La CI di PulvReAKt ha inoltre evidenziato la mancanza di \texttt{linuxArm64} tra i target nativi 
+del progetto gradle, che è stato prontamente aggiunto alla build gradle senza problemi.
 
 \chapter{Conclusioni}\label{chap:Conclusioni}
 
