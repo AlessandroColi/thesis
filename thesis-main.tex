@@ -958,52 +958,60 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     \label{fig:range dei tempi di esecuzione}
 \end{figure}
 
-I risultati delle diverse esecuzioni dei test nelle diverse condizioni, sono rappresentati graficici soprastanti che ne evidenziano i differenti tempi d'esecuzione 
+I risultati delle diverse esecuzioni dei test nelle diverse condizioni, sono rappresentati nei grafici soprastanti che ne evidenziano i differenti tempi d'esecuzione 
 medi, minimi e massimi. Da questi dati si possono trarre diverse conclusioni, interessanti da tenere in considerazione qualora si voglia utilizzare il modulo di comunicazione 
 all'interno di altri progetti:
 
 \begin{itemize}
     \item Il sistema operativo influenza le prestazioni qualora il codice non venga eseguito nativamente ma appoggiandosi alla \ac{JVM} o a \ac{JS}. 
-    Nel primo caso vi è una differenza di 3.153 secondi, nel secondo caso di 730 millisecondi mentre in caso di esecuzione nativa di solamente 75ms. 
-    Questo mostra come Linux sia più efficiente di Windows nella gestione delle risorse, la differenza sarebbe probabilmente meno notevole 
-    in caso di esecuzione su un dispositivo con maggiori capacità hardware.
+    Nel caso ci sia ppoggi alla \ac{JVM} vi è una differenza di 3.153 secondi, nel caso di \ac{JS} la discrepanza è di 730 millisecondi 
+    mentre in caso di esecuzione nativa di solamente 75ms. Questo mostra come Linux sia più efficiente di Windows nella gestione delle risorse; 
+    la differenza sarebbe probabilmente meno notevole in caso di esecuzione su un dispositivo con maggiori capacità hardware.
 
     \item Il luogo in cui viene ospitato il broker dei messaggi (locale piuttosto che remoto) ha anch’esso una scarsa influenza sul risultato finale del test. 
-    Le differenze nei tempi di esecuzione sono sempre al di sotto dei 300 millisecondi, con l’eccezione del caso di esecuzione sulla \ac{JVM} ospitata in windows,
-    in cui in caso il broker sia ospitato localmente il tempo di esecuzione medio è di 8.200s mentre in caso sia ospitato da un server remoto è di 7.593s,
-    con una differenza quindi di 607ms che risulta quindi anch'essa pressochè trascurabile. 
+    Le differenze nei tempi di esecuzione sono sempre al di sotto dei 300 millisecondi.Si è verificata un'unica e specifica eccezione, durante l'esecuzione su \ac{JVM}
+    ospitata in un sistema Window, il cui tempo di esecuzione in caso di broker ospitato localmente è stata di 8.200s rispetto a 7593 utilizzando un broker remoto.
+    In questo caso la differenza è stata di 607ms, che risulta più importante rispetto alle altre ma comunque trascurabile. 
     Questo suggerisce che, a meno di condizioni estremamente specifiche, l'ubicazione del broker \ac{MQTT} non rappresenta un fattore critico nelle prestazioni complessive.
 
-    \item L’elemento che influenza maggiormente le prestazioni è rappresentato dalla piattaforma su cui viene eseguito il codice, il che emerge chiaramente quando si confrontano 
+    \item L’elemento che influenza maggiormente le prestazioni è rappresentato dalla piattaforma su cui viene eseguito il codice. Questo che emerge chiaramente quando si confrontano 
     le tre piattaforme nello stesso ambiente (Windows o Linux) e con la medesima ubicazione del broker (locale o remota). 
     Il tempo di esecuzione medio su target Nativo è 290 millisecondi, su \ac{JS} è 1 secondo e 362 millisecondi mentre su \ac{JVM} è 6.320 secondi.
-    È estremamente evidente che quando il codice viene eseguito tramite la \ac{JVM} le prestazioni sono notevolmente peggiori rispetto agli altri due target, 
-    anche se la differenza tra native e \ac{JS} è di 1s invece che 6s, è comunque un discostamento non indifferente se si considerano i tempi in questione.
+    Questi valori indicano in maniera estremamente chiara che quando il codice veiene eseguito tramite la \ac{JVM} le prestazioni sono notevolmente 
+    peggiori rispetto agli altri due target, essendo più lento di 6s rispetto a native e di 5s rispetto a \ac{JS}.
+    Vale comunque la pena evidenziare che anche la differenza di circa 1 secondo osservata tra le due piattaforma più veloci 
+    rappresenta uno scostamento non indifferente se si considerano i tempi in questione
 
-    \item Qualora il codice venga eseguito sulla \ac{JVM} i tempi di esecuione sono notevolmente meno stabili con una differenza di 2 secondi 
+    \item Qualora il codice venga eseguito sulla \ac{JVM} i tempi di esecuzione sono notevolmente meno stabili con una differenza di 2 secondi 
     tra il tempo di esecuzione minore e quello maggiore, mentre in caso di esecuzione su \ac{JS} e native la differenza rispettivamente è di 425 e 211 millisecondi.
 \end{itemize}
 
-\section{Integrazione in PulvReAKt}  %TODO: rivedi tutto e lega le frasi bene 
+\section{Integrazione in PulvReAKt}
 
-La fase finale del progetto si è concentrata nell'integrarlo all'interno di PulvReAKt.
-Per prima cosa è stato necessario adattare lievemente le interfacce del progetto singolo a quelle utilizzate in PulvReAKt.
-In particolare è stato necessario gestire la Dependency Injection, in quanto il progetto singolarmente non necessita dell'utilizzo di questo meccanismo, 
-ma una volta inserito nel più ampio contesto di PulvReAKt è risultato necessario gestire anche questo aspetto. 
-Che in PulvReAKt è gestito tramite il framework kodein\footnote{
-    Kodein è un framework di Dependency Injection per Kotlin che facilita l'inversione del controllo, consentendo di iniettare le 
-    dipendenze in modo flessibile ed efficiente. Semplifica la gestione delle dipendenze all'interno di un'applicazione Kotlin, 
-    migliorando la modularità e la testabilità del codice.
-}, è stato infatti necessario implementare la funzione \texttt{setupInjector(kodein: DI)} per rendere la classe utilizzabile all'interno di PulvReAKt.
+La fase finale del progetto si è concentrata nell'integrare il sistema sviluppato all'interno del progetto preesistente PulvReAKt. 
+Questo passaggio ha comportato una serie di adattamenti e modifiche mirate a garantire la piena compatibilità e funzionalità all'interno dell'ecosistema già stabilito di PulvReAKt.
 
-è stato inoltre necessario svolgere altre modifiche minori necessarie per conformare il progetto e la qualità del codice agli standard proposti da PulvReAKt,
-questo ha compreso una ridefinizione della documentazione delle interfacce e dei test. Per renderle più chiare e congruenti allo stile proposto all'interno di PulvReAKt.
+In primo luogo, è stato necessario modificare le interfacce del progetto originale per allinearle a quelle utilizzate in PulvReAKt. 
+Questo processo ha coinvolto un'attenzione particolare a causa della Dependency Injection, che sebbene non fosse necessaria nel progetto autonomo, 
+è fondamentale all'interno di PulvReAKt ed è stato quindi necessario integrarla nel progetto. 
+In PulvReAKt, la Dependency Injection è gestita tramite il framework Kodein\footnote{
+    Kodein è un framework di Dependency Injection per Kotlin che facilita l'inversione del controllo. Consente di iniettare le dipendenze in modo flessibile ed efficiente, 
+    semplificando la gestione delle dipendenze e migliorando la modularità e la testabilità del codice.
+    }. 
+Di conseguenza, è stato necessario implementare la funzione \texttt{setupInjector(kodein: DI)} per assicurare che le classi del nostro progetto fossero correttamente 
+integrabili all'interno del sistema PulvReAKt.
 
-La componente che ha richiesto più attenzione durante l'integrazione del progetto all'interno di PulvReAKt è stata la struttura di gradle, in particolare è stato necessario
-aggiornare il file \texttt{build.gradle} per adattarlo ad essere relativo ad un modulo all'interno di un progetto più ampio anzichè essere per un progetto intero. 
-Questo ha richiesto un'attenta analisi della gestione di gradle all'Interno di PulvReAKt, che ha permesso di evitare duplicazioni di codice, 
-mantenendo però tutte le funzionalità necessarie. La CI di PulvReAKt ha inoltre evidenziato la mancanza di \texttt{linuxArm64} tra i target nativi 
-del progetto gradle, che è stato prontamente aggiunto alla build gradle senza problemi.
+Oltre alla Dependency Injection, sono state necessarie ulteriori modifiche minori per conformare il progetto agli standard di qualità e stile di PulvReAKt. 
+Questo ha incluso una ridefinizione della documentazione delle interfacce e dei test, al fine di renderle più chiare e congruenti con le linee guida stilistiche di PulvReAKt. 
+Tali modifiche non solo hanno migliorato la leggibilità del codice, ma hanno anche facilitato la manutenzione e l'estensibilità del progetto nel lungo termine.
+
+Un'altra area che ha richiesto particolare attenzione durante l'integrazione è stata la struttura di Gradle. 
+In particolare, è stato necessario aggiornare il file \texttt{build.gradle} per trasformarlo da una configurazione adatta a un progetto autonomo a una che fosse compatibile 
+con un modulo all'interno di un progetto più ampio come PulvReAKt. Questo aggiornamento ha richiesto un'analisi approfondita della gestione di Gradle in PulvReAKt, 
+in modo tale che venissero evitate duplicazioni di codice e garantendo al contempo tutte le funzionalità necessarie. 
+Inoltre, il sistema di \ac{CI/CD} di PulvReAKt ha evidenziato l'assenza del target \texttt{linuxArm64} tra i target nativi del progetto Gradle. 
+Questa mancanza è stata prontamente colmata aggiungendo correttamente il supporto al target specifico all'interno del file \texttt{build.gradle}, 
+senza riscontrare problemi di compatibilità.
 
 \chapter{Conclusioni}\label{chap:Conclusioni}
 
