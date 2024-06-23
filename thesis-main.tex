@@ -964,12 +964,11 @@ all'interno di altri progetti:
 
 \begin{itemize}
     \item Il sistema operativo influenza le prestazioni qualora il codice non venga eseguito nativamente ma appoggiandosi alla \ac{JVM} o a \ac{JS}. 
-    Nel caso ci sia ppoggi alla \ac{JVM} vi è una differenza di 3.153 secondi, nel caso di \ac{JS} la discrepanza è di 730 millisecondi 
-    mentre in caso di esecuzione nativa di solamente 75ms. Questo mostra come Linux sia più efficiente di Windows nella gestione delle risorse; 
-    la differenza sarebbe probabilmente meno notevole in caso di esecuzione su un dispositivo con maggiori capacità hardware.
+    Nel caso ci sia appoggi alla \ac{JVM} vi è una differenza di 3.153 secondi, nel caso di \ac{JS} la discrepanza è di 730 millisecondi 
+    mentre in caso di esecuzione nativa di solamente 75ms.
 
     \item Il luogo in cui viene ospitato il broker dei messaggi (locale piuttosto che remoto) ha anch’esso una scarsa influenza sul risultato finale del test. 
-    Le differenze nei tempi di esecuzione sono sempre al di sotto dei 300 millisecondi.Si è verificata un'unica e specifica eccezione, durante l'esecuzione su \ac{JVM}
+    Le differenze nei tempi di esecuzione sono sempre al di sotto dei 300 millisecondi. Si è verificata un'unica e specifica eccezione, durante l'esecuzione su \ac{JVM}
     ospitata in un sistema Window, il cui tempo di esecuzione in caso di broker ospitato localmente è stata di 8.200s rispetto a 7593 utilizzando un broker remoto.
     In questo caso la differenza è stata di 607ms, che risulta più importante rispetto alle altre ma comunque trascurabile. 
     Questo suggerisce che, a meno di condizioni estremamente specifiche, l'ubicazione del broker \ac{MQTT} non rappresenta un fattore critico nelle prestazioni complessive.
