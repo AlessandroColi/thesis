@@ -987,28 +987,35 @@ all'interno di altri progetti:
 
 \section{Integrazione in PulvReAKt}
 
-La fase finale del progetto si è concentrata nell'integrare il sistema sviluppato all'interno del progetto preesistente PulvReAKt. 
-Questo passaggio ha comportato una serie di adattamenti e modifiche mirate a garantire la piena compatibilità e funzionalità all'interno dell'ecosistema già stabilito di PulvReAKt.
+Una volta concluso lo sviluppo e la validazione del progetto singolo, Gli sforzi sono stati concentrati nell'integrazione del sistema sviluppato all'interno del più ampio e 
+preesistente progetto texttt{PulvReAKt}. 
+Questo passaggio ha comportato una serie di adattamenti e modifiche al codice mirate a garantire la piena compatibilità tra i due progetti e la completa funzionalità di \ac{MQTT} 
+all'interno dell'ecosistema già stabilito di PulvReAKt. Questo ha ovviamente compreso anche una fase di validazione prima del completamento dell'integrazione del modulo 
+di comunicazione sviluppato all'interno di PulvReAKt.
 
-In primo luogo, è stato necessario modificare le interfacce del progetto originale per allinearle a quelle utilizzate in PulvReAKt. 
-Questo processo ha coinvolto un'attenzione particolare a causa della Dependency Injection, che sebbene non fosse necessaria nel progetto autonomo, 
-è fondamentale all'interno di PulvReAKt ed è stato quindi necessario integrarla nel progetto. 
+Prima di tutto è stato necessario modificare lievemente le interfacce del progetto originale per conformarle a quelle presenti all'interno di PulvReAKt. 
+Questo processo ha richiesto di porre particolare attenzione alla Dependency Injection, che sebbene non fosse necessaria nel progetto autonomo, 
+è fondamentale all'interno di PulvReAKt ed è stato quindi necessario avilupparla anche all'interno del modulo \ac{MQTT} per una corretta integrazione. 
 In PulvReAKt, la Dependency Injection è gestita tramite il framework Kodein\footnote{
     Kodein è un framework di Dependency Injection per Kotlin che facilita l'inversione del controllo. Consente di iniettare le dipendenze in modo flessibile ed efficiente, 
     semplificando la gestione delle dipendenze e migliorando la modularità e la testabilità del codice.
     }. 
-Di conseguenza, è stato necessario implementare la funzione \texttt{setupInjector(kodein: DI)} per assicurare che le classi del nostro progetto fossero correttamente 
-integrabili all'interno del sistema PulvReAKt.
+Di conseguenza, è stato necessario implementare la funzione \texttt{setupInjector(kodein: DI)} per assicurare che le classi del modulo sviluppato fossero correttamente 
+fruibilili all'interno dell' ecosistema di PulvReAKt.
 
-Oltre alla Dependency Injection, sono state necessarie ulteriori modifiche minori per conformare il progetto agli standard di qualità e stile di PulvReAKt. 
-Questo ha incluso una ridefinizione della documentazione delle interfacce e dei test, al fine di renderle più chiare e congruenti con le linee guida stilistiche di PulvReAKt. 
-Tali modifiche non solo hanno migliorato la leggibilità del codice, ma hanno anche facilitato la manutenzione e l'estensibilità del progetto nel lungo termine.
+Oltre alla Dependency Injection, sono state necessarie ulteriori modifiche minori per conformare completamente il modulo agli standard di qualità del codice e stile di PulvReAKt. 
+Questo ha incluso una ridefinizione dettagliata della documentazione delle interfacce e dei test, al fine di renderle più chiare e congruenti con le linee guida 
+stilistiche di PulvReAKt. Tali modifiche hanno comportato una revisione accurata della struttura e del contenuto della documentazione, migliorando notevolmente
+ la leggibilità del codice. Inoltre, queste revisioni hanno facilitato la manutenzione e l'estensibilità del progetto nel lungo termine, rendendo il sistema 
+ più robusto e flessibile per future implementazioni.
 
 Un'altra area che ha richiesto particolare attenzione durante l'integrazione è stata la struttura di Gradle. 
-In particolare, è stato necessario aggiornare il file \texttt{build.gradle} per trasformarlo da una configurazione adatta a un progetto autonomo a una che fosse compatibile 
-con un modulo all'interno di un progetto più ampio come PulvReAKt. Questo aggiornamento ha richiesto un'analisi approfondita della gestione di Gradle in PulvReAKt, 
-in modo tale che venissero evitate duplicazioni di codice e garantendo al contempo tutte le funzionalità necessarie. 
-Inoltre, il sistema di \ac{CI/CD} di PulvReAKt ha evidenziato l'assenza del target \texttt{linuxArm64} tra i target nativi del progetto Gradle. 
+In particolare, è stato necessario aggiornare il file \texttt{build.gradle} per trasformarlo da file di configurazione adatto a un progetto autonomo a uno adatto ad un 
+modulo all'interno di un progetto più ampio come PulvReAKt. Questo aggiornamento ha richiesto un'analisi approfondita della gestione di Gradle in PulvReAKt e un attento confronto 
+con le necessità del progetto sviluppato, in modo tale da evitate duplicazioni di codice e garantendo al contempo tutte le funzionalità necessarie per il corretto funzionamento.
+
+Inoltre, il sistema di \ac{CI/CD} di PulvReAKt ha evidenziato diversi piccoli problemi all'interno del modulo sviluppato,
+in particolare l'assenza del target \texttt{linuxArm64} tra i target nativi del progetto Gradle. 
 Questa mancanza è stata prontamente colmata aggiungendo correttamente il supporto al target specifico all'interno del file \texttt{build.gradle}, 
 senza riscontrare problemi di compatibilità.
 
