@@ -39,6 +39,10 @@
 
 \frontmatter\frontispiece
 
+\begin{abstract}	
+    Max 2000 characters, strict.
+\end{abstract}
+
 \begin{dedication}
 A te che ci sei sempre stato\\
 e sempre sei con me anche se te ne sei andato.\\
@@ -60,10 +64,14 @@ A mio nonno Gianni.
 %----------------------------------------------------------------------------------------
 \chapter{Introduzione}
 \label{chap:Introduzione}
-%----------------------------------------------------------------------------------------
-\paragraph{Structure of the Thesis}
-\note{Add simple explaination}
 
+La tesi spiega nel dettaglio le diverse fasi di sviluppo del progetto, dall'analisi dei requisiti alla validazione.
+Il progetto si propone di sviluppare un gestore di comunicazioni che sfrutta il Protocollo \acf{MQTT} ed è stato concepito per funzionare su \acf{JVM}, 
+\acf{JS} e native (Linux e Windows), infine viene descritta l'integrazione del progetto nel più ampio progetto \texttt{PulvReAKt}. 
+Il progetto è in grado di gestire le comunicazioni tra molteplici entità, rendendo la metodologia di comunicazione e la logica interna trasparenti all'utente.
+Tali entità possono comunicare tra loro semplicemente appoggiandosi al progetto, che gestisce invece la logica e la comunicazione effettiva.
+
+\section{struttura della tesi}
 Di seguito è riportata la struttura della tesi che descrive il progetto realizzato in ogni sua parte:
 
 \begin{itemize}
@@ -71,7 +79,8 @@ Di seguito è riportata la struttura della tesi che descrive il progetto realizz
     specificando protocolli e pattern utilizzati e le motivazioni che hanno portato alla scelta dell'utilizzo.
     
     \item \textbf{Capitolo 2 (Requisiti)}: in questo capitolo sono affrontati i requisiti, sia quelli funzionali che quelli non funzionali. 
-    Trattando quindi come deve funzionare dal punto di vista dell'utente e su che piattaforme deve esssere in grado di lavorare. 
+    Analizzando come deve funzionare il progetto dal punto di vista dell'utente, in che condizioni deve esssere in grado di lavorare 
+    e le prestazioni minime che deve offrire. 
     
     \item \textbf{Capitolo 3 (Design)}: in questo capitolo viene definita la struttura del progetto sotto diversi aspetti, 
     vegono inoltre spiegate le diverse tecnologie utilizzate nel progetto e le scelte che hanno portato all'utilizzo di tali tecnologie.
@@ -146,9 +155,9 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 
 \section{Protocollo MQTT}
 
-Nel vasto panorama dell' \ac{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, Message Queuing Telemetry Transport (MQTT) 
+Nel vasto panorama dell' \acf{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, \acf{MQTT} 
 si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati, in quanto si presenta come una soluzione elegante per risolvere le sfide di 
-comunicazione proposte in ambito \ac*{IoT}. Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i 
+comunicazione proposte in ambito \ac{IoT}. Le sue caratteristiche distintive includono il basso utilizzo di banda e CPU, che lo rendono particolarmente adatto per i 
 dispositivi con risorse limitate, e il modello di comunicazione publish-subscribe, che consente la trasmissione efficiente dei messaggi anche grazie al protocollo 
 \ac{TCP} a cui si appoggia per la trasmissione dei messaggi.
 
@@ -1008,7 +1017,7 @@ all'interno di altri progetti:
 
 \section{Integrazione in PulvReAKt}
 
-Dopo aver completato con successo lo sviluppo e la validazione del progetto sulla comunicazione \ac*{MQTT}, tutti gli sforzi si sono concentrati sull'obiettivo di 
+Dopo aver completato con successo lo sviluppo e la validazione del progetto sulla comunicazione \ac{MQTT}, tutti gli sforzi si sono concentrati sull'obiettivo di 
 integrare quanto appena sviluppato all'interno del più ampio e preesistente progetto \texttt{PulvReAKt}. Questo passaggio ha comportato una serie di adattamenti e 
 modifiche al codice con il duplice scopo sia di garantire la piena compatibilità tra il nuovo progetto e quello preesistente, sia di preservare la completa 
 funzionalità di \ac{MQTT} all'interno dell'ecosistema già stabilito di PulvReAKt. Questo ha ovviamente compreso anche una fase di validazione prima del completamento 
