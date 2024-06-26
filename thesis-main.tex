@@ -1067,6 +1067,34 @@ senza riscontrare problemi di compatibilità.
 
 \chapter{Conclusioni e Sviluppi Futuri}\label{chap:Conclusioni}
 
+Il progetto realizzato si offre di gestire le comunicazioni tra diverse entità di un sistema, le entità possono essere ospitate su moltelplici dispositivi 
+di varie tipologie e locati in siti tra loro distanti.\\
+Per utilizzare questo progetto per inviare un messaggio è sufficiente che l'entità interessata specifichi il contenuto e il destinatario,
+sarà poi compito del progetto stesso formattarlo e inviarlo sul topic \ac{MQTT} corretto per garantirne la consegna. 
+Opzionalmente è anche possibile specificare il grado di accuratezza nella consegna dei messaggi inviati da una specifica entità (\ac{QoS}).
+Allo stesso modo quando un'entità è interessata a ricevere messaggi, basterà specificare il mittente per cui si è interessati ascoltare al comunicatore, 
+che si occupa di gestire la ricezione effettiva dei messaggi.\\
+
+Oltre al progetto stesso vengono approfonditi altri aspetti che sono mersi durante la progettazione e lo sviluppo del progetto e che si sono rivelati di notevole importanza. 
+In particolare viene analizzata la notevole differenza nelle velocità di esecuzione del progetto tra le diverse piattaforme interessate, 
+che è stata notata durante lo sviluppo e la validazione del progetto.\\
+Successivamente ad un confronto più approfondito basato sulla velocità si esecuzione delle medesime casistiche di test sulle diverse piattaforme, 
+ospitate sempre sullo stesso dispositivo, è stato notato come l'esecuzione nativa sia vantaggiosa rispetto a agli altri due target.
+Questa osservazione è rimasta consistente indipendentemente dal sistema operativo utilizzato e dalla localizzazzione del broker \ac{MQTT} (locale o remoto).
+Questa differenza era prevedibile in quanto, quando il codice Kotlin viene compilato per target nativi, viene poi eseguito direttamente dal sistema operativo, 
+senza la necessita di appoggiarsi ad una macchina virtuale per l'intepretazione (\ac{JVM} o una engine \ac{JS}).\\
+La maggiore differenza è stata notata analizzando i tempi di esecuzione sulla \ac{JVM}, che sono risultati notevolmente superiori, non solo rispetto a native 
+ma anche quando confrontati con quelli ottenuti tramite \ac{JS}.\\
+Dal confronto sono risultate ininfluenti le altre due variabili considerate, non è stata notata infatti nessuna differenza significativa quando si è eseguito su 
+diversi sistemi operativi nè quando il broker \ac{MQTT} è stato ospitato localmente anziché affidandosi a uno remoto. Eseguire il codice in tutte queste differenti 
+circostanze è stato comunque fondamentale, in quanto ha permesso di evidenziare come la differenza sia data dal target tramite cui si esegue il codice.\\
+
+Per quanto riguarda gli sviluppi futuri, per prima cosa bisognerebbe ampliare il progetto a nuovi target attualmente non supportati, 
+in particolare \ac{JS} browser in quanto è l'unico tra i target supportati da PulvReAKt a non essere sviluppato nel progetto.\\
+Qualora ci si voglia invece distaccare dal contesto di PulvReAKt e concentrasi sulla comunicazione \ac{MQTT} sarebbe interessante rendere questo progetto 
+una libreria per Kotlin Multiplatform. Per muoversi in questa direzione la principale modifica necessaria sarebbe la rimozione della dependency injection dal costruttore 
+e un ampliamento delle casistiche soggette a validazione. 
+
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
