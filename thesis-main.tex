@@ -40,18 +40,32 @@
 \frontmatter\frontispiece
 
 \begin{abstract}	
-    Max 2000 characters, strict.
+
+    Questa tesi descrive l'intero processo di progettazione e sviluppo di un progetto Kotlin Multiplatform, partendo dall'analisi dei requisiti, 
+    comprendendo le fasi di progettazione, sviluppo e validazione. 
+
+    Il Progetto si propone di gestire le comunicazioni tra molteplici entità, offrendo loro la possibilità di mandare messaggi specificando il destinatario 
+    e di leggere messaggi da un mittente specifico. Per offrire tali funzionalità il Progetto sfrutta il protocollo \ac{MQTT} e gestisce autonomamente i topic 
+    al suo interno in modo tale da garantire di operare come atteso dall'utente.
+
+    Il Progetto è stato sviluppato autonomamente e può essere usato in qualsiasi progetto Kotlin Multiplatform interessato alla funzionalità su uno o più target 
+    tra quelli per cui è stato sviluppato (\ac{JVM}, Native e NodeJS). Il progetto è stato anche direttamente integrato nel più ampio contesto per la pulverizzazione di sistemi 
+    del progetto \texttt{PulvReAKt}.
+    
+    Viene infine proposto un confronto tra le prestazioni del progetto sulle diverse piattaforme interessate, con il fine di mostrare come il progetto performi 
+    in diverse condizioni.
+
 \end{abstract}
 
 \begin{dedication}
-A te che ci sei sempre stato\\
-e sempre sei con me anche se te ne sei andato.\\
-A te che tanto mi hai insegnato\\
-e sempre mi hai supportato.
-\bigbreak
-A te che più di chiunque altro avrei voluto qua.
-\smallbreak
-A mio nonno Gianni.
+    A te che ci sei sempre stato\\
+    e sempre sei con me anche se te ne sei andato.\\
+    A te che tanto mi hai insegnato\\
+    e sempre mi hai supportato.
+    \bigbreak
+    A te che più di chiunque altro avrei voluto qua.
+    \smallbreak
+    A nonno Gianni.
 \end{dedication}
 
 %----------------------------------------------------------------------------------------
@@ -67,7 +81,7 @@ A mio nonno Gianni.
 
 La tesi spiega nel dettaglio le diverse fasi di sviluppo del progetto, dall'analisi dei requisiti alla validazione.
 Il progetto si propone di sviluppare un gestore di comunicazioni che sfrutta il Protocollo \acf{MQTT} ed è stato concepito per funzionare su \acf{JVM}, 
-\acf{JS} e native (Linux e Windows), infine viene descritta l'integrazione del progetto nel più ampio progetto \texttt{PulvReAKt}. 
+\acf{JS} e native, infine viene descritta l'integrazione del progetto nel più ampio progetto \texttt{PulvReAKt}. 
 Il progetto è in grado di gestire le comunicazioni tra molteplici entità, rendendo la metodologia di comunicazione e la logica interna trasparenti all'utente.
 Tali entità possono comunicare tra loro semplicemente appoggiandosi al progetto, che gestisce invece la logica e la comunicazione effettiva.
 
