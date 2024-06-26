@@ -76,17 +76,18 @@
 \mainmatter
 
 %----------------------------------------------------------------------------------------
-\chapter{Introduzione}
-\label{chap:Introduzione}
+\chapter{Introduzione}\label{chap:Introduzione}
 
-La tesi spiega nel dettaglio le diverse fasi di sviluppo del progetto, dall'analisi dei requisiti alla validazione.
-Il progetto si propone di sviluppare un gestore di comunicazioni che sfrutta il Protocollo \acf{MQTT} ed è stato concepito per funzionare su \acf{JVM}, 
-\acf{JS} e native, infine viene descritta l'integrazione del progetto nel più ampio progetto \texttt{PulvReAKt}. 
-Il progetto è in grado di gestire le comunicazioni tra molteplici entità, rendendo la metodologia di comunicazione e la logica interna trasparenti all'utente.
-Tali entità possono comunicare tra loro semplicemente appoggiandosi al progetto, che gestisce invece la logica e la comunicazione effettiva.
-
+Nella tesi vengono esposte ndettagliatamente le diverse fasi di progettazzione e di sviluppo del progetto, partendo dall'analisi dei requisiti fino alla validazione.
+Successivamente viene il processo d'integrazione del progetto sviluppato all'interno di PulvReAKt.\\
+Il progetto, implementato utilizzando Kotlin Multiplatform, ha l'obbiettivo di gestire le comunicazioni tra molteplici entità, 
+rendendo trasparenti sia la metodologia di comunicazione che la logica interna agli utenti finali.
+Le entità possono comunicare tra loro semplicemente utilizzando il progetto, il quale gestisce internamente la logica e l'effettiva comunicazione remota.\\
+Per raggiungere questo obbiettivo, è stato adottato il protocollo di comunicazione \acf{MQTT}, scelto per la sua leggerenza e la capacità di funzionare su qualsiasi dispositivo.
+In particolare il progetto è stato progettato,sviluppato e validato con l'intenzione di essere compatibile con l'esecuzione di Kotlin su \acf{JVM}, \acf{JS} e native.
+\pagebreak
 \section{struttura della tesi}
-Di seguito è riportata la struttura della tesi che descrive il progetto realizzato in ogni sua parte:
+La tesi è strutturata in 4 capitoli principali, che descrivono le diverse fasi coinvolte nella realizzazzione del progetto, in dettaglio:
 
 \begin{itemize}
     \item \textbf{Capitolo 1 (Contesto)}: in questo capitolo si tratta in maniera approfondita il contesto in cui è stato sviluppato il progetto, 
@@ -1064,7 +1065,7 @@ in particolare l'assenza del target \texttt{linuxArm64} tra i target nativi del 
 Questa mancanza è stata prontamente colmata aggiungendo correttamente il supporto al target specifico all'interno del file \texttt{build.gradle}, 
 senza riscontrare problemi di compatibilità.
 
-\chapter{Conclusioni}\label{chap:Conclusioni}
+\chapter{Conclusioni e Sviluppi Futuri}\label{chap:Conclusioni}
 
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
