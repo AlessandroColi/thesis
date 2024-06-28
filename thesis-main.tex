@@ -171,8 +171,7 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 \section{Sistemi IoT eterogenei}
 
 %TODO tutto
-
-\section{Protocollo MQTT}
+\section{Protocollo MQTT} %TODO
 
 Nel vasto panorama dell' \acf{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, \acf{MQTT} 
 si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati, in quanto si presenta come una soluzione elegante per risolvere le sfide di 
@@ -187,127 +186,18 @@ dispositivi con risorse limitate, e il modello di comunicazione publish-subscrib
     \label{fig:mqtt-example}
 \end{figure}
 
-Nel modello publish-subscribe di \ac{MQTT} i dispositivi si dividono in due ruoli principali:
- i publisher, che inviano i messaggi su specifici topic, e i subscriber, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
- Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità
- di conoscere direttamente gli indirizzi dei destinatari.
-
-Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variabile di client. Il broker \ac{MQTT} è un server 
-con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client \ac{MQTT} è un qualsiasi dispositivo che esegue una libreria 
-\ac{MQTT} e si connette a un broker \ac{MQTT} e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
-invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client che si sono iscritti a quell’argomento. 
-Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher.
-
 Un aspetto cruciale del protocollo \ac{MQTT} è la sua capacità di mantenere aperte le connessioni tra i dispositivi per lunghi periodi, riducendo al minimo la latenza 
 e ottimizzando l'efficienza della comunicazione. Questo risulta particolarmente importante in contesti dove è essenziale uno scambio continuo e tempestivo di dati 
 in tempo reale, permettendo un monitoraggio costante e affidabile. Tale caratteristica rende \ac{MQTT} ideale per applicazioni che richiedono una trasmissione dati 
-ininterrotta e reattiva, garantendo prestazioni ottimali anche in ambienti con risorse limitate e connettività intermittente.
-
-I principali tipi di messaggi \ac{MQTT} sono quattro:
-\begin{itemize}
-    \item \textbf{Connect}: il client attende che venga stabilita una connessione con il broker e crea un collegamento tra i nodi;
-    \item \textbf{Disconnect}: attende se il client \ac{MQTT} deve terminare delle operazioni e poi chiude la sessione TCP/IP;
-    \item \textbf{Publish}: il client pubblica un messaggio nella classe specificato;
-    \item \textbf{Subscribe}: iscrive il client all’argomento specificato;
-\end{itemize}
-
-\subsection{Formato pacchetti MQTT}
-Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddiviso nelle seguenti componenti principali:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/mqtt-packet.png}
-    \caption{formato di un pacchetto MQTT}
-    \label{fig:mqtt-packet}
-\end{figure}
-
-\begin{itemize}
-\item \textbf{Fixed Header (Intestazione Fissa):} Ogni pacchetto \ac{MQTT} contiene un'intestazione fissa che è obbligatoria e ha una lunghezza di 2 byte. 
-L'intestazione fissa include il tipo di messaggio, il livello di \ac{QoS}, la lunghezza rimanente del pacchetto e informazioni sui flag di controllo
-tra cui DUP (duplicate) che indica se è il primo tentativo di invio di tale pacchetto e RET (retain) che indica se tale pacchetto deve essere salvato nel server.
-I tipi di messaggio possono includere CONNECT, PUBLISH, SUBSCRIBE, UNSUBSCRIBE, DISCONNECT.
-\item \textbf{Variable Header (Intestazione Variabile):} L'intestazione variabile è opzionale e viene utilizzata in base al tipo di pacchetto. 
-Questa sezione può includere diversi campi come l'identificatore del pacchetto, i codici di ritorno e altre informazioni specifiche del tipo di messaggio. 
-Ad esempio, nei pacchetti di tipo PUBLISH, l'intestazione variabile include il topic del messaggio.
-\item \textbf{Payload (Corpo del Messaggio):} Il corpo del messaggio o payload è anch'esso opzionale e contiene i dati effettivi da trasmettere. 
-La lunghezza del payload può variare e nei pacchetti PUBLISH, esso contiene il contenuto del messaggio che viene inviato agli abbonati al topic specifico. 
-La presenza e il contenuto del payload dipendono dal tipo di messaggio specifico.
-\end{itemize}
-
-\subsection{Quality of Service (QoS)}
-
-\ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (\ac{QoS}), che consentono di personalizzare e ottimizzare 
-la comunicazione in base alle esigenze specifiche dell'applicazione. Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, 
-in grado di soddisfare una vasta gamma di requisiti e casi d'uso nell'ambito dell'\ac{IoT}. 
-Ogni livello di \ac{QoS} in \ac{MQTT} offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
-specifiche dell'applicazione, semplicemente modificando il valore dei due bit che indicano il livello \ac{QoS} nei pachetti, tramite le API fornite dalle librerie. 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/mqtt-qos.png}
-    \caption{funzionamento dei diversi livelli di QoS}
-    \label{fig:mqtt-qos}
-\end{figure}
-
-Il livello di \ac{QoS} 0, noto anche come `al massimo una volta' (at most once), garantisce che i messaggi vengano inviati senza conferma di ricezione. 
-I messaggi vengono consegnati in modo best effort, il che significa che non ci sono garanzie di consegna. Questo livello di \ac{QoS} è utilizzato quando la perdita 
-di messaggi occasionali è accettabile, come nelle applicazioni dove la latenza è più importante dell'affidabilità, ad esempio per il monitoraggio di dati in tempo reale 
-che vengono aggiornati frequentemente.
-
-Il livello di \ac{QoS} 1, noto anche come `almeno una volta' (at least once), garantisce che i messaggi vengano consegnati almeno una volta al destinatario. Ciò implica 
-che il mittente continua a inviare il messaggio finché non riceve una conferma di ricezione (acknowledgement) dal destinatario. Tuttavia, questo può portare alla possibilità 
-di ricevere duplicati del messaggio. Il livello \ac{QoS} 1 è utilizzato quando è importante che i messaggi vengano ricevuti, anche se ciò significa ricevere duplicati, 
-ad esempio per le transazioni di dati critici che devono essere garantite.
-
-Il livello di \ac{QoS} 2, noto anche come `esattamente una volta' (exactly once), garantisce che ogni messaggio venga consegnato esattamente una volta al destinatario. 
-Questo livello di \ac{QoS} utilizza un meccanismo di handshake a quattro fasi per assicurare che i messaggi non vengano duplicati e non vadano persi, garantendo la massima 
-affidabilità. Questo livello di \ac{QoS} è utilizzato in scenari dove è fondamentale evitare duplicati e garantire la consegna esatta di ogni messaggio, come nelle applicazioni 
-finanziarie o nei sistemi di controllo industriale.
-
-\pagebreak
-\subsection{MQTT over WebSocket}
-
-\ac{MQTT} over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
-di comunicazione che fornisce un canale full-duplex su una singola connessione \ac{TCP}, consentendo una comunicazione bidirezionale in tempo reale tra il client e il server.
-
-L'integrazione di \ac{MQTT} con WebSocket permette ai client basati su web di comunicare direttamente con un broker \ac{MQTT}, eliminando la necessità di intermediari o di 
-soluzioni di polling inefficaci. Questo è particolarmente utile per le applicazioni \ac{IoT} che richiedono aggiornamenti in tempo reale e un'interazione continua tra 
-dispositivi e interfacce utente basate su web. Le principali caratteristiche di \ac{MQTT} over WebSocket includono:
-
-\begin{itemize}
-    \item \textbf{Compatibilità Browser}: 
-    Consente ai browser web di stabilire connessioni \ac{MQTT} direttamente, facilitando lo sviluppo di applicazioni web interattive e in tempo reale.
-    \item \textbf{Efficienza della Connessione}: 
-    Utilizza una singola connessione \ac{TCP} per gestire sia il canale di comunicazione \ac{MQTT} che la trasmissione dei dati, riducendo il sovraccarico di rete.
-    \item \textbf{Sicurezza}: 
-    Supporta la crittografia SSL/TLS per garantire che la comunicazione tra il client e il server sia sicura, proteggendo i dati trasmessi da intercettazioni e attacchi.
-    \item \textbf{Flessibilità}: 
-    Permette una facile integrazione con le infrastrutture web esistenti, utilizzando lo stesso stack di tecnologia web e riducendo la complessità del sistema.
-\end{itemize}
-
-\ac{MQTT} over WebSocket è ideale per le applicazioni che necessitano di aggiornamenti frequenti e rapidi, come dashboard di monitoraggio, sistemi di allarme in tempo reale, 
-e applicazioni di controllo remoto. La combinazione di \ac{MQTT} e WebSocket offre una soluzione robusta e scalabile per la comunicazione in tempo reale nel mondo dell'\ac{IoT}.
+ininterrotta e reattiva, garantendo prestazioni ottimali anche in ambienti con risorse limitate e connettività intermittente.\\
+L'insieme di tutte queste caratteristiche è quello che ha portato alla scelta di utilizzare questo protocollo enl progetto proposto, %TODO collegati a Sistemi IoT eterogenei
 
 \section{Dependency Injection}
 
 Nel contesto dell'ingegneria del software, la \textit{Dependency Injection} rappresenta un pattern di progettazione fondamentale per la gestione
- delle dipendenze tra i vari componenti di un sistema. Questo approccio promuove un'architettura modulare e facilita la manutenzione, il testing e l'estensibilità del software.
-
-La Dependency Injection è una tecnica attraverso la quale un oggetto (il \textit{client}) riceve le proprie dipendenze da un oggetto esterno 
-(l' \textit{injector}), anziché crearle autonomamente. Le dipendenze sono componenti di cui il client ha bisogno per eseguire le proprie funzionalità.
- In altre parole, la Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
-
-Esistono tre principali varianti di Dependency Injection:
-\begin{itemize}
-\item \textbf{Constructor Injection}: Le dipendenze vengono fornite tramite il costruttore dell'oggetto. 
-    Questo metodo garantisce che le dipendenze siano disponibili al momento della creazione dell'oggetto.
-\item \textbf{Setter Injection}: Le dipendenze vengono fornite tramite metodi setter. 
-    Questo approccio consente una maggiore flessibilità nella configurazione delle dipendenze dopo la creazione dell'oggetto.
-\item \textbf{Interface Injection}: L'oggetto client espone un'interfaccia che permette al container di fornire le dipendenze. 
-    Questo metodo è meno comune ma può essere utile in contesti specifici.
-\end{itemize}
-
-L'adozione della Dependency Injection offre numerosi vantaggi, tra cui:
+delle dipendenze tra i vari componenti di un sistema. Questo approccio promuove un'architettura modulare e facilita la manutenzione, il testing e l'estensibilità del software.
+La sua adozione consente di sviluppare applicazioni modulari, testabili e facilmente manutenibili, contribuendo a migliorare la qualità complessiva del software.
+In particolare l'adozione della Dependency Injection offre numerosi vantaggi, tra cui:
 \begin{itemize}
     \item \textbf{Maggiore modularità}: I componenti del sistema possono essere sviluppati e testati in isolamento, migliorando la coesione e riducendo l'accoppiamento.
     \item \textbf{Facilità di testing}: Le dipendenze possono essere sostituite con mock o stub, semplificando il processo di unit testing.
@@ -316,21 +206,9 @@ L'adozione della Dependency Injection offre numerosi vantaggi, tra cui:
     \item \textbf{Inversione del controllo}: La Dependency Injection implementa il principio di inversione del controllo,
      permettendo al framework di gestire il ciclo di vita degli oggetti e le loro dipendenze.
 \end{itemize}
-
-Diversi framework e container sono stati sviluppati per supportare la Dependency Injection in vari linguaggi di programmazione. Un esempio prominente, 
- in particolare per l'ecosistema Kotlin, è \textbf{Koin}\footnote{
-    Documentazione ufficiale di Koin: \url{https://insert-koin.io/docs/quickstart/android}
- }: un framework di Dependency Injection per Kotlin che si distingue per la sua semplicità e leggerezza. 
- Koin utilizza una DSL (Domain Specific Language) per definire le dipendenze in modo chiaro e conciso, rendendo l'integrazione e la configurazione estremamente intuitive.
- Koin è particolarmente apprezzato nell'ambito dello sviluppo di applicazioni Android.
-
-La Dependency Injection è un pattern di progettazione che offre una soluzione elegante alla gestione delle dipendenze in sistemi software complessi.
- La sua adozione consente di sviluppare applicazioni modulari, testabili e facilmente manutenibili, contribuendo a migliorare la qualità complessiva del software.
- Nelle sezioni successive, esploreremo più in dettaglio i vari aspetti della Dependency Injection, i suoi benefici e come implementarla efficacemente utilizzando diversi framework,
- con un focus particolare su Koin per applicazioni Kotlin.
     
- \section{PulvReAKt}
-PulvReAKt è un framework leggero e multipiattaforma per Kotlin, progettato per facilitare la pulverizzazione dei sistemi, ovvero la suddivisione di applicazioni complesse
+\section{PulvReAKt}
+ PulvReAKt è un framework leggero e multipiattaforma per Kotlin, progettato per facilitare la pulverizzazione dei sistemi, ovvero la suddivisione di applicazioni complesse
  in muyltemplici componenti modulari che possono essere distribuiti su diverse piattaforme. Il framework supporta \ac{JVM}, \ac{JS} e alcune piattaforme native, come Linux, macOS e iOS. 
  PulvReAKt consente di definire, configurare e distribuire componenti software utilizzando protocolli di comunicazione come \ac{MQTT} e RabbitMQ, rendendolo particolarmente adatto 
  per lo sviluppo di applicazioni distribuite e sistemi \ac{IoT}. Consente di suddividere l'applicazione in componenti indipendenti, facilitando lo sviluppo e la manutenzione. 
@@ -545,7 +423,107 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 
 \chapter{Design}\label{chap:Design}
 
-\section{Struttura di MQTT}
+
+\section{Protocollo MQTT}
+
+Il cuore del progetto sviluppato, su cui si basa la comunicazione tra le entità, è il protocollo \acf{MQTT},
+che è basato sul modello publish-subscribe, in cui i dispositivi si dividono in due ruoli principali:
+ i publisher, che inviano i messaggi su specifici topic, e i subscriber, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
+ Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità
+ di conoscere direttamente gli indirizzi dei destinatari.
+
+Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variabile di client. Il broker \ac{MQTT} è un server 
+con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client \ac{MQTT} è un qualsiasi dispositivo che esegue una libreria 
+\ac{MQTT} e si connette a un broker \ac{MQTT} e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
+invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client che si sono iscritti a quell’argomento. 
+Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher.
+\pagebreak
+
+I principali tipi di messaggi \ac{MQTT} sono quattro:
+\begin{itemize}
+    \item \textbf{Connect}: il client attende che venga stabilita una connessione con il broker e crea un collegamento tra i nodi;
+    \item \textbf{Disconnect}: attende se il client \ac{MQTT} deve terminare delle operazioni e poi chiude la sessione TCP/IP;
+    \item \textbf{Publish}: il client pubblica un messaggio nella classe specificato;
+    \item \textbf{Subscribe}: iscrive il client all’argomento specificato;
+\end{itemize}
+
+\subsection{Formato pacchetti MQTT}
+Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddiviso nelle seguenti componenti principali:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/mqtt-packet.png}
+    \caption{formato di un pacchetto MQTT}
+    \label{fig:mqtt-packet}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{Fixed Header (Intestazione Fissa):} Ogni pacchetto \ac{MQTT} contiene un'intestazione fissa che è obbligatoria e ha una lunghezza di 2 byte. 
+L'intestazione fissa include il tipo di messaggio, il livello di \ac{QoS}, la lunghezza rimanente del pacchetto e informazioni sui flag di controllo
+tra cui DUP (duplicate) che indica se è il primo tentativo di invio di tale pacchetto e RET (retain) che indica se tale pacchetto deve essere salvato nel server.
+I tipi di messaggio possono includere CONNECT, PUBLISH, SUBSCRIBE, UNSUBSCRIBE, DISCONNECT.
+\item \textbf{Variable Header (Intestazione Variabile):} L'intestazione variabile è opzionale e viene utilizzata in base al tipo di pacchetto. 
+Questa sezione può includere diversi campi come l'identificatore del pacchetto, i codici di ritorno e altre informazioni specifiche del tipo di messaggio. 
+Ad esempio, nei pacchetti di tipo PUBLISH, l'intestazione variabile include il topic del messaggio.
+\item \textbf{Payload (Corpo del Messaggio):} Il corpo del messaggio o payload è anch'esso opzionale e contiene i dati effettivi da trasmettere. 
+La lunghezza del payload può variare e nei pacchetti PUBLISH, esso contiene il contenuto del messaggio che viene inviato agli abbonati al topic specifico. 
+La presenza e il contenuto del payload dipendono dal tipo di messaggio specifico.
+\end{itemize}
+
+\subsection{Quality of Service (QoS)}
+
+\ac{MQTT} offre funzionalità avanzate per la gestione delle connessioni, la sicurezza e la qualità del servizio (\ac{QoS}), che consentono di personalizzare e ottimizzare 
+la comunicazione in base alle esigenze specifiche dell'applicazione. Queste caratteristiche lo rendono un protocollo estremamente flessibile e adattabile, 
+in grado di soddisfare una vasta gamma di requisiti e casi d'uso nell'ambito dell'\ac{IoT}. 
+Ogni livello di \ac{QoS} in \ac{MQTT} offre un trade-off tra affidabilità e overhead di rete, permettendo agli sviluppatori di scegliere il livello più appropriato in base alle esigenze 
+specifiche dell'applicazione, semplicemente modificando il valore dei due bit che indicano il livello \ac{QoS} nei pachetti, tramite le API fornite dalle librerie. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/mqtt-qos.png}
+    \caption{funzionamento dei diversi livelli di QoS}
+    \label{fig:mqtt-qos}
+\end{figure}
+
+Il livello di \ac{QoS} 0, noto anche come `al massimo una volta' (at most once), garantisce che i messaggi vengano inviati senza conferma di ricezione. 
+I messaggi vengono consegnati in modo best effort, il che significa che non ci sono garanzie di consegna. Questo livello di \ac{QoS} è utilizzato quando la perdita 
+di messaggi occasionali è accettabile, come nelle applicazioni dove la latenza è più importante dell'affidabilità, ad esempio per il monitoraggio di dati in tempo reale 
+che vengono aggiornati frequentemente.
+
+Il livello di \ac{QoS} 1, noto anche come `almeno una volta' (at least once), garantisce che i messaggi vengano consegnati almeno una volta al destinatario. Ciò implica 
+che il mittente continua a inviare il messaggio finché non riceve una conferma di ricezione (acknowledgement) dal destinatario. Tuttavia, questo può portare alla possibilità 
+di ricevere duplicati del messaggio. Il livello \ac{QoS} 1 è utilizzato quando è importante che i messaggi vengano ricevuti, anche se ciò significa ricevere duplicati, 
+ad esempio per le transazioni di dati critici che devono essere garantite.
+
+Il livello di \ac{QoS} 2, noto anche come `esattamente una volta' (exactly once), garantisce che ogni messaggio venga consegnato esattamente una volta al destinatario. 
+Questo livello di \ac{QoS} utilizza un meccanismo di handshake a quattro fasi per assicurare che i messaggi non vengano duplicati e non vadano persi, garantendo la massima 
+affidabilità. Questo livello di \ac{QoS} è utilizzato in scenari dove è fondamentale evitare duplicati e garantire la consegna esatta di ogni messaggio, come nelle applicazioni 
+finanziarie o nei sistemi di controllo industriale.
+
+\subsection{MQTT over WebSocket}
+
+\ac{MQTT} over WebSocket rappresenta una combinazione potente che estende le capacità del protocollo \ac{MQTT} nel contesto delle applicazioni web. WebSocket è un protocollo 
+di comunicazione che fornisce un canale full-duplex su una singola connessione \ac{TCP}, consentendo una comunicazione bidirezionale in tempo reale tra il client e il server.
+
+L'integrazione di \ac{MQTT} con WebSocket permette ai client basati su web di comunicare direttamente con un broker \ac{MQTT}, eliminando la necessità di intermediari o di 
+soluzioni di polling inefficaci. Questo è particolarmente utile per le applicazioni \ac{IoT} che richiedono aggiornamenti in tempo reale e un'interazione continua tra 
+dispositivi e interfacce utente basate su web. Le principali caratteristiche di \ac{MQTT} over WebSocket includono:
+
+\begin{itemize}
+    \item \textbf{Compatibilità Browser}: 
+    Consente ai browser web di stabilire connessioni \ac{MQTT} direttamente, facilitando lo sviluppo di applicazioni web interattive e in tempo reale.
+    \item \textbf{Efficienza della Connessione}: 
+    Utilizza una singola connessione \ac{TCP} per gestire sia il canale di comunicazione \ac{MQTT} che la trasmissione dei dati, riducendo il sovraccarico di rete.
+    \item \textbf{Sicurezza}: 
+    Supporta la crittografia SSL/TLS per garantire che la comunicazione tra il client e il server sia sicura, proteggendo i dati trasmessi da intercettazioni e attacchi.
+    \item \textbf{Flessibilità}: 
+    Permette una facile integrazione con le infrastrutture web esistenti, utilizzando lo stesso stack di tecnologia web e riducendo la complessità del sistema.
+\end{itemize}
+
+\ac{MQTT} over WebSocket è ideale per le applicazioni che necessitano di aggiornamenti frequenti e rapidi, come dashboard di monitoraggio, sistemi di allarme in tempo reale, 
+e applicazioni di controllo remoto. La combinazione di \ac{MQTT} e WebSocket offre una soluzione robusta e scalabile per la comunicazione in tempo reale nel mondo dell'\ac{IoT}.
+
+\subsection{Struttura di MQTT nel progetto}
 
 La discrepanza tra il modello publish-subscribe caratteristico di \ac{MQTT} e la necessità di comunicazione diretta tra le entità, come previsto dal progetto, richiede una definizione accurata 
 della struttura dei topic di \ac{MQTT}. Per affrontare questa sfida, si è deciso di strutturare i topic nella forma \texttt{nomeProgetto/mittente/destinatario}. 
@@ -576,6 +554,30 @@ Il payload dei messaggi è gestito con particolare attenzione: viene inserito ne
 rimosso dal pacchetto \ac{MQTT} per essere restituito all'entità destinataria. Questa gestione assicura che il contenuto del messaggio mantenga la sua integrità e che la comunicazione avvenga in modo trasparente ed efficace, 
 rispettando le esigenze di affidabilità e performance del sistema. Questo approccio permette di criptare i messaggi prima dell'invio e decriptarli dopo la ricezione, senza che l'integrità del messaggio venga intaccata dal 
 protocollo o dall'utilizzo del progetto.
+
+
+\section{Dependency Injection nel progetto} %TODO: rivedi
+
+La Dependency Injection è una tecnica attraverso la quale un oggetto (il \textit{client}) riceve le proprie dipendenze da un oggetto esterno 
+(l' \textit{injector}), anziché crearle autonomamente. Le dipendenze sono componenti di cui il client ha bisogno per eseguire le proprie funzionalità.
+ In altre parole, la Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
+
+Esistono tre principali varianti di Dependency Injection:
+\begin{itemize}
+\item \textbf{Constructor Injection}: Le dipendenze vengono fornite tramite il costruttore dell'oggetto. 
+    Questo metodo garantisce che le dipendenze siano disponibili al momento della creazione dell'oggetto.
+\item \textbf{Setter Injection}: Le dipendenze vengono fornite tramite metodi setter. 
+    Questo approccio consente una maggiore flessibilità nella configurazione delle dipendenze dopo la creazione dell'oggetto.
+\item \textbf{Interface Injection}: L'oggetto client espone un'interfaccia che permette al container di fornire le dipendenze. 
+    Questo metodo è meno comune ma può essere utile in contesti specifici.
+\end{itemize}
+
+Diversi framework e container sono stati sviluppati per supportare la Dependency Injection in vari linguaggi di programmazione. Un esempio prominente, 
+ in particolare per l'ecosistema Kotlin, è \textbf{Koin}\footnote{
+    Documentazione ufficiale di Koin: \url{https://insert-koin.io/docs/quickstart/android}
+ }: un framework di Dependency Injection per Kotlin che si distingue per la sua semplicità e leggerezza. 
+ Koin utilizza una DSL (Domain Specific Language) per definire le dipendenze in modo chiaro e conciso, rendendo l'integrazione e la configurazione estremamente intuitive.
+ Koin è particolarmente apprezzato nell'ambito dello sviluppo di applicazioni Android e non solo.
 
 \section{Struttura delle classi}
 
