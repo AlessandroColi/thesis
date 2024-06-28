@@ -897,7 +897,7 @@ Questa configurazione hardware è stata scelta per garantire una base solida e c
 I risultati dei test nativi su Linux e Windows sono stati ottenuti utilizzando lo stesso computer, configurato in due partizioni separate, e quindi con lo stesso hardware sottostante. 
 Questa configurazione ha permesso di isolare le variabili legate all'hardware e focalizzarsi sulle differenze di performance dovute esclusivamente ai sistemi operativi. 
 I test per le piattaforme JVM e JS sono stati eseguiti sia in ambiente Linux che in ambiente Windows, sempre utilizzando lo stesso dispositivo già impiegato per i test nativi. 
-Ciò ha assicurato che qualsiasi differenza osservata fosse attribuibile esclusivamente alle piattaforme software e alle differenze tra le due librerie utilizzate.
+Ciò ha assicurato che qualsiasi differenza osservata fosse attribuibile esclusivamente alle piattaforme software.
 
 I test sono stati divisi in due tipologie principali, differenziate in base al server utilizzato per ospitare il broker \ac{MQTT}. Nel primo caso, il broker è stato ospitato 
 localmente tramite Mosquitto, configurato per richiedere autenticazione. Questa configurazione ha offerto un contesto controllato e stabile per le misurazioni, consentendo 
@@ -913,11 +913,11 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-            height=9cm,
+            height=7cm,
             width=7cm,
             ybar=.2cm,
             ymin=0,
-            ymax=8.5,
+            ymax=8.3,
             symbolic x coords={
                 {\shortstack{Windows\\Environment}},
                 {\shortstack{Linux\\Environment}}
@@ -937,10 +937,10 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     \end{tikzpicture}\begin{tikzpicture}
         \begin{axis}[
             ybar=.2cm,
-            height=9cm,
+            height=7cm,
             width=7cm,
             ymin=0,
-            ymax=8.5,
+            ymax=8.3,
             ylabel={Time (s)},
             symbolic x coords={
                 {\shortstack{Windows\\Environment}},
