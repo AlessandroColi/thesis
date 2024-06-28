@@ -423,14 +423,13 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 
 \chapter{Design}\label{chap:Design}
 
-
 \section{Protocollo MQTT}
 
-Il cuore del progetto sviluppato, su cui si basa la comunicazione tra le entità, è il protocollo \acf{MQTT},
-che è basato sul modello publish-subscribe, in cui i dispositivi si dividono in due ruoli principali:
- i publisher, che inviano i messaggi su specifici topic, e i subscriber, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
- Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità
- di conoscere direttamente gli indirizzi dei destinatari.
+Il centro del progetto sviluppato è il protocollo \acf{MQTT}, in quanto viene utilizzato per l'invio dei messaggi nella rete.
+Questo protocollo è di tipologia publish-subscribe, nella quale i dispositivi connessi si dividono in due ruoli principali: 
+i textbf{publisher}, che inviano i messaggi su specifici topic, e i textbf{subscriber}, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
+Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità 
+di conoscere direttamente gli indirizzi dei destinatari. 
 
 Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variabile di client. Il broker \ac{MQTT} è un server 
 con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client \ac{MQTT} è un qualsiasi dispositivo che esegue una libreria 
@@ -520,13 +519,11 @@ dispositivi e interfacce utente basate su web. Le principali caratteristiche di 
     Permette una facile integrazione con le infrastrutture web esistenti, utilizzando lo stesso stack di tecnologia web e riducendo la complessità del sistema.
 \end{itemize}
 
-\ac{MQTT} over WebSocket è ideale per le applicazioni che necessitano di aggiornamenti frequenti e rapidi, come dashboard di monitoraggio, sistemi di allarme in tempo reale, 
-e applicazioni di controllo remoto. La combinazione di \ac{MQTT} e WebSocket offre una soluzione robusta e scalabile per la comunicazione in tempo reale nel mondo dell'\ac{IoT}.
-
 \subsection{Struttura di MQTT nel progetto}
 
-La discrepanza tra il modello publish-subscribe caratteristico di \ac{MQTT} e la necessità di comunicazione diretta tra le entità, come previsto dal progetto, richiede una definizione accurata 
-della struttura dei topic di \ac{MQTT}. Per affrontare questa sfida, si è deciso di strutturare i topic nella forma \texttt{nomeProgetto/mittente/destinatario}. 
+La discrepanza tra il modello publish-subscribe caratteristico di \ac{MQTT} e la necessità di comunicazione diretta tra le entità prevista dal progetto, ha richiesto 
+una definizione accurata della struttura dei topic di \ac{MQTT}. Per affrontare questa sfida, si è deciso di strutturare i topic nella forma 
+\texttt{nomeProgetto/mittente/destinatario}. 
 In questa struttura, 'nomeProgetto' rappresenta un topic unico all'interno del progetto, che ospita tutti i topic necessari per la comunicazione tra le singole entità. 
 Ad esempio, nel progetto PulvReAKt, il nome del progetto è 'PulvReAKt', ma può essere personalizzato tramite il costruttore del gestore delle comunicazioni.
 
@@ -555,11 +552,10 @@ rimosso dal pacchetto \ac{MQTT} per essere restituito all'entità destinataria. 
 rispettando le esigenze di affidabilità e performance del sistema. Questo approccio permette di criptare i messaggi prima dell'invio e decriptarli dopo la ricezione, senza che l'integrità del messaggio venga intaccata dal 
 protocollo o dall'utilizzo del progetto.
 
-
-\section{Dependency Injection nel progetto} %TODO: rivedi
+\section{Dependency Injection nel progetto}
 
 La Dependency Injection è una tecnica attraverso la quale un oggetto (il \textit{client}) riceve le proprie dipendenze da un oggetto esterno 
-(l' \textit{injector}), anziché crearle autonomamente. Le dipendenze sono componenti di cui il client ha bisogno per eseguire le proprie funzionalità.
+(l'\textit{injector}), anziché crearle autonomamente. Le dipendenze sono componenti di cui il client ha bisogno per eseguire le proprie funzionalità.
  In altre parole, la Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
 
 Esistono tre principali varianti di Dependency Injection:
@@ -572,12 +568,16 @@ Esistono tre principali varianti di Dependency Injection:
     Questo metodo è meno comune ma può essere utile in contesti specifici.
 \end{itemize}
 
-Diversi framework e container sono stati sviluppati per supportare la Dependency Injection in vari linguaggi di programmazione. Un esempio prominente, 
- in particolare per l'ecosistema Kotlin, è \textbf{Koin}\footnote{
-    Documentazione ufficiale di Koin: \url{https://insert-koin.io/docs/quickstart/android}
- }: un framework di Dependency Injection per Kotlin che si distingue per la sua semplicità e leggerezza. 
- Koin utilizza una DSL (Domain Specific Language) per definire le dipendenze in modo chiaro e conciso, rendendo l'integrazione e la configurazione estremamente intuitive.
- Koin è particolarmente apprezzato nell'ambito dello sviluppo di applicazioni Android e non solo.
+Diversi framework e container sono stati sviluppati per supportare la Dependency Injection in vari linguaggi di programmazione. 
+Un esempio prominente, in particolare per l'ecosistema Kotlin, è Kodein\footnote{
+    Documentazione ufficiale Kodein: \url{https://kosi-libs.org/kodein/7.22/index.html} 
+}. 
+Kodein è un framework di Dependency Injection per Kotlin che facilita 
+l'inversione del controllo, consentendo di iniettare le dipendenze in modo flessibile ed efficiente. Questo approccio semplifica la gestione delle dipendenze 
+e migliora la modularità e la testabilità del codice.
+
+Kodein utilizza una DSL (Domain Specific Language) per definire le dipendenze in modo chiaro e conciso, rendendo l'integrazione e la configurazione estremamente intuitive. 
+Il framework permette di definire i moduli di dipendenze che possono essere facilmente riutilizzati e configurati in base alle esigenze specifiche del progetto.
 
 \section{Struttura delle classi}
 
@@ -1069,11 +1069,7 @@ Analizzando più nel dettaglio gli adattamenti che sono stati implementati per r
 prima di tutto è stato necessario modificare lievemente le interfacce del progetto originale per conformarle a quelle presenti all'interno di PulvReAKt. 
 In particolare è emersa l'esigenza di concentrarsi in maniera specifica sulla Dependency Injection. Infatti mentre l'utilizzo di questo pattern non è necessario 
 per il funzionamento del progetto autonomo, risulta invece di fondamentale importanza all'interno di PulvReAKt. E' stato quindi necessario implementarlo anche all'interno 
-del modulo MQTT per una corretta integrazione. In PulvReAKt, la Dependency Injection è gestita tramite il framework Kodein\footnote{
-    Kodein è un framework di Dependency Injection per Kotlin che facilita l'inversione del controllo. Consente di iniettare le dipendenze in modo flessibile ed efficiente, 
-    semplificando la gestione delle dipendenze e migliorando la modularità e la testabilità del codice.
-    Documentazione ufficiale reperibile presso: \url{https://kosi-libs.org/kodein/7.22/index.html}
-    }. 
+del modulo MQTT per una corretta integrazione. In PulvReAKt, la Dependency Injection è gestita tramite il framework Kodein.
 Di conseguenza, è stato necessario implementare la funzione \texttt{setupInjector(kodein: DI)} all'inerno delle classi del modulo sviluppato
 per assicurare che fossero correttamente fruibilili all'interno dell'ecosistema di PulvReAKt.
 
