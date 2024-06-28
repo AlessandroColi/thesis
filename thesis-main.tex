@@ -318,7 +318,9 @@ L'adozione della Dependency Injection offre numerosi vantaggi, tra cui:
 \end{itemize}
 
 Diversi framework e container sono stati sviluppati per supportare la Dependency Injection in vari linguaggi di programmazione. Un esempio prominente, 
- in particolare per l'ecosistema Kotlin, è \textbf{Koin}: un framework di Dependency Injection per Kotlin che si distingue per la sua semplicità e leggerezza. 
+ in particolare per l'ecosistema Kotlin, è \textbf{Koin}\footnote{
+    Documentazione ufficiale di Koin: \url{https://insert-koin.io/docs/quickstart/android}
+ }: un framework di Dependency Injection per Kotlin che si distingue per la sua semplicità e leggerezza. 
  Koin utilizza una DSL (Domain Specific Language) per definire le dipendenze in modo chiaro e conciso, rendendo l'integrazione e la configurazione estremamente intuitive.
  Koin è particolarmente apprezzato nell'ambito dello sviluppo di applicazioni Android.
 
@@ -691,7 +693,9 @@ Questo ha assicurato che il protocollo \ac{MQTT} possa essere utilizzato con suc
 \section{Tecnologie Utilizzate}
 
 \subsection{Kotest}
-Kotest offre un framework di testing multipiattaforma specificamente progettato per Kotlin. Kotest oltre a semplificare il processo di scrittura e di esecuzione dei test, 
+Kotest\footnote{
+    Documentazione ufficiale di kotest: \url{https://kotest.io/docs/index.html}
+} offre un framework di testing multipiattaforma specificamente progettato per Kotlin. Kotest oltre a semplificare il processo di scrittura e di esecuzione dei test, 
 si distingue per la sua flessibilità e le funzionalità avanzate. Grazie al supporto per test di proprietà, test parametrizzati e altre caratteristiche, Kotest garantisce prestazioni 
 eccellenti e affidabilità nei risultati, fornendo un solido fondamento per la verifica e la convalida del codice Kotlin.
 
@@ -700,7 +704,9 @@ La possibilità di eseguire test in parallelo contribuisce a ridurre significati
 Inoltre, la compatibilità di Kotest con diversi ambienti di integrazione continua (\ac{CI/CD}) ne facilita l'adozione in progetti di qualsiasi dimensione e complessità.
 
 \subsection{Arrow}
-Arrow è una libreria potente che porta la programmazione funzionale idiomatica in Kotlin, arricchendo il linguaggio con concetti come i tipi di dati immutabili e le monadi. 
+Arrow\footnote{
+    Documentazione ufficiale di Arrow: \url{https://arrow-kt.io/docs/}
+} è una libreria potente che porta la programmazione funzionale idiomatica in Kotlin, arricchendo il linguaggio con concetti come i tipi di dati immutabili e le monadi. 
 L'integrazione di Arrow nel progetto migliora significativamente la qualità del codice, facilitandone la manutenzione e rendendolo più leggibile e testabile. 
 Questa libreria contribuisce in modo tangibile alla costruzione di applicazioni Kotlin più robuste e manutenibili.
 
@@ -710,24 +716,31 @@ prevedibile, riducendo i rischi associati a operazioni come l'accesso al network
 funzionale come le funzioni pure e le composizioni, migliorando la coesione e la riusabilità del codice.
 
 \subsection{Kmqtt}
-Kmqtt riveste un ruolo cruciale nell'implementazione della comunicazione tramite \ac{MQTT} nel progetto. Questa libreria, progettata per Kotlin Multiplatform, offre 
+Kmqtt\footnote{
+    Documentazione ufficiale di Kmqtt: \url{https://github.com/davidepianca98/KMQTT} 
+} riveste un ruolo cruciale nell'implementazione della comunicazione tramite \ac{MQTT} nel progetto. Questa libreria, progettata per Kotlin Multiplatform, offre 
 un'implementazione unificata di \ac{MQTT} su tutte le piattaforme di interesse al progetto, In particolare per \ac{JVM} e native. La sua facilità d'uso e la flessibilità consentono di integrare la comunicazione 
 \ac{MQTT} in modo uniforme e affidabile su tutte le piattaforme supportate, fornendo una solida base per lo sviluppo delle funzionalità di comunicazione nell'applicazione.
 
 \subsection{MQTT.js}
-MQTT.js è una libreria per lo sviluppo di applicazioni web che richiedono comunicazione \ac{MQTT} in ambienti JavaScript. 
+MQTT.js\footnote{
+    Documentazione ufficiale di MQTT.js: \url{https://github.com/mqttjs/MQTT.js} 
+} è una libreria per lo sviluppo di applicazioni web che richiedono comunicazione \ac{MQTT} in ambienti JavaScript. 
 MQTT.js è progettata per essere leggera, altamente performante e semplice da usare, consentendo di gestire un elevato numero di messaggi con una latenza minima. 
 La libreria supporta tutti i principali meccanismi di sicurezza, inclusa la crittografia SSL/TLS e l'autenticazione basata su username e password, garantendo una comunicazione 
 sicura anche in contesti sensibili.
 
 \subsection{Mosquitto}
-
-Mosquitto rappresenta il cuore dell'infrastruttura \ac{MQTT} del progetto, offrendo un broker \ac{MQTT} open source che supporta sia l'hosting locale che il servizio pubblico. 
+Mosquitto\footnote{
+    Documentazione ufficiale di Mosquitto: \url{https://mosquitto.org/documentation/}
+} rappresenta il cuore dell'infrastruttura \ac{MQTT} del progetto, offrendo un broker \ac{MQTT} open source che supporta sia l'hosting locale che il servizio pubblico. 
 La leggerezza e la configurabilità di Mosquitto lo rendono una scelta ideale per creare un ambiente di sviluppo e testing robusto per le applicazioni basate su \ac{MQTT}. 
 Le sue funzionalità avanzate, come l'autenticazione e la sicurezza delle connessioni, garantiscono un'esperienza di sviluppo sicura e affidabile.
 
 \subsection{Git}
-Git svolge un ruolo fondamentale nel controllo di versione del codice sorgente del progetto. Questo sistema di controllo di versione distribuito consente agli sviluppatori 
+Git\footnote{
+    Documentazione ufficiale di Git: \url{https://git-scm.com/doc}
+} svolge un ruolo fondamentale nel controllo di versione del codice sorgente del progetto. Questo sistema di controllo di versione distribuito consente agli sviluppatori 
 di tracciare le modifiche al codice, collaborare in modo efficiente con altri membri del team e gestire diverse versioni del progetto. La sua flessibilità e la vasta gamma 
 di funzionalità supportate lo rendono una scelta versatile per il controllo di versione in progetti di qualsiasi dimensione e complessità.
 
@@ -738,12 +751,16 @@ più strutturata e produttiva.
 
 \subsection{Gradle}
 
-Gradle rappresenta il cuore del processo di build e automazione del progetto. Questo sistema di automazione della compilazione, con la sua configurabilità ed estendibilità, 
+Gradle\footnote{
+    Documentazione ufficiale di Gradle: \url{https://docs.gradle.org/current/userguide/userguide.html}
+} rappresenta il cuore del processo di build e automazione del progetto. Questo sistema di automazione della compilazione, con la sua configurabilità ed estendibilità, 
 semplifica la gestione delle dipendenze, la compilazione del codice e l'esecuzione dei test. Grazie alla sua integrazione con Kotlin, Gradle contribuisce in modo significativo 
 a rendere il processo di sviluppo più efficiente e organizzato, offrendo un ambiente di sviluppo ottimizzato e scalabile.
 
 \subsection{Detekt}
-Detekt è uno strumento di analisi statica del codice progettato specificamente per Kotlin, che aiuta a identificare problemi di qualità del codice e potenziali bug. 
+Detekt\footnote{
+    Documentazione ufficiale di Detekt: \url{https://detekt.dev/}
+} è uno strumento di analisi statica del codice progettato specificamente per Kotlin, che aiuta a identificare problemi di qualità del codice e potenziali bug. 
 Integrando Detekt nel progetto, è possibile eseguire una scansione automatica del codice sorgente per rilevare problemi di stile, errori comuni e complessità del codice.
 Detekt offre una vasta gamma di regole predefinite che coprono vari aspetti della qualità del codice, come la complessità ciclomatica, le convenzioni di codice, i potenziali 
 bug e le vulnerabilità di sicurezza. Inoltre, è possibile configurare Detekt per adattarsi alle esigenze specifiche del progetto, personalizzando le regole esistenti o creando 
@@ -1053,6 +1070,7 @@ per il funzionamento del progetto autonomo, risulta invece di fondamentale impor
 del modulo MQTT per una corretta integrazione. In PulvReAKt, la Dependency Injection è gestita tramite il framework Kodein\footnote{
     Kodein è un framework di Dependency Injection per Kotlin che facilita l'inversione del controllo. Consente di iniettare le dipendenze in modo flessibile ed efficiente, 
     semplificando la gestione delle dipendenze e migliorando la modularità e la testabilità del codice.
+    Documentazione ufficiale reperibile presso: \url{https://kosi-libs.org/kodein/7.22/index.html}
     }. 
 Di conseguenza, è stato necessario implementare la funzione \texttt{setupInjector(kodein: DI)} all'inerno delle classi del modulo sviluppato
 per assicurare che fossero correttamente fruibilili all'interno dell'ecosistema di PulvReAKt.
