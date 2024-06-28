@@ -168,25 +168,25 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
  garantendo la ridondanza, la resilienza e la flessibilità delle applicazioni su piattaforme eterogenee
 \end{itemize}
 
-\section{Sistemi IoT eterogenei} %TODO rivedi
+\section{Sistemi IoT eterogenei}
 
 L'\acf{IoT} è un paradigma tecnologico che si riferisce alla rete di dispositivi fisici, veicoli, elettrodomestici e altri oggetti, integrati con elettronica, 
 software, sensori, attuatori e connettività di rete. Questi dispositivi sono in grado di raccogliere e scambiare dati, comunicando tra loro e con sistemi centralizzati. 
-L'obiettivo principale dell'\ac{IoT} è migliorare l'automazione, l'efficienza e la gestione dei dati in tempo reale, rendendo gli oggetti intelligenti e interconnessi %\cite{Gubbi2013}.
+L'obiettivo principale dell'\ac{IoT} è migliorare l'automazione, l'efficienza e la gestione dei dati in tempo reale, rendendo gli oggetti intelligenti e interconnessi \cite{DBLP:journals/fgcs/GubbiBMP13}.
 
 I sistemi \ac{IoT} eterogenei rappresentano un'evoluzione di questo concetto base. Caratterizzati dalla presenza di dispositivi che possono avere capacità di calcolo, 
 diversi protocolli di comunicazione e formati di dati, questi sistemi devono operare in sinergia per fornire servizi avanzati. 
-Ad esempio, dispositivi IoT possono utilizzare protocolli come \ac{MQTT} a seconda delle loro necessità e funzioni %\cite{Al-Fuqaha2015}. 
+Ad esempio, dispositivi IoT possono utilizzare protocolli come \ac{MQTT} a seconda delle loro necessità e funzioni \cite{DBLP:journals/comsur/Al-FuqahaGMAA15}. 
 L'eterogeneità di questi dispositivi rappresenta una sfida significativa ma anche un'opportunità per migliorare l'interoperabilità e l'integrazione dei sistemi \ac{IoT}.
 
 La gestione efficace dei sistemi \ac{IoT} eterogenei richiede l'implementazione di soluzioni middleware. Questi strati software agiscono come intermediari tra i dispositivi 
 e le piattaforme di gestione, facilitando la comunicazione, la sicurezza e la gestione dei dati. Le soluzioni middleware sono essenziali per garantire che i dispositivi di 
-diversa natura possano operare insieme in modo coerente e affidabile, supportando così l'espansione e l'adattamento continuo di queste reti intelligenti %\cite{Bandyopadhyay2011}.
+diversa natura possano operare insieme in modo coerente e affidabile, supportando così l'espansione e l'adattamento continuo di queste reti intelligenti\cite{DBLP:journals/wpc/BandyopadhyayS11}.
 
 L'ambito dell'\ac{IoT} rappresenta una prospettiva fondamentale per l'interconnessione e l'automazione dei dispositivi fisici in rete. 
 In quanto migliora la capacità di raccogliere dati e fornisce la possibilità di prendere decisioni informate in tempo reale.
 
-\section{Protocollo MQTT} %TODO
+\section{Protocollo MQTT}
 
 Nel vasto panorama dell' \acf{IoT}, dove milioni di dispositivi sono interconnessi per scambiare dati e informazioni in tempo reale, \acf{MQTT} 
 si distingue come uno dei protocolli di comunicazione più importanti e ampiamente adottati, in quanto si presenta come una soluzione elegante per risolvere le sfide di 
@@ -224,7 +224,8 @@ In particolare l'adozione della Dependency Injection offre numerosi vantaggi, tr
     
 \section{PulvReAKt}
  PulvReAKt è un framework leggero e multipiattaforma per Kotlin, progettato per facilitare la pulverizzazione dei sistemi, ovvero la suddivisione di applicazioni complesse
- in muyltemplici componenti modulari che possono essere distribuiti su diverse piattaforme. Il framework supporta \ac{JVM}, \ac{JS} e alcune piattaforme native, come Linux, macOS e iOS. 
+ in muyltemplici componenti modulari che possono essere distribuiti su diverse piattaforme \cite{DBLP:journals/fi/CasadeiPPVW20}. 
+Il framework supporta \ac{JVM}, \ac{JS} e alcune piattaforme native, come Linux, macOS e iOS. 
  PulvReAKt consente di definire, configurare e distribuire componenti software utilizzando protocolli di comunicazione come \ac{MQTT} e RabbitMQ, rendendolo particolarmente adatto 
  per lo sviluppo di applicazioni distribuite e sistemi \ac{IoT}. Consente di suddividere l'applicazione in componenti indipendenti, facilitando lo sviluppo e la manutenzione. 
  Supporta \ac{JVM}, \ac{JS} e varie piattaforme native, permettendo l'esecuzione dei componenti in diversi ambienti.
@@ -236,13 +237,12 @@ JavaScript per lo sviluppo della parte \ac{JS}, integrata comunque all'interno d
 
 Kotlin è un linguaggio di programmazione moderno sviluppato da JetBrains, noto per il suo approccio pragmatico e la sua forte interoperabilità con Java. 
 Dal suo lancio nel 2011, Kotlin ha guadagnato rapidamente popolarità, diventando nel 2017 il linguaggio ufficiale per lo sviluppo di applicazioni Android. 
-
 Kotlin è stato progettato per essere conciso, riducendo la quantità di codice boilerplate necessario. Grazie alle funzioni lambda e alle estensioni di funzioni, 
 il codice scritto in Kotlin risulta più leggibile e mantenibile rispetto a Java. Inoltre, Kotlin si propone di minimizzare gli errori a runtime, 
-spostando la rilevazione degli errori al tempo di compilazione.
+spostando la rilevazione degli errori al tempo di compilazione \cite{kotlin-docs}.
 
 Uno dei punti di forza di Kotlin è la sua totale interoperabilità con Java. Questo significa che il codice Kotlin può chiamare ed essere chiamato da codice Java senza difficoltà. 
-Questo facilita la migrazione graduale da Java a Kotlin nei progetti esistenti, permettendo agli sviluppatori di integrare Kotlin in maniera incrementale.
+Questo facilita la migrazione graduale da Java a Kotlin nei progetti esistenti, permettendo agli sviluppatori di integrare Kotlin in maniera incrementale \cite{kotlin-multiplatform}.
 
 Kotlin introduce le coroutines, una potente astrazione per la programmazione asincrona e concorrente. Le coroutines offrono un modo semplice ed efficiente per gestire operazioni
 che altrimenti richiederebbero la gestione complessa dei thread. Esse permettono di scrivere codice asincrono in uno stile sequenziale, migliorando la leggibilità e
@@ -450,7 +450,7 @@ Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un s
 con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client \ac{MQTT} è un qualsiasi dispositivo che esegue una libreria 
 \ac{MQTT} e si connette a un broker \ac{MQTT} e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
 invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client che si sono iscritti a quell’argomento. 
-Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher.
+Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher \cite{mqtt-doc}.
 \pagebreak
 
 I principali tipi di messaggi \ac{MQTT} sono quattro:
@@ -462,7 +462,7 @@ I principali tipi di messaggi \ac{MQTT} sono quattro:
 \end{itemize}
 
 \subsection{Formato pacchetti MQTT}
-Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddiviso nelle seguenti componenti principali:
+Un pacchetto \ac{MQTT} è composto da diverse parti strutturate in modo specifico, può essere suddiviso nelle seguenti componenti principali \cite{mqtt-v5-oasis-doc}:
 
 \begin{figure}[H]
     \centering
@@ -883,7 +883,7 @@ il focus è stato spostato sulle piattaforme native, con particolare riferimento
 approfondita per essere risolto e ha messo in luce le differenze nelle implementazioni specifiche dei socket di rete tra i vari sistemi operativi.
 
 In particolare, l'implementazione interna della libreria KMQTT causava un'eccezione \texttt{Socket.IOException} quando tentava di stabilire una connessione 
-al socket per una qualsiasi operazione, segnalando l'errore \texttt{Error 10047: Address family not supported by protocol family}. 
+al socket per una qualsiasi operazione, segnalando l'errore \texttt{Error 10047: Address family not supported by protocol family} \cite{windows-docs}. 
 Questa situazione ha richiesto un'attenta analisi per riuscire ad individuare la causa del problema. Dopo una revisione approfondita del codice, è stata identificata 
 l'origine del problema nella libreria KMQTT, che non gestiva correttamente alcuni aspetti relativi ai socket di comunicazione su Windows e di conseguenza generava l'errore 
 di tipologia Winsock Errors. Questo difetto ha reso evidente la necessità di focallizare una specifica attenzione nei test per ogni singola piattaforma.
@@ -1139,8 +1139,6 @@ e un ampliamento delle casistiche soggette a validazione.
 %----------------------------------------------------------------------------------------
 
 \backmatter
-
-\nocite{*}
 
 \bibliographystyle{alpha} %TODO: sistema la bibliografia
 \bibliography{bibliography}
