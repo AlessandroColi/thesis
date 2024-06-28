@@ -123,7 +123,7 @@ Esistono diversi approcci per lo sviluppo multiplatform, ciascuno con le proprie
 \item \textbf{Interfacce di Programmazione (API)}: Un altro approccio consiste nel definire un'API comune che fornisce un'interfaccia uniforme
  per l'accesso alle funzionalità dell'applicazione su diverse piattaforme. Questo consente di implementare la logica dell'applicazione specifica 
  per ciascuna piattaforma, mantenendo al contempo una coerenza nell'interfaccia e nei dati condivisi.
-\item \textbf{Virtualizzazione e Contenitori}: Utilizzando tecnologie di virtualizzazione e contenitori, è possibile creare un ambiente uniforme 
+\item \textbf{Virtualizzazione e Conteiner}: Utilizzando tecnologie di virtualizzazione e container, è possibile creare un ambiente uniforme 
 per l'esecuzione dell'applicazione su diverse piattaforme. Questo approccio permette di isolare l'applicazione dall'infrastruttura sottostante, 
 garantendo una maggiore portabilità e flessibilità.
 \end{itemize}
@@ -167,6 +167,10 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
 \item \textbf{Orchestrazione Multi-Cloud}: L'orchestrazione multi-cloud permette di distribuire carichi di lavoro su più fornitori di servizi cloud,
  garantendo la ridondanza, la resilienza e la flessibilità delle applicazioni su piattaforme eterogenee
 \end{itemize}
+
+\section{Sistemi IoT eterogenei}
+
+%TODO tutto
 
 \section{Protocollo MQTT}
 
@@ -881,6 +885,11 @@ del progetto sulle differenti piattaforme aventi la stessa architettura sottosta
 dei test del progetto, un indicatore utile e significativo per comprendere le prestazioni relative. Tali test sono stati eseguiti sistematicamente tramite il comando 
 \texttt{gradlew allTest --parallel --profile} in differenti condizioni operative, garantendo un confronto equo e accurato tra le diverse configurazioni.
 
+Per effettuare un confronto più completo tra le diverse piattaforme target, i test sono stati eseguiti più volte in condizioni differenti. 
+Inizialmente, è stato modificato il sistema operativo del dispositivo ospitante i test, passando dall'esecuzione su Linux a quella su Windows. 
+Successivamente, in entrambe le condizioni, i test sono stati eseguiti utilizzando un broker \ac{MQTT} ospitato nel dispositivo che eseguiva i test sia tramite broker remoto. 
+Questo approccio ha permesso di confrontare non solo le tre piattaforme target, ma anche di valutare altri aspetti che potrebbero influire sulle prestazioni del sistema.
+
 Il computer utilizzato per i test ha le seguenti caratteristiche hardware: Processore 11th Gen Intel(R) Core(TM) i5-1135G7 con una frequenza base di 2.40GHz e una 
 frequenza massima di 2.42GHz, RAM SODIMM a 3200 MHz da 8.00 GB. Il sistema operativo è un ambiente a 64-bit, con un processore basato su architettura x64. 
 Questa configurazione hardware è stata scelta per garantire una base solida e coerente per l'esecuzione dei test, riducendo al minimo le variabili dovute a differenze di hardware. 
@@ -895,7 +904,6 @@ localmente tramite Mosquitto, configurato per richiedere autenticazione. Questa 
 di osservare le prestazioni del sistema in un ambiente ideale. Nel secondo caso, è stato utilizzato il broker remoto \texttt{test.mosquitto.org}, che non richiede autenticazione. 
 Questo setup ha simulato un ambiente più realistico e variabile, permettendo di valutare le prestazioni del sistema in condizioni di utilizzo reale.
 
-Questa doppia configurazione di test ha permesso di ottenere una visione completa e approfondita delle capacità e dei limiti del progetto nelle diverse condizioni operative. 
 L'utilizzo di un broker locale ha fornito un punto di riferimento per le migliori prestazioni possibili, mentre il broker remoto ha evidenziato come il sistema si comporta 
 in situazioni di rete meno prevedibili. Questo approccio ha garantito che le valutazioni fossero complete e rappresentative delle varie situazioni in cui il sistema potrebbe 
 essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglioramenti. L'analisi dettagliata dei risultati ha permesso di identificare chiaramente i 
@@ -1047,7 +1055,7 @@ del modulo MQTT per una corretta integrazione. In PulvReAKt, la Dependency Injec
     semplificando la gestione delle dipendenze e migliorando la modularità e la testabilità del codice.
     }. 
 Di conseguenza, è stato necessario implementare la funzione \texttt{setupInjector(kodein: DI)} all'inerno delle classi del modulo sviluppato
-per assicurare che fossero correttamente fruibilili all'interno dell' ecosistema di PulvReAKt.
+per assicurare che fossero correttamente fruibilili all'interno dell'ecosistema di PulvReAKt.
 
 Oltre alla Dependency Injection, è stato necessario implementare ulteriori modifiche minori con lo scopo di conformare completamente il modulo agli standard 
 di qualità del codice e allo stile di PulvReAKt. Questo ha incluso una ridefinizione dettagliata della documentazione delle interfacce e dei test, 
@@ -1056,7 +1064,7 @@ e del contenuto della documentazione, migliorando notevolmente la leggibilità d
 del progetto nel lungo termine, rendendo il sistema più robusto e flessibile per future implementazioni.
 
 Un'altra area che ha richiesto particolare attenzione durante l'integrazione è stata la struttura di Gradle. 
-In particolare, è stato necessario aggiornare il file \texttt{build.gradle} per trasformarlo da file di configurazione adatto a un progetto autonomo a uno adatto ad un 
+In particolare, è stato necessario aggiornare il file \texttt{build.gradle.kts} per trasformarlo da file di configurazione adatto a un progetto autonomo a uno adatto ad un 
 modulo all'interno di un progetto più ampio come PulvReAKt. Questo aggiornamento ha richiesto un'analisi approfondita della gestione di Gradle in PulvReAKt e un attento confronto 
 con le necessità del progetto sviluppato, in modo tale da evitare duplicazioni di codice e garantire al contempo tutte le funzionalità necessarie per il corretto funzionamento.
 
