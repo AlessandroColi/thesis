@@ -44,16 +44,18 @@
     Questa tesi descrive l'intero processo di progettazione e sviluppo di un progetto Kotlin Multiplatform, partendo dall'analisi dei requisiti, 
     comprendendo le fasi di progettazione, sviluppo, validazione e infine la fase di integrazione all'interno di PulvReAKt. 
 
-    Il Progetto si propone di gestire le comunicazioni tra molteplici entità, offrendo loro la possibilità di mandare messaggi specificando il destinatario 
+    Il Progetto si propone di gestire in maniera ottimale le comunicazioni tra molteplici entità, offrendo loro la possibilità di mandare messaggi specificando il destinatario 
     e di leggere messaggi da un mittente specifico. Per offrire tali funzionalità il Progetto sfrutta il protocollo \ac{MQTT} e gestisce autonomamente i topic 
     al suo interno in modo tale da garantire di operare come atteso dall'utente.
 
-    Il Progetto è stato sviluppato autonomamente e può essere usato con leggeri adattamenti all'interno di qualsiasi progetto Kotlin Multiplatform interessato alla funzionalità 
+    Il Progetto è stato sviluppato autonomamente e può essere inserito, con leggeri adattamenti, all'interno di qualsiasi progetto Kotlin Multiplatform interessato alla funzionalità 
     offerte dal progetto per uno o più target tra quelli per cui è stato sviluppato (\ac{JVM}, Native e NodeJS). 
-    Il progetto è stato anche direttamente integrato nel più ampio contesto per la pulverizzazione di sistemi del progetto \texttt{PulvReAKt}.
+    Nell'ambito di questa tesi, per supportarne il più ampio utilizzo, il progetto è stato anche direttamente integrato in un contesto più ampio del progetto PulvReAKt.
     
-    Viene infine proposto un confronto tra le prestazioni del progetto sulle diverse piattaforme target, con il fine di mostrare come il progetto performi 
-    in diverse condizioni.
+    Infine, con lo scopo di dare un'evidenza pratica delle prestazioni del progetto sviluppato nelle diverse condizioni di lavoro, 
+    in questa tesi viene riportato anche un confronto tra i tempi di esecuzione sulle diverse piattaforme interessate. 
+    Questo semplice dato mostra in maniera chiara come il progetto performi in diverse condizioni e può quindi rappresentare un elemento di scelta nel caso di futura 
+    integrazione in nuovi progetti.
 
 \end{abstract}
 
@@ -78,15 +80,18 @@
 %----------------------------------------------------------------------------------------
 \chapter{Introduzione}\label{chap:Introduzione}
 
-Nella tesi vengono esposte dettagliatamente le diverse fasi di progettazzione e di sviluppo del progetto, partendo dall'analisi dei requisiti fino alla validazione.
-Successivamente viene descritto il processo d'integrazione del progetto sviluppato all'interno di PulvReAKt.\\
-Il progetto, implementato utilizzando Kotlin Multiplatform, ha l'obbiettivo di gestire le comunicazioni tra molteplici entità, 
-rendendo trasparenti sia la metodologia di comunicazione che la logica interna agli utenti finali.
-Le entità possono comunicare tra loro semplicemente utilizzando il progetto, il quale gestisce internamente la logica e l'effettiva comunicazione remota.\\
+In questa tesi vengono esposte in maniera dettagliata le diverse fasi di progettazione e di sviluppo di un progetto originale, 
+a partire dall'analisi iniziale dei requisiti fino alla validazione delle funzionalità. In aggiunta al progetto autonomo, 
+nell'ultima parte della tesi viene descritto anche il processo di integrazione del nuovo progetto all'interno del sistema più complesso di PulvReAKt.\\
+Il progetto è stato implementato utilizzando Kotlin Multiplatform e ha l’obiettivo finale di gestire
+le comunicazioni tra molteplici entità con l'importante caratteristica di rendere trasparenti agli utenti finali sia la metodologia
+di comunicazione che la logica interna. Dal momento che il progetto gestisce al suo interno sia
+la logica e che l’effettiva comunicazione remota, ciascuna entità può comunicare
+con le altre semplicemente utilizzando questo nuovo progetto.\\
 Per raggiungere questo obbiettivo, è stato adottato il protocollo di comunicazione \acf{MQTT}, scelto per la sua leggerenza e la capacità di funzionare su qualsiasi dispositivo.
-In particolare il progetto è stato progettato, sviluppato e validato con l'intenzione di essere compatibile con l'esecuzione di Kotlin su \acf{JVM}, \acf{JS} e native.
+In particolare il progetto è stato analizzato, sviluppato e validato con l'intenzione di essere compatibile con l'esecuzione di Kotlin su \acf{JVM}, \acf{JS} e native.
 \pagebreak
-\section{struttura della tesi}
+\section{Struttura della tesi}
 La tesi è strutturata in 4 capitoli principali, che descrivono le diverse fasi coinvolte nella realizzazzione del progetto, in dettaglio:
 
 \begin{itemize}
@@ -159,10 +164,10 @@ Alcune tecnologie e approcci chiave utilizzati nella programmazione distribuita 
     come pagine web, su reti informatiche, principalmente il World Wide Web.
  }, \ac{MQTT} e gRPC, che consentono la comunicazione su diverse piattaforme e architetture.
 \item \textbf{Middleware Distribuito}: Il middleware distribuito fornisce un livello di astrazione tra le applicazioni e l'infrastruttura sottostante,
- consentendo la trasparenza della distribuzione su piattaforme eterogenee. Questo può includere servizi di messaggistica, servizi di gestione delle transazioni
+  consentendo la trasparenza della distribuzione su piattaforme eterogenee. Questo può includere servizi di messaggistica, servizi di gestione delle transazioni
   e sistemi di caching distribuiti.
 \item \textbf{Containerizzazione}: Le tecnologie di containerizzazione, come Docker e Kubernetes, consentono di confezionare,
- distribuire e gestire applicazioni su piattaforme eterogenee in modo uniforme. I container forniscono un'unità di distribuzione leggera e isolata,
+  distribuire e gestire applicazioni su piattaforme eterogenee in modo uniforme. I container forniscono un'unità di distribuzione leggera e isolata,
   garantendo la portabilità e la scalabilità delle applicazioni su diverse infrastrutture.
 \item \textbf{Orchestrazione Multi-Cloud}: L'orchestrazione multi-cloud permette di distribuire carichi di lavoro su più fornitori di servizi cloud,
  garantendo la ridondanza, la resilienza e la flessibilità delle applicazioni su piattaforme eterogenee
@@ -966,7 +971,7 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
         \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},8.200) ({\shortstack{Linux\\Environment}},4.633)};
         \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.865) ({\shortstack{Linux\\Environment}},0.920)};
         \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.235) ({\shortstack{Linux\\Environment}},0.190)};
-        \legend{JVM, JS, NATIVE}    
+        \legend{JVM, JS, NATIVE}
         \end{axis}
     \end{tikzpicture}\begin{tikzpicture}
         \begin{axis}[
@@ -1106,23 +1111,24 @@ senza riscontrare problemi di compatibilità.
 
 \chapter{Conclusioni e Sviluppi Futuri}\label{chap:Conclusioni}
 
-Il progetto realizzato si offre di gestire le comunicazioni tra diverse entità di un sistema, le entità possono essere ospitate su moltelplici dispositivi 
-di varie tipologie e locati in siti tra loro distanti.\\
-Per utilizzare questo progetto per inviare un messaggio è sufficiente che l'entità interessata specifichi il contenuto e il destinatario,
-sarà poi compito del progetto stesso formattarlo e inviarlo sul topic \ac{MQTT} corretto per garantirne la consegna. 
+Il progetto sviluppato in questo lavoro di tesi ha dimostrato di poter gestire in maniera semplice, trasparente e ottimale le comunicazioni tra diverse entità 
+di un sistema complesso; entità che a loro volta possono essere ospitate su moltelplici dispositivi di varie tipologie e locati in siti tra loro distanti.\\
+Nello specifico, ogni volta che una qualsiasi delle entità considerate si trova nella condizione di dover inviare un messaggio, può farlo in maniera molto semplice. 
+Infatti grazie all'utilizzo di questo progetto è sufficiente che l'entità stessa specifichi solamente il contenuto e il destinatario; sarà poi compito del progetto 
+stesso formattare il messaggio e inviarlo sul topic MQTT corretto per garantirne la consegna. 
 Opzionalmente è anche possibile specificare il grado di accuratezza nella consegna dei messaggi inviati da una specifica entità (\ac{QoS}).
-Allo stesso modo quando un'entità è interessata a ricevere messaggi, basterà specificare il mittente per cui si è interessati ascoltare al comunicatore, 
-che si occupa di gestire la ricezione effettiva dei messaggi.\\
+Allo stesso modo, nel caso in cui un'entità sia interessata a ricevere messaggi, basta che venga specificato il mittente di interesse al comunicatore, 
+il quale si occupa a sua volta di gestire la ricezione effettiva dei messaggi.\\
 
-Oltre al progetto stesso vengono approfonditi altri aspetti che sono mersi durante la progettazione e lo sviluppo del progetto e che si sono rivelati di notevole importanza. 
-In particolare viene analizzata la notevole differenza nelle velocità di esecuzione del progetto tra le diverse piattaforme interessate, 
-che è stata notata durante lo sviluppo e la validazione del progetto.\\
-Successivamente ad un confronto più approfondito basato sulla velocità si esecuzione delle medesime casistiche di test sulle diverse piattaforme, 
-ospitate sempre sullo stesso dispositivo, è stato notato come l'esecuzione nativa sia vantaggiosa rispetto a agli altri due target.
-Questa osservazione è rimasta consistente indipendentemente dal sistema operativo utilizzato e dalla localizzazzione del broker \ac{MQTT} (locale o remoto).
+In aggiunta, la realizzazione del progetto in sè ha consentito di approfondire altri aspetti emersi durante le varie fasi del lavoro di progettazione e sviluppo del progetto, 
+che si sono rivelati di notevole importanza. In particolare è risultato utile analizzare la notevole differenza nelle velocità di esecuzione del progetto tra le diverse 
+piattaforme interessate, che è stata osservata durante lo sviluppo e la validazione \\
+Successivamente ad un confronto più approfondito basato sulla velocità di esecuzione delle medesime casistiche di test sulle diverse piattaforme, 
+ospitate sempre sullo stesso dispositivo, è stato notato come l'esecuzione nativa sia vantaggiosa rispetto agli altri due target.
+Questa caratteristica è rimasta consistente indipendentemente dal sistema operativo utilizzato e dalla localizzazzione del broker \ac{MQTT} (locale o remoto).
 Questa differenza era prevedibile in quanto, quando il codice Kotlin viene compilato per target nativi, viene poi eseguito direttamente dal sistema operativo, 
 senza la necessita di appoggiarsi ad una macchina virtuale per l'intepretazione (\ac{JVM} o una engine \ac{JS}).\\
-La maggiore differenza è stata notata analizzando i tempi di esecuzione sulla \ac{JVM}, che sono risultati notevolmente superiori, non solo rispetto a native 
+La maggiore variazione è stata notata analizzando i tempi di esecuzione sulla \ac{JVM}, che sono risultati notevolmente superiori, non solo rispetto a native 
 ma anche quando confrontati con quelli ottenuti tramite \ac{JS}.\\
 Dal confronto sono risultate ininfluenti le altre due variabili considerate, non è stata notata infatti nessuna differenza significativa quando si è eseguito su 
 diversi sistemi operativi nè quando il broker \ac{MQTT} è stato ospitato localmente anziché affidandosi a uno remoto. Eseguire il codice in tutte queste differenti 
@@ -1140,7 +1146,7 @@ e un ampliamento delle casistiche soggette a validazione.
 
 \backmatter
 
-\bibliographystyle{alpha} %TODO: sistema la bibliografia
+\bibliographystyle{alpha}
 \bibliography{bibliography}
 
 \begin{acknowledgements}
