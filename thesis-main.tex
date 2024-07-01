@@ -184,12 +184,12 @@ diversi protocolli di comunicazione e formati di dati, questi sistemi devono ope
 Ad esempio, dispositivi IoT possono utilizzare protocolli come \ac{MQTT} a seconda delle loro necessità e funzioni \cite{DBLP:journals/comsur/Al-FuqahaGMAA15}. 
 L'eterogeneità di questi dispositivi rappresenta una sfida significativa ma anche un'opportunità per migliorare l'interoperabilità e l'integrazione dei sistemi \ac{IoT}.
 
-La gestione efficace dei sistemi \ac{IoT} eterogenei richiede l'implementazione di soluzioni middleware. Questi strati software agiscono come intermediari tra i dispositivi 
+La gestione efficace dei sistemi \ac{IoT} eterogenei richiede l'implementazione di soluzioni middleware. Questi strati di software agiscono come intermediari tra i dispositivi 
 e le piattaforme di gestione, facilitando la comunicazione, la sicurezza e la gestione dei dati. Le soluzioni middleware sono essenziali per garantire che i dispositivi di 
 diversa natura possano operare insieme in modo coerente e affidabile, supportando così l'espansione e l'adattamento continuo di queste reti intelligenti\cite{DBLP:journals/wpc/BandyopadhyayS11}.
 
-L'ambito dell'\ac{IoT} rappresenta una prospettiva fondamentale per l'interconnessione e l'automazione dei dispositivi fisici in rete. 
-In quanto migliora la capacità di raccogliere dati e fornisce la possibilità di prendere decisioni informate in tempo reale.
+L'ambito dell'\ac{IoT} rappresenta una prospettiva fondamentale per l'interconnessione e l'automazione dei dispositivi fisici in rete, 
+in quanto migliora la capacità di raccogliere dati e fornisce la possibilità di prendere decisioni informate in tempo reale.
 
 \section{Protocollo MQTT}
 
@@ -210,7 +210,8 @@ Un aspetto cruciale del protocollo \ac{MQTT} è la sua capacità di mantenere ap
 e ottimizzando l'efficienza della comunicazione. Questo risulta particolarmente importante in contesti dove è essenziale uno scambio continuo e tempestivo di dati 
 in tempo reale, permettendo un monitoraggio costante e affidabile. Tale caratteristica rende \ac{MQTT} ideale per applicazioni che richiedono una trasmissione dati 
 ininterrotta e reattiva, garantendo prestazioni ottimali anche in ambienti con risorse limitate e connettività intermittente.\\
-L'insieme di tutte queste caratteristiche è quello che ha portato alla scelta di utilizzare questo protocollo enl progetto proposto, %TODO collegati a Sistemi IoT eterogenei
+L'insieme di tutte queste caratteristiche è il motico che ha portato alla scelta di utilizzare questo protocollo nel progetto proposto, 
+soprattutto data la necessità del progetto di essere in gradi di lavorare su sistemi \ac{IoT} eterogenei.
 
 \section{Dependency Injection}
 
@@ -229,7 +230,7 @@ In particolare l'adozione della Dependency Injection offre numerosi vantaggi, tr
     
 \section{PulvReAKt}
  PulvReAKt è un framework leggero e multipiattaforma per Kotlin, progettato per facilitare la pulverizzazione dei sistemi, ovvero la suddivisione di applicazioni complesse
- in muyltemplici componenti modulari che possono essere distribuiti su diverse piattaforme \cite{DBLP:journals/fi/CasadeiPPVW20}. 
+ in molteplici componenti modulari che possono essere distribuiti su diverse piattaforme \cite{DBLP:journals/fi/CasadeiPPVW20}. 
 Il framework supporta \ac{JVM}, \ac{JS} e alcune piattaforme native, come Linux, macOS e iOS. 
  PulvReAKt consente di definire, configurare e distribuire componenti software utilizzando protocolli di comunicazione come \ac{MQTT} e RabbitMQ, rendendolo particolarmente adatto 
  per lo sviluppo di applicazioni distribuite e sistemi \ac{IoT}. Consente di suddividere l'applicazione in componenti indipendenti, facilitando lo sviluppo e la manutenzione. 
@@ -277,7 +278,7 @@ La forte tipizzazione e le funzionalità di sicurezza integrata di Kotlin contri
 Il compilatore di Kotlin è in grado di rilevare molti tipi di errori a tempo di compilazione, riducendo il numero di bug presenti nel software finito. Inoltre, 
 la gestione avanzata delle nullità e le funzioni di estensione aiutano a scrivere codice più robusto e meno incline agli errori.
 
-Uno degli aspetti più potenti di Kotlin è la sua capacità di supportare lo sviluppo multiplatform. Grazie al quale gli sviluppatori possono scrivere 
+Uno degli aspetti più potenti di Kotlin è la sua capacità di supportare lo sviluppo multiplatform, grazie al quale gli sviluppatori possono scrivere 
 un unico set di codice Kotlin che può essere condiviso e utilizzato su diverse piattaforme, come la \ac{JVM}, JavaScript e la compilazione nativa. 
 Questo approccio consente agli sviluppatori di massimizzare la condivisione del codice, riducendo al minimo la duplicazione e semplificando la manutenzione dell'applicazione 
 su più piattaforme.
