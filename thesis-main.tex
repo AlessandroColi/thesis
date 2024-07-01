@@ -446,15 +446,18 @@ riducendo al minimo lo sforzo di sviluppo e la complessità del codice.
 
 \section{Protocollo MQTT}
 
-Il centro del progetto sviluppato è il protocollo \acf{MQTT}, in quanto viene utilizzato per l'invio dei messaggi nella rete.
-Questo protocollo è di tipologia publish-subscribe, nella quale i dispositivi connessi si dividono in due ruoli principali: 
-i textbf{publisher}, che inviano i messaggi su specifici topic, e i textbf{subscriber}, che si iscrivono a questi topic per ricevere i messaggi pertinenti. 
-Questo approccio consente una comunicazione flessibile e scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità 
-di conoscere direttamente gli indirizzi dei destinatari. 
+Il cuore del progetto sviluppato è rappresentato dal protocollo \acf{MQTT}, in quanto viene utilizzato per la gestione dei messaggi nella rete. 
+Si tratta di un protocollo che appartiene alla tipologia publish-subscribe, nella quale i dispositivi connessi (client) si caratterizzano in base a due ruoli principali:
+\begin{itemize}
+    \item i \textbf{publisher}, che inviano i messaggi su specifici topic.
+    \item i \textbf{subscriber}, che si iscrivono a questi topic per ricevere i messaggi pertinenti.
+\end{itemize} 
+Questo approccio consente una comunicazione flessibile e facilmente scalabile, in cui i dispositivi possono interagire in modo dinamico senza la necessità di conoscere 
+direttamente gli indirizzi dei destinatari.
 
-Il protocollo \ac{MQTT} è composto da molteplici entità di due tipologie: un singolo broker di messaggi e un numero variabile di client. Il broker \ac{MQTT} è un server 
+Il protocollo \ac{MQTT} è composto da molteplici entità categorizzate in due tipologie: un singolo broker di messaggi e un numero variabile di client. Il broker \ac{MQTT} è un server 
 con la funzione di ricevere i messaggi da tutti i client e di instradarli verso i destinatari interessati. Un client \ac{MQTT} è un qualsiasi dispositivo che esegue una libreria 
-\ac{MQTT} e si connette a un broker \ac{MQTT} e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
+\ac{MQTT} e si connette a un broker e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
 invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client che si sono iscritti a quell’argomento. 
 Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher \cite{mqtt-doc}.
 \pagebreak
@@ -464,7 +467,7 @@ I principali tipi di messaggi \ac{MQTT} sono quattro:
     \item \textbf{Connect}: il client attende che venga stabilita una connessione con il broker e crea un collegamento tra i nodi;
     \item \textbf{Disconnect}: attende se il client \ac{MQTT} deve terminare delle operazioni e poi chiude la sessione TCP/IP;
     \item \textbf{Publish}: il client pubblica un messaggio nella classe specificato;
-    \item \textbf{Subscribe}: iscrive il client all’argomento specificato;
+    \item \textbf{Subscribe}: iscrive il client all’argomento specificato.
 \end{itemize}
 
 \subsection{Formato pacchetti MQTT}
@@ -576,8 +579,8 @@ protocollo o dall'utilizzo del progetto.
 \section{Dependency Injection nel progetto}
 
 La Dependency Injection è una tecnica attraverso la quale un oggetto (il \textit{client}) riceve le proprie dipendenze da un oggetto esterno 
-(l'\textit{injector}), anziché crearle autonomamente. Le dipendenze sono componenti di cui il client ha bisogno per eseguire le proprie funzionalità.
- In altre parole, la Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
+(l'\textit{injector}), anziché crearle autonomamente. Le dipendenze sono componenti indispensabili di cui una classe ha bisogno per eseguire le proprie funzionalità.
+La Dependency Injection inverte il controllo della creazione delle dipendenze, trasferendo questa responsabilità a un container o a un framework.
 
 Esistono tre principali varianti di Dependency Injection:
 \begin{itemize}
