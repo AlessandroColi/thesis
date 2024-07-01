@@ -235,7 +235,8 @@ Il framework supporta \ac{JVM}, \ac{JS} e alcune piattaforme native, come Linux,
  PulvReAKt consente di definire, configurare e distribuire componenti software utilizzando protocolli di comunicazione come \ac{MQTT} e RabbitMQ, rendendolo particolarmente adatto 
  per lo sviluppo di applicazioni distribuite e sistemi \ac{IoT}. Consente di suddividere l'applicazione in componenti indipendenti, facilitando lo sviluppo e la manutenzione. 
  Supporta \ac{JVM}, \ac{JS} e varie piattaforme native, permettendo l'esecuzione dei componenti in diversi ambienti.
- 
+\pagebreak 
+
 \section{Kotlin}
 La scelta del linguaggio utilizzato per questo progetto è stata relativamente semplice, poiché il progetto PulvReAKt, nel quale è contestualizzato, 
 è scritto interamente in Kotlin con target Multiplatform. La maggior parte dello sviluppo è stata eseguita in Kotlin, con l'unica eccezione dell'utilizzo di una libreria 
@@ -460,7 +461,6 @@ con la funzione di ricevere i messaggi da tutti i client e di instradarli verso 
 \ac{MQTT} e si connette a un broker e può svolgere sia il ruolo di publisher che di subscriber. Quando un publisher ha nuovi dati da trasmettere, 
 invia un messaggio con i dati al broker a cui è connesso. Il broker, quindi, distribuisce le informazioni a tutti i client che si sono iscritti a quell’argomento. 
 Non è necessario che il publisher conosca il numero o la posizione degli iscritti e questi ultimi, a loro volta, non necessitano di alcuna informazione sui publisher \cite{mqtt-doc}.
-\pagebreak
 
 I principali tipi di messaggi \ac{MQTT} sono quattro:
 \begin{itemize}
