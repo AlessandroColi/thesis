@@ -1024,7 +1024,7 @@ assicurando che il progetto possa raggiungere livelli ottimali di efficienza.
     \begin{tikzpicture}
         \begin{axis}[
             height=10cm,
-            width=7cm,
+            width=8cm,
             ybar=.2cm,
             ymin=0,
             ymax=8.5,
@@ -1048,7 +1048,7 @@ assicurando che il progetto possa raggiungere livelli ottimali di efficienza.
         \begin{axis}[
             ybar=.2cm,
             height=10cm,
-            width=7cm,
+            width=8cm,
             ymin=0,
             ymax=8.5    ,
             ylabel={Time (s)},
@@ -1082,6 +1082,8 @@ all'interno di altri progetti:
     Nel caso ci sia appoggi alla \ac{JVM} vi è una differenza di 3.153 secondi, nel caso di \ac{JS} la discrepanza è di 730 millisecondi 
     mentre in caso di esecuzione nativa di solamente 75ms.
 
+    \pagebreak
+
     \item Il luogo in cui viene ospitato il broker dei messaggi (locale piuttosto che remoto) ha anch’esso una scarsa influenza sul risultato finale del test. 
     Le differenze nei tempi di esecuzione sono sempre al di sotto dei 300 millisecondi. Si è verificata un'unica e specifica eccezione, durante l'esecuzione su \ac{JVM}
     ospitata in un sistema Window, il cui tempo di esecuzione in caso di broker ospitato localmente è stata di 8.200s rispetto a 7.593 utilizzando un broker remoto.
@@ -1099,6 +1101,8 @@ all'interno di altri progetti:
     \item Qualora il codice venga eseguito sulla \ac{JVM} i tempi di esecuzione sono notevolmente meno stabili con una differenza di 2 secondi 
     tra il tempo di esecuzione minore e quello maggiore, mentre in caso di esecuzione su \ac{JS} e native la differenza rispettivamente è di 425 e 211 millisecondi.
 \end{itemize}
+
+\pagebreak
 
 \section{Integrazione in PulvReAKt}
 
