@@ -925,86 +925,50 @@ piattaforme di destinazione, assicurando il successo del sistema finale.
 
 Durante la fase di sviluppo, ma soprattutto durante quella di validazione, è stata notata una notevole differenza di tempo di esecuzione tra le diverse piattaforme. 
 Per comprendere meglio queste differenze, sono stati conseguentemente svolti dei semplici test con lo scopo di evidenziare tali differenze e confrontare le prestazioni 
-del progetto sulle differenti piattaforme aventi la stessa architettura sottostante. Il parametro scelto per svolgere tali valutazioni è stato la media dei tempi di completamento 
-dei test del progetto, un indicatore utile e significativo per comprendere le prestazioni relative. Tali test sono stati eseguiti sistematicamente tramite il comando 
-\texttt{gradlew allTest --parallel --profile} in differenti condizioni operative, garantendo un confronto equo e accurato tra le diverse configurazioni.
+del progetto sulle differenti piattaforme aventi la stessa architettura sottostante.
 
-Per effettuare un confronto più completo tra le diverse piattaforme target, i test sono stati eseguiti più volte in condizioni differenti. 
-Inizialmente, è stato modificato il sistema operativo del dispositivo ospitante i test, passando dall'esecuzione su Linux a quella su Windows. 
-Successivamente, in entrambe le condizioni, i test sono stati eseguiti utilizzando un broker \ac{MQTT} ospitato sia nel dispositivo che eseguiva i test, sia tramite broker remoto.  
-Questo approccio ha permesso di confrontare non solo le tre piattaforme target, ma anche di valutare altri aspetti che potrebbero influire sulle prestazioni del sistema.
+Il parametro scelto per svolgere tali valutazioni è stato il valore medio dei tempi di completamento dei test del progetto, un indicatore utile e significativo 
+per comprendere le prestazioni relative. Tali test sono stati eseguiti sistematicamente tramite il comando \texttt{gradlew allTest --parallel --profile} 
+in differenti condizioni operative, garantendo un confronto equo e accurato tra le diverse configurazioni.
+
+\subsection{Obbiettivi del confronto}
+
+Questo confronto è stato progettato con l'obiettivo di mettere in evidenza le differenze di prestazioni sui vari target. Per garantire che il confronto fosse eseguito 
+in modo equo, i test sono stati ripetuti più volte, modificando diversi parametri che potevano influenzare le prestazioni del progetto. In particolare, 
+sono stati variati sia il sistema operativo sottostante sia il luogo di hosting del broker \ac{MQTT}.
+
+L'uso di un broker locale ha fornito un punto di riferimento per le prestazioni ottimali, mentre l'utilizzo di un broker remoto ha permesso di valutare il comportamento 
+del sistema in condizioni di rete meno prevedibili. Questo metodo ha garantito che le valutazioni fossero complete e rappresentative delle diverse situazioni operative 
+in cui il sistema potrebbe essere utilizzato, offrendo dati preziosi per ulteriori ottimizzazioni e miglioramenti.
+
+I risultati dei test nativi su Linux e Windows sono stati ottenuti utilizzando lo stesso computer, configurato in due partizioni separate, e quindi con lo stesso hardware 
+sottostante. Questa configurazione ha permesso di isolare le variabili legate all'hardware, consentendo di concentrarsi esclusivamente sulle differenze di performance 
+dovute ai sistemi operativi. I test per le piattaforme JVM e JS sono stati eseguiti sia in ambiente Linux che in ambiente Windows, sempre utilizzando lo stesso dispositivo 
+già impiegato per i test nativi. Questo approccio ha assicurato che qualsiasi differenza osservata fosse attribuibile esclusivamente alle piattaforme software utilizzate, 
+fornendo un confronto chiaro e preciso delle loro prestazioni.
+
+\subsection{Caratteristiche dei test}
 
 Il computer utilizzato per i test ha le seguenti caratteristiche hardware: Processore 11th Gen Intel(R) Core(TM) i5-1135G7 con una frequenza base di 2.40GHz e una 
 frequenza massima di 2.42GHz, RAM SODIMM a 3200 MHz da 8.00 GB. Il sistema operativo è un ambiente a 64-bit, con un processore basato su architettura x64. 
 Questa configurazione hardware è stata scelta per garantire una base solida e coerente per l'esecuzione dei test, riducendo al minimo le variabili dovute a differenze di hardware. 
 
-I risultati dei test nativi su Linux e Windows sono stati ottenuti utilizzando lo stesso computer, configurato in due partizioni separate, e quindi con lo stesso hardware sottostante. 
-Questa configurazione ha permesso di isolare le variabili legate all'hardware e focalizzarsi sulle differenze di performance dovute esclusivamente ai sistemi operativi. 
-I test per le piattaforme JVM e JS sono stati eseguiti sia in ambiente Linux che in ambiente Windows, sempre utilizzando lo stesso dispositivo già impiegato per i test nativi. 
-Ciò ha assicurato che qualsiasi differenza osservata fosse attribuibile esclusivamente alle piattaforme software.
+Per effettuare un confronto più completo tra le diverse piattaforme target, i test sono stati eseguiti più volte sullo stesso dispositivo modificando altre condizioni. 
+Inizialmente, è stato modificato il sistema operativo del dispositivo ospitante i test, passando dall'esecuzione su Linux a quella su Windows. 
+Successivamente, in entrambe le condizioni, i test sono stati eseguiti utilizzando un broker \ac{MQTT} ospitato sia nel dispositivo che eseguiva i test, sia tramite broker remoto.  
+Questo approccio ha permesso di confrontare non solo le tre piattaforme target, ma anche di valutare altri aspetti che potrebbero influire sulle prestazioni del sistema.
 
 I test sono stati divisi in due tipologie principali, differenziate in base al server utilizzato per ospitare il broker \ac{MQTT}. Nel primo caso, il broker è stato ospitato 
 localmente tramite Mosquitto, configurato per richiedere autenticazione. Questa configurazione ha offerto un contesto controllato e stabile per le misurazioni, consentendo 
 di osservare le prestazioni del sistema in un ambiente ideale. Nel secondo caso, è stato utilizzato il broker remoto \texttt{test.mosquitto.org}, che non richiede autenticazione. 
 Questo setup ha simulato un ambiente più realistico e variabile, permettendo di valutare le prestazioni del sistema in condizioni di utilizzo reale.
 
-L'utilizzo di un broker locale ha fornito un punto di riferimento per le migliori prestazioni possibili, mentre il broker remoto ha evidenziato come il sistema si comporta 
-in situazioni di rete meno prevedibili. Questo approccio ha garantito che le valutazioni fossero complete e rappresentative delle varie situazioni in cui il sistema potrebbe 
-essere utilizzato, fornendo dati preziosi per ulteriori ottimizzazioni e miglioramenti. L'analisi dettagliata dei risultati ha permesso di identificare chiaramente i 
-punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il progetto possa raggiungere livelli ottimali di efficienza.
+\pagebreak
+\subsection{Risultati}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            height=7cm,
-            width=7cm,
-            ybar=.2cm,
-            ymin=0,
-            ymax=8.3,
-            symbolic x coords={
-                {\shortstack{Windows\\Environment}},
-                {\shortstack{Linux\\Environment}}
-            },
-            xtick=data,
-            bar width=0.6cm,
-            enlarge x limits={abs=1.5cm},
-            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
-            title={Local Broker},
-            yticklabel pos=right,
-            ]
-        \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},8.200) ({\shortstack{Linux\\Environment}},4.633)};
-        \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.865) ({\shortstack{Linux\\Environment}},0.920)};
-        \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.235) ({\shortstack{Linux\\Environment}},0.190)};
-        \legend{JVM, JS, NATIVE}
-        \end{axis}
-    \end{tikzpicture}\begin{tikzpicture}
-        \begin{axis}[
-            ybar=.2cm,
-            height=7cm,
-            width=7cm,
-            ymin=0,
-            ymax=8.3,
-            ylabel={Time (s)},
-            symbolic x coords={
-                {\shortstack{Windows\\Environment}},
-                {\shortstack{Linux\\Environment}}
-            },
-            xtick=data,
-            bar width=0.6cm,
-            enlarge x limits={abs=1.5cm},
-            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
-            title = {Remote Broker}
-            ]
-        \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},7.593)({\shortstack{Linux\\Environment}},4.853)};
-        \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.590)({\shortstack{Linux\\Environment}},1.076)};
-        \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.413)({\shortstack{Linux\\Environment}},0.120)};
-        \legend{JVM, JS, NATIVE}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{tempi di esecuzione medi nelle diverse condizioni}
-    \label{fig:tempi di esecuzione medi}
-\end{figure}
+L'analisi dettagliata dei risultati ha permesso di identificare chiaramente i punti di forza e le aree in cui sono possibili miglioramenti, 
+assicurando che il progetto possa raggiungere livelli ottimali di efficienza.
+
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -1054,6 +1018,60 @@ punti di forza e le aree in cui sono possibili miglioramenti, assicurando che il
     \caption{range dei tempi di esecuzione nelle diverse condizioni}
     \label{fig:range dei tempi di esecuzione}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            height=10cm,
+            width=7cm,
+            ybar=.2cm,
+            ymin=0,
+            ymax=8.5,
+            symbolic x coords={
+                {\shortstack{Windows\\Environment}},
+                {\shortstack{Linux\\Environment}}
+            },
+            xtick=data,
+            bar width=0.6cm,
+            enlarge x limits={abs=1.5cm},
+            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+            title={Local Broker},
+            yticklabel pos=right,
+            ]
+        \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},8.200) ({\shortstack{Linux\\Environment}},4.633)};
+        \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.865) ({\shortstack{Linux\\Environment}},0.920)};
+        \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.235) ({\shortstack{Linux\\Environment}},0.190)};
+        \legend{JVM, JS, NATIVE}
+        \end{axis}
+    \end{tikzpicture}\begin{tikzpicture}
+        \begin{axis}[
+            ybar=.2cm,
+            height=10cm,
+            width=7cm,
+            ymin=0,
+            ymax=8.5    ,
+            ylabel={Time (s)},
+            symbolic x coords={
+                {\shortstack{Windows\\Environment}},
+                {\shortstack{Linux\\Environment}}
+            },
+            xtick=data,
+            bar width=0.6cm,
+            enlarge x limits={abs=1.5cm},
+            legend style={at={(0.5,-0.2)},anchor=north,legend columns=3},
+            title = {Remote Broker}
+            ]
+        \addplot[fill=green] coordinates{({\shortstack{Windows\\Environment}},7.593)({\shortstack{Linux\\Environment}},4.853)};
+        \addplot[fill=blue] coordinates{({\shortstack{Windows\\Environment}},1.590)({\shortstack{Linux\\Environment}},1.076)};
+        \addplot[fill=red] coordinates{({\shortstack{Windows\\Environment}},0.413)({\shortstack{Linux\\Environment}},0.120)};
+        \legend{JVM, JS, NATIVE}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{tempi di esecuzione medi nelle diverse condizioni}
+    \label{fig:tempi di esecuzione medi}
+\end{figure}
+
 
 I risultati delle diverse esecuzioni dei test nelle diverse condizioni, sono rappresentati nei grafici soprastanti che ne evidenziano i differenti tempi d'esecuzione 
 medi, minimi e massimi. Da questi dati si possono trarre diverse conclusioni, interessanti da tenere in considerazione qualora si voglia utilizzare il modulo di comunicazione 
